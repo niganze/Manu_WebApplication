@@ -35,7 +35,7 @@ function Register() {
         <div className="max-w-md mx-auto w-full">
           
           
-          <Link to="/" className="text-blue-600 hover:text-blue-800"><IoIosArrowRoundBack /> Back to Login</Link>
+          <Link to="/" className="text-[#A99FFF] hover:text-[#876FFF]"><IoIosArrowRoundBack /> Back to Login</Link>
 
           <h1 className="text-2xl font-bold mb-2">Create Account</h1>
           <p className="text-gray-500 mb-8">
@@ -146,7 +146,7 @@ function Register() {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-200"
+              className="w-full bg-[#A99FFF] text-white py-3 rounded-lg font-medium hover:bg-[#9380FF] transition duration-200 transform hover:scale-105"
             >
               Create Account
             </button>

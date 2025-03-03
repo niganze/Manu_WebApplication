@@ -21,7 +21,7 @@ function Login() {
             Sign in
           </h1> 
 
-        <Link to="/register" className="text-blue-600 hover:text-blue-800"><FcNext />Be Ready for Registeration</Link>
+        <Link to="/register" className="text-[#A99FFF] hover:text-[#876FFF"><FcNext />Be Ready for Registeration</Link>
          
           <p className="text-gray-500 mb-8">
             Welcome back! Please enter your details
@@ -86,11 +86,12 @@ function Login() {
             </div>
 
             <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-200 transform hover:scale-105"
-            >
-              Sign In
-            </button>
+  type="submit"
+  className="w-full bg-[#A99FFF] text-white py-3 rounded-lg font-medium hover:bg-[#9380FF] transition duration-200 transform hover:scale-105"
+>
+  <Link to="/admindashboard">Sign In</Link>
+</button>
+
           </form>
 
           <div className="mt-6 text-center text-sm text-gray-500">
