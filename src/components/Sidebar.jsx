@@ -8,6 +8,7 @@ import {
   BarChart,
   Settings,
   LogOut,
+  Layers,  // New import for a different icon
 } from "lucide-react";
 
 const Sidebar = () => {
@@ -54,6 +55,16 @@ const Sidebar = () => {
           >
             <Users size={20} className="text-[#A99FFF]" />
             <span>Users</span>
+          </Link>
+        </li>
+
+        <li>
+          <Link
+            to="items"
+            className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-500"
+          >
+            <Layers size={20} className="text-[#A99FFF]" />
+            <span>All Items</span>
           </Link>
         </li>
         <li>

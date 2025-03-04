@@ -15,6 +15,7 @@ import UserDashboard from './page/users/UserDashboard';
 import MyItems from './page/users/MyItems';
 import Analytics from './page/users/Analytics';
 import Interactions from './page/users/Interactions';
+import AdminProfile from './page/admin/AdminProfile';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path='marketplace' element={<Marketplace />} />
           <Route path="reports" element={<Reports />} />
           <Route path="settings" element={<Settings />} />
+          <Route path='profile' element={<AdminProfile />} />
         </Route>
         
         <Route path='/user-dashbaord'element={<UserDashboard />}>

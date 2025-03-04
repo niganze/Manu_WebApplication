@@ -6,7 +6,7 @@ import {
 
 const UserSidebar = () => {
   return (
-    <div className="w-64 bg-white text-gray-800 h-full shadow-md">
+    <div className="w-64 bg-[#F0F2F5] text-gray-800 h-full shadow-md">
       {/* Logo */}
       <div className="p-5 text-2xl font-bold text-[#A99FFF] cursor-pointer">
         Manu WebApp
@@ -53,7 +53,7 @@ const UserSidebar = () => {
       </ul>
 
       {/* Logout */}
-      <div className="absolute bottom-5 left-5">
+      <div className="absolute bottom-5 left-5 bg-[#F0F2F5]">
         <button className="flex items-center space-x-3 p-2 text-gray-800 hover:text-red-600">
           <LogOut size={20} />
           <span>Logout</span>

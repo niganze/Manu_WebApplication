@@ -5,7 +5,11 @@ import { Bell, User, Search, Menu } from "lucide-react";
 const Navbar = () => {   
   const [menuOpen, setMenuOpen] = useState(false);   
   const [notifications, setNotifications] = useState(3);   
-  const menuRef = useRef(null);    
+  const menuRef = useRef(null);   
+
+
+  
+  const closeMenu = () => setIsOpen(false); 
   
   // Close dropdown when clicking outside   
   useEffect(() => {     
@@ -62,10 +66,10 @@ const Navbar = () => {
           </button>           
           {menuOpen && (             
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-purple-100">               
-              <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Profile</Link>               
-              <Link to="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Settings</Link>               
+              <Link to="profile" onClick={closeMenu} className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Profile</Link>               
+              <Link to="settings" onClick={closeMenu} className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Settings</Link>               
               <div className="border-t border-purple-100 my-1"></div>               
-              <Link to="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Logout</Link>             
+              <Link to="/logout" onClick={closeMenu} className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Logout</Link>             
             </div>           
           )}         
         </div>       
