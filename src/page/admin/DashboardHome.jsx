@@ -60,13 +60,13 @@ const DashboardHome = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {/* Users Card */}
-        <div className="bg-white rounded-lg shadow p-6 flex items-center">
+        <div className="bg-white rounded-lg shadow p-2 flex items-center">
           <div className="bg-purple-100 p-3 rounded-full">
             <Users className="text-purple-600" size={24} />
           </div>
           <div className="ml-4">
             <p className="text-gray-600">Total Users</p>
-            <h2 className="text-3xl font-bold text-gray-800">{stats.users.toLocaleString()}</h2>
+            <h2 className="text-1xl font-bold text-gray-800">{stats.users.toLocaleString()}</h2>
           </div>
         </div>
 
@@ -77,7 +77,7 @@ const DashboardHome = () => {
           </div>
           <div className="ml-4">
             <p className="text-gray-600">Listed Items</p>
-            <h2 className="text-3xl font-bold text-gray-800">{stats.items.toLocaleString()}</h2>
+            <h2 className="text-1xl font-bold text-gray-800">{stats.items.toLocaleString()}</h2>
           </div>
         </div>
 
@@ -88,7 +88,7 @@ const DashboardHome = () => {
           </div>
           <div className="ml-4">
             <p className="text-gray-600">Total Donations</p>
-            <h2 className="text-3xl font-bold text-gray-800">{stats.donations.toLocaleString()}</h2>
+            <h2 className="text-1xl font-bold text-gray-800">{stats.donations.toLocaleString()}</h2>
           </div>
         </div>
 
@@ -99,7 +99,7 @@ const DashboardHome = () => {
           </div>
           <div className="ml-4">
             <p className="text-gray-600">Active Projects</p>
-            <h2 className="text-3xl font-bold text-gray-800">{stats.projects.toLocaleString()}</h2>
+            <h2 className="text-1xl font-bold text-gray-800">{stats.projects.toLocaleString()}</h2>
           </div>
         </div>
       </div>
