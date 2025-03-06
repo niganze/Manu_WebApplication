@@ -16,12 +16,15 @@ import MyItems from './page/users/MyItems';
 import Analytics from './page/users/Analytics';
 import Interactions from './page/users/Interactions';
 import AdminProfile from './page/admin/AdminProfile';
+import Home from './page/Home/Home';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Home />} />
+         
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         
         <Route path="/admindashboard" element={<AdminDashboard />}> 

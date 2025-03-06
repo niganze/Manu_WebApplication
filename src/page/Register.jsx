@@ -35,7 +35,7 @@ function Register() {
         <div className="max-w-md mx-auto w-full">
           
           
-          <Link to="/" className="text-[#A99FFF] hover:text-[#876FFF]"><IoIosArrowRoundBack /> Back to Login</Link>
+          <Link to="/login" className="text-[#A99FFF] hover:text-[#876FFF]"><IoIosArrowRoundBack /> Back to Login</Link>
 
           <h1 className="text-2xl font-bold mb-2">Create Account</h1>
           <p className="text-gray-500 mb-8">

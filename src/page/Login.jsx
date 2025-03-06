@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FcNext } from "react-icons/fc";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -19,10 +19,10 @@ function Login() {
         <div className="max-w-md mx-auto w-full">
           <h1 className="text-2xl font-bold mb-2 transition-transform transform hover:scale-105">
             Sign in
-          </h1> 
+          </h1>
 
-        <Link to="/register" className="text-[#A99FFF] hover:text-[#876FFF"><FcNext />Be Ready for Registeration</Link>
-         
+          <Link to="/" className="text-[#A99FFF] hover:text-[#876FFF]"><IoIosArrowRoundBack /> Back to Home</Link>
+
           <p className="text-gray-500 mb-8">
             Welcome back! Please enter your details
           </p>
@@ -86,12 +86,11 @@ function Login() {
             </div>
 
             <button
-  type="submit"
-  className="w-full bg-[#A99FFF] text-white py-3 rounded-lg font-medium hover:bg-[#9380FF] transition duration-200 transform hover:scale-105"
->
-  <Link to="/admindashboard">Sign In</Link>
-</button>
-
+              type="submit"
+              className="w-full bg-[#A99FFF] text-white py-3 rounded-lg font-medium hover:bg-[#9380FF] transition duration-200 transform hover:scale-105"
+            >
+              <Link to="/admindashboard">Sign In</Link>
+            </button>
           </form>
 
           <div className="mt-6 text-center text-sm text-gray-500">
