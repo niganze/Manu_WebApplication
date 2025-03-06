@@ -1,7 +1,7 @@
 import React from "react";
 import BlogsImage from "../../assets/year.jpeg";
 import EnvironmentImage from "../../assets/Environment.jpeg";
-import communityimage from "../../assets/community.jpeg";
+import communityimage from "../../assets/Community.jpeg";
 import EducationImage from "../../assets/Education.jpeg";
 function Blogs() {
   return (
