@@ -51,7 +51,7 @@ function Footer() {
                 <Link to="/marketplace" className="text-sm hover:text-[#A99FFF] transition-colors">Market Place</Link>
               </li>
               <li>
-                <Link to="/community" className="text-sm hover:text-[#A99FFF] transition-colors">Community Shelter</Link>
+                <Link to="/community" className="text-sm hover:text-[#A99FFF] transition-colors">Community Shelter & Clarity</Link>
               </li>
               <li>
                 <Link to="/impact" className="text-sm hover:text-[#A99FFF] transition-colors">Impact</Link>

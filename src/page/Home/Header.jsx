@@ -22,10 +22,11 @@ function Header() {
           <nav className="hidden md:flex space-x-6">
             <Link to="/" className="hover:text-[#A99FFF] transition-colors">Home</Link>
             <Link to="/about" className="hover:text-[#A99FFF] transition-colors">About Us</Link>
+            <Link to="/service" className="hover:text-[#A99FFF] transition-colors">Service</Link>
             <Link to="/marketplace" className="hover:text-[#A99FFF] transition-colors">Market Place</Link>
             <Link to="/community" className="hover:text-[#A99FFF] transition-colors">Community Shelter</Link>
-            <Link to="/clarity" className="hover:text-[#A99FFF] transition-colors">Clarity</Link>
             <Link to="/impact" className="hover:text-[#A99FFF] transition-colors">Impact</Link>
+            <Link to="/blogs" className="hover:text-[#A99FFF] transition-colors">Blogs</Link>
           </nav>
 
           {/* Login Button */}
