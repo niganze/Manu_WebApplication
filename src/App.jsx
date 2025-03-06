@@ -23,6 +23,7 @@ import Impact from "./page/Home/Impact";
 import MarketPlace from "./page/Home/MarketPlace";
 import Service from "./page/Home/Service";
 import HomeLayout from "./page/Home/HomeLayout";
+import Blogs from "./page/Home/Blogs";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="community" element={<Community />} />
           <Route path="impact" element={<Impact />} />
           <Route path="marketplace" element={<MarketPlace />} />
+          <Route path="blogs" element={<Blogs />} />
         </Route>
 
         <Route path="/login" element={<Login />} />
