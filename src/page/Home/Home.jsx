@@ -410,9 +410,9 @@ function Home() {
       </section>
 
 
-      {/* blogs app Section */}
+      {/* blogs Section */}
 
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam tempora dolorum voluptas beatae architecto ipsa neque sint dolorem vitae quas ullam recusandae, rem ea reiciendis, ducimus veritatis quo esse. Reprehenderit.</p>
+      
 
       {/* CTA Section */}
       <section className="py-16 bg-[#1e3a8a] text-white">

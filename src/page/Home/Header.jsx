@@ -10,7 +10,7 @@ function Header() {
   };
 
   return (
-    <header className="bg-[#1e3a8a] text-white shadow-md">
+    <header className="bg-[#1e3a8a] text-white shadow-md fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -54,7 +54,7 @@ function Header() {
               <Link to="/community" className="hover:text-[#A99FFF] transition-colors" onClick={toggleMenu}>Community Shelter</Link>
               <Link to="/clarity" className="hover:text-[#A99FFF] transition-colors" onClick={toggleMenu}>Clarity</Link>
               <Link to="/impact" className="hover:text-[#A99FFF] transition-colors" onClick={toggleMenu}>Impact</Link>
-              
+
               <Link to="/login" className="bg-[#A99FFF] text-white px-4 py-2 rounded-md font-medium hover:bg-purple-400 transition-colors w-fit">
                 Login
               </Link>
