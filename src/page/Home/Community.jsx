@@ -102,13 +102,13 @@ function Community() {
   };
 
   return (
-    <div className="bg-white text-gray-900 min-h-screen">
+    <div className="bg-white text-gray-900 min-h-screen mt-12">
       {/* Hero Section */}
       <section className="py-16 text-center transition-all duration-700 ease-in-out">
         <h1 className="text-3xl font-semibold text-[#1E3A8A] hover:text-[#A99FFF] transition-colors duration-300">
           Community Shelter & Clarity
         </h1>
-        <p className="mt-4 text-xl max-w-3xl mx-auto opacity-75 hover:opacity-100 transition-opacity duration-300">
+        <p className="mt-4  max-w-3xl mx-auto opacity-75 hover:opacity-100 transition-opacity duration-300">
           Join hands with us in making a difference. By supporting shelters and clarity initiatives, we aim to provide safe spaces and transparent operations that help communities thrive.
         </p>
       </section>

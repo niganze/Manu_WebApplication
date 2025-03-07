@@ -6,7 +6,7 @@ function Service() {
       {/* Hero Section */}
       <section className="bg-[#1E3A8A] py-12 text-center">
         <h1 className="text-4xl font-semibold text-white">Service Features</h1>
-        <p className="text-lg mt-4 text-white max-w-2xl mx-auto">
+        <p className=" mt-4 text-white max-w-2xl mx-auto">
           Discover how the Manu Project App helps manage surplus materials, reduce environmental degradation, and foster community engagement.
         </p>
       </section>

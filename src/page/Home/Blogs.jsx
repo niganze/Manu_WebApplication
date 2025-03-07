@@ -8,10 +8,10 @@ function Blogs() {
     <div className="bg-[#F7FBFC] text-gray-900 mt-5">
       {/* Hero Section */}
       <section className="py-16 text-center">
-        <h1 className="text-3xl font-bold text-[#1E3A8A]">
+        <h1 className="text-xl font-bold text-[#1E3A8A]">
           Latest Blogs and Updates
         </h1>
-        <p className="mt-4 text-xl max-w-3xl mx-auto text-gray-600 opacity-75 hover:opacity-100 transition-opacity duration-300">
+        <p className="mt-4  max-w-3xl mx-auto text-gray-600 opacity-75 hover:opacity-100 transition-opacity duration-300">
           Stay updated with our latest posts on environmental sustainability, community outreach, and other important topics!
         </p>
       </section>
@@ -25,7 +25,7 @@ function Blogs() {
             alt="Blog 1"
             className="w-full h-64 object-cover rounded-md"
           />
-          <h2 className="mt-4 text-2xl font-semibold text-[#1E3A8A]">The Future of Sustainable Construction</h2>
+          <h2 className="mt-4 text-xl font-semibold text-[#1E3A8A]">The Future of Sustainable Construction</h2>
           <p className="mt-2 text-gray-600">
             Discover how the future of construction is evolving with sustainable materials and green technologies...
           </p>
@@ -44,7 +44,7 @@ function Blogs() {
             alt="Blog 2"
             className="w-full h-64 object-cover rounded-md"
           />
-          <h2 className="mt-4 text-2xl font-semibold text-[#1E3A8A]">How Community Initiatives Are Changing Lives</h2>
+          <h2 className="mt-4 text-xl font-semibold text-[#1E3A8A]">How Community Initiatives Are Changing Lives</h2>
           <p className="mt-2 text-gray-600">
             Join us as we explore the transformative power of community-driven projects that support those in need...
           </p>
@@ -63,7 +63,7 @@ function Blogs() {
             alt="Blog 3"
             className="w-full h-64 object-cover rounded-md"
           />
-          <h2 className="mt-4 text-2xl font-semibold text-[#1E3A8A]">The Impact of Waste Management on the Environment</h2>
+          <h2 className="mt-4 text-xl font-semibold text-[#1E3A8A]">The Impact of Waste Management on the Environment</h2>
           <p className="mt-2 text-gray-600">
             Understanding the vital role that waste management plays in preserving the planet’s resources and reducing pollution...
           </p>
@@ -82,7 +82,7 @@ function Blogs() {
             alt="Blog 4"
             className="w-full h-64 object-cover rounded-md"
           />
-          <h2 className="mt-4 text-2xl font-semibold text-[#1E3A8A]">Empowering Local Communities Through Education</h2>
+          <h2 className="mt-4 text-xl font-semibold text-[#1E3A8A]">Empowering Local Communities Through Education</h2>
           <p className="mt-2 text-gray-600">
             Education is a powerful tool that transforms communities. Learn how community education programs are impacting local economies...
           </p>

@@ -8,7 +8,7 @@ function About() {
         <h1 className="text-3xl font-semibold text-[#1E3A8A] hover:text-[#A99FFF] transition-colors duration-300">
           About Manu Project
         </h1>
-        <p className="mt-4 text-xl max-w-3xl mx-auto opacity-75 hover:opacity-100 transition-opacity duration-300">
+        <p className="mt-4  max-w-3xl mx-auto opacity-75 hover:opacity-100 transition-opacity duration-300">
           The Manu Project App is dedicated to reducing environmental degradation and combating climate change by repurposing surplus and idle construction materials. We aim to ensure that materials are reused for better purposes, not wasted.
         </p>
       </section>
@@ -36,8 +36,8 @@ function About() {
 
       {/* Call to Action */}
       <section className="py-12 text-center transition-all duration-700 ease-in-out">
-        <h2 className="text-3xl font-semibold text-[#1E3A8A] mb-6">Get Involved</h2>
-        <p className="text-xl max-w-3xl mx-auto mb-8 opacity-75 hover:opacity-100 transition-opacity duration-300">
+        <h2 className="text-xl font-semibold text-[#1E3A8A] mb-6">Get Involved</h2>
+        <p className="max-w-3xl mx-auto mb-8 opacity-75 hover:opacity-100 transition-opacity duration-300">
           Whether you're looking to donate, buy, or sell surplus materials, we welcome you to join our growing community. Together, we can make a lasting impact on sustainability and the environment.
         </p>
         <a

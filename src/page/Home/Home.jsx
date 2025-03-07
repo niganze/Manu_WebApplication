@@ -15,7 +15,7 @@ function Home() {
               <div className="inline-block px-4 py-1 bg-white/10 backdrop-blur-md rounded-full mb-2">
                 <span className="text-sm font-medium text-[#A99FFF]">Sustainability in Construction</span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
                 Reducing Waste, <span className="text-[#A99FFF]">Building</span> a Sustainable Future
               </h1>
               <p className="text-lg md:text-xl">
@@ -418,7 +418,7 @@ function Home() {
       <section className="py-16 bg-[#1e3a8a] text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Reduce Waste and Save Costs?</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6">Ready to Reduce Waste and Save Costs?</h2>
             <p className="text-xl mb-8">
               Join ManuApp today and be part of the construction waste solution.
             </p>
