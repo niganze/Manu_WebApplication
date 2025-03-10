@@ -415,7 +415,7 @@ function Home() {
       
 
       {/* CTA Section */}
-      <section className="py-16 bg-[#1e3a8a] text-white">
+      <section className="py-16 bg-gradient-to-bl from-indigo-800 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-6">Ready to Reduce Waste and Save Costs?</h2>

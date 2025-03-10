@@ -32,6 +32,16 @@ function Impact() {
     { year: '2024', trees: 7000 },
   ];
 
+  // Water conservation data
+  const waterData = [
+    { year: '2019', gallons: 35000 },
+    { year: '2020', gallons: 58000 },
+    { year: '2021', gallons: 87000 },
+    { year: '2022', gallons: 124000 },
+    { year: '2023', gallons: 176000 },
+    { year: '2024', gallons: 245000 },
+  ];
+
   // Community cost reduction
   const communityCostData = [
     { year: '2019', savings: 25000 },
@@ -67,6 +77,7 @@ function Impact() {
   const totalWasteReduced = 1810;
   const totalCarbonReduction = 3450;
   const totalEconomicBenefit = 1200000;
+  const totalWaterSaved = 725000; // Total water saved in gallons
 
   return (
     <div className="bg-[#F7FBFC] text-gray-500 py-12 mt-12">
@@ -75,7 +86,7 @@ function Impact() {
         <h1 className="text-2xl font-bold text-[#1E3A8A]">
           Environmental & Economic Impact
         </h1>
-        <p className="mt-4  max-w-3xl mx-auto text-gray-600">
+        <p className="mt-4 max-w-3xl mx-auto text-gray-600">
           See how the Manu Project is making a difference by repurposing construction materials, 
           reducing waste, and creating lasting environmental and economic benefits.
         </p>
@@ -83,7 +94,7 @@ function Impact() {
 
       {/* Key Statistics Summary */}
       <section className="mb-16 px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
           <div className="bg-white p-6 rounded-lg shadow-md text-center">
             <div className="text-xl font-bold text-[#1E3A8A] mb-2">{totalTreesSaved.toLocaleString()}</div>
             <div className="text-lg font-medium">Trees Saved</div>
@@ -95,6 +106,10 @@ function Impact() {
           <div className="bg-white p-6 rounded-lg shadow-md text-center">
             <div className="text-xl font-bold text-[#1E3A8A] mb-2">{totalCarbonReduction.toLocaleString()}</div>
             <div className="text-lg font-medium">Tonnes of CO₂ Reduced</div>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-md text-center">
+            <div className="text-xl font-bold text-[#1E3A8A] mb-2">{(totalWaterSaved/1000).toFixed(0)}K</div>
+            <div className="text-lg font-medium">Gallons of Water Saved</div>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md text-center">
             <div className="text-xl font-bold text-[#1E3A8A] mb-2">${(totalEconomicBenefit/1000000).toFixed(1)}M</div>
@@ -158,6 +173,27 @@ function Impact() {
               By reusing wood and reducing the need for new lumber, we've helped save thousands of trees.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Water Conservation Section */}
+      <section className="mb-16 px-4">
+        <h2 className="text-3xl text-center font-semibold text-[#1E3A8A] mb-6">Water Conservation</h2>
+        <div className="max-w-5xl mx-auto">
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart data={waterData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="year" />
+              <YAxis label={{ value: 'Gallons of Water', angle: -90, position: 'insideLeft' }} />
+              <Tooltip formatter={(value) => [`${value.toLocaleString()} gallons`, 'Water Saved']} />
+              <Legend />
+              <Bar dataKey="gallons" name="Water Saved (gallons)" fill="#4CA6FF" />
+            </BarChart>
+          </ResponsiveContainer>
+          <p className="mt-4 text-center text-gray-600">
+            By reusing construction materials, we've significantly reduced water consumption that would have been required for new material production.
+            Each year shows increasing water conservation as our platform grows.
+          </p>
         </div>
       </section>
 
@@ -250,13 +286,13 @@ function Impact() {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a
             href="/marketplace"
-            className="inline-block  font-semibold bg-[#1E3A8A] text-white py-2 px-5 rounded-md hover:bg-[#152a62] transition-colors duration-300"
+            className="inline-block font-semibold bg-[#1E3A8A] text-white py-2 px-5 rounded-md hover:bg-[#152a62] transition-colors duration-300"
           >
             Browse Marketplace
           </a>
           <a
             href="/community"
-            className="inline-block  font-semibold bg-[#A99FFF] text-white py-3 px-8 rounded-md hover:bg-[#8a7ff5] transition-colors duration-300"
+            className="inline-block font-semibold bg-[#A99FFF] text-white py-3 px-8 rounded-md hover:bg-[#8a7ff5] transition-colors duration-300"
           >
             Support Community Projects
           </a>
