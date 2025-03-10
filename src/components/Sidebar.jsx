@@ -16,8 +16,10 @@ const Sidebar = () => {
     <div className="w-64 bg-[#F0F2F5] text-gray-800 h-full shadow-md">
       {/* Logo */}
       <div className="p-5 text-2xl font-bold text-[#A99FFF] cursor-pointer">
-        Manu WebApp
-      </div>
+  <Link to ="/">
+    Manu WebApp
+  </Link>
+</div>
 
       {/* Navigation Links */}
       <ul className="space-y-2 p-5">
