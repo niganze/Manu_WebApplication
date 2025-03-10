@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Settings() {
+function SettingsUser() {
   return (
     <div>Settings</div>
   )
 }
 
-export default Settings
+export default SettingsUser
