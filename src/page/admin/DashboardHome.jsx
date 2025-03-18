@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Users, Package, Gift, Folder, Activity, BarChart2, Calendar, AlertCircle } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-
+import { useEffect,useState } from 'react';
+import axios from 'axios';
 const DashboardHome = () => {
   // Sample data - would be fetched from API in real application
+  const [user,setUser]=useState([]);
+  useEffect(()=>
+  {
+    
+    const getUsers=async()=>{
+      try{
+        const response=await axios.get(`http://localhost:5000/user/getAllUsers`)
+        setUser(response.data);
+      }
+      catch(error)
+      {
+        console.log(error);
+      }
+    };
+    getUsers();
+  }
+  ,[])
   const [stats, setStats] = useState({
     users: 2458,
     items: 1204,
@@ -66,7 +84,7 @@ const DashboardHome = () => {
           </div>
           <div className="ml-4">
             <p className="text-gray-600">Total Users</p>
-            <h2 className="text-1xl font-bold text-gray-800">{stats.users.toLocaleString()}</h2>
+            <h2 className="text-1xl font-bold text-gray-800">{user.length}</h2>
           </div>
         </div>
 

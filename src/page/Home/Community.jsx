@@ -1,106 +1,67 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Shelterimage from '../../assets/shelter.jpeg';
 import  Beginnings from '../../assets/construction.jpeg';
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { data } from "react-router-dom";
+import { Notify } from "notiflix";
+
 
 function Community() {
 
   // Handle file upload for clarity posts
+const{handleSubmit,register,formState:{errors},reset}=useForm();
+const onsubmit=async(data)=>{
+  try{
+const{title,description,images,posterName,itemCondition,contact}=data;
+  const formData=new FormData();
+  formData.append("title",title);
+  formData.append("description",description);
+  formData.append("images",images[0]);
+  formData.append("posterName",posterName);
+  formData.append("itemCondition",itemCondition);
+  formData.append("location",location);
+  formData.append("contact",contact);
+   
+  const res=await axios.post(`http://localhost:5000/project/createProject`,formData,
+    {
+      headers:{
+        "Content-Type": "multipart/form-data"
+      }
+    }
+  )
+  Notify.success("Charity create successfully")
+  reset();
+  }
+  catch(error)
+  {
+  console.log(error);
+  Notify.failure("Action Failed",error);
 
+  }
+}
 
-  const [newPost, setNewPost] = useState({
-    title: '',
-    description: '',
-    posterName: '',
-    location: '',
-    condition: '',
-    contact: '',
-    image: null
-  });
-  
-  
-  
-  const handleFileChange = (e) => {
-    setNewPost({
-      ...newPost,
-      image: e.target.files[0]
-    });
+const [charti, setCharti] = useState([]);
+
+useEffect(() => {
+  const getAllcard = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/project/getAllProjects`);
+      setCharti(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
+  getAllcard();
+}, []);
+
+ 
+
   
+  
+ 
     // Tab state to control which content is displayed
-  const [activeTab, setActiveTab] = useState("shelter"); // "shelter" or "clarity"
-  
-  // Sample shelter data
-  const shelters = [
-    {
-      id: 1,
-      title: "Hope Haven Shelter",
-      image:Shelterimage,
-      description: "Emergency housing and support services for families displaced by recent flooding.",
-      location: "123 Main Street, Riverdale",
-      telephone: "(555) 123-4567",
-      needs: ["Blankets", "Non-perishable food", "Toiletries"]
-    },
-    {
-      id: 2,
-      title: "New Beginnings Center",
-      image: Beginnings,
-      description: "Temporary shelter providing meals, showers, and resources for individuals affected by the downtown fire.",
-      location: "456 Oak Avenue, Westside",
-      telephone: "(555) 987-6543",
-      needs: ["Clothing", "Personal hygiene items", "Volunteers"]
-    }
-  ];
-
-  // Sample clarity posts
-  const [clarityPosts, setClarityPosts] = useState([
-    {
-      id: 1,
-      title: "Children's Clothing (Ages 4-6)",
-      description: "Gently used children's clothing in good condition. Various items including shirts, pants, and jackets.",
-      contact: "clara@example.com",
-      postedDate: "March 1, 2025"
-    },
-    {
-      id: 2,
-      title: "Working Refrigerator",
-      description: "Functional refrigerator, approximately 5 years old. Moving and cannot take it with me.",
-      contact: "(555) 234-5678",
-      postedDate: "March 3, 2025"
-    }
-  ]);
-
-  
-
-  // Handle form input changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewPost(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // In a real app, you would send this data to your backend
-    const post = {
-      id: clarityPosts.length + 1,
-      ...newPost,
-      postedDate: new Date().toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'})
-    };
-    
-    setClarityPosts(prev => [post, ...prev]);
-    
-    // Reset form
-    setNewPost({
-      title: "",
-      description: "",
-      contact: ""
-    });
-  };
-
+  const [activeTab, setActiveTab] = useState("charti"); // "shelter" or "clarity"
   return (
     <div className="bg-white text-gray-900 min-h-screen mt-12">
       {/* Hero Section */}
@@ -118,11 +79,11 @@ function Community() {
         <div className="flex border-b border-gray-300">
           <button
             className={`py-3 px-6 font-medium text-lg transition-all duration-300 ${
-              activeTab === "shelter" 
+              activeTab === "charti" 
                 ? "text-[#1E3A8A] border-b-2 border-[#1E3A8A]" 
                 : "text-gray-500 hover:text-[#A99FFF]"
             }`}
-            onClick={() => setActiveTab("shelter")}
+            onClick={() => setActiveTab("charti")}
           >
             Community Shelter
           </button>
@@ -150,16 +111,15 @@ function Community() {
             </p>
             
             <div className="space-y-8">
-              {shelters.map(shelter => (
-                <div key={shelter.id} className="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:shadow-xl duration-300 ease-in-out">
+              {charti.map((item)=>(<div key={item._id} className="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:shadow-xl duration-300 ease-in-out">
                   <img
-                    src={shelter.image}
-                    alt={shelter.title}
+                    src={item.images}
+                    alt={item.title}
                     className="w-full h-48 object-cover"
                   />
                   <div className="p-4">
-                    <h3 className="text-xl font-semibold text-[#1E3A8A] mb-2">{shelter.title}</h3>
-                    <p className="text-sm text-gray-700 mb-3">{shelter.description}</p>
+                    <h3 className="text-xl font-semibold text-[#1E3A8A] mb-2">{item.title}</h3>
+                    <p className="text-sm text-gray-700 mb-3">{item.description}</p>
                     
                     <div className="flex flex-col gap-1 mb-3 text-sm">
                       <div className="flex items-start">
@@ -167,22 +127,20 @@ function Community() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
-                        <span>{shelter.location}</span>
+                        <span>{item.location}</span>
                       </div>
                       <div className="flex items-start">
                         <svg className="w-4 h-4 mt-1 text-[#1E3A8A] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                         </svg>
-                        <span>{shelter.telephone}</span>
+                        <span>{item.contact}</span>
                       </div>
                     </div>
                     
                     <div className="mb-4">
                       <h4 className="font-semibold text-[#1E3A8A] mb-1 text-sm">Current Needs:</h4>
                       <ul className="list-disc list-inside text-gray-700 text-sm">
-                        {shelter.needs.map((need, index) => (
-                          <li key={index}>{need}</li>
-                        ))}
+                       
                       </ul>
                     </div>
                     
@@ -195,13 +153,14 @@ function Community() {
                   </div>
                 </div>
               ))}
+                
             </div>
           </div>
           
           {/* Right Column - Shows either more shelters or clarity section based on active tab */}
           <div className="bg-[#F7F7F7] rounded-xl p-6">
-            {activeTab === "shelter" ? (
-              /* Additional Shelter Information */
+            {activeTab === "charti" ? (
+             
               <div>
                 <h2 className="text-3xl font-semibold text-[#1E3A8A] mb-6">Disaster Relief</h2>
                 <p className="text-gray-600 mb-8">
@@ -267,17 +226,15 @@ function Community() {
                 {/* Form to post new items */}
                 <div className="bg-white p-6 rounded-xl shadow mb-8">
   <h3 className="text-xl font-semibold text-[#1E3A8A] mb-4">Post an Item</h3>
-  <form onSubmit={handleSubmit}>
+  <form onSubmit={handleSubmit(onsubmit)}>
     <div className="mb-4">
       <label htmlFor="title" className="block text-gray-700 mb-1 text-sm">Item Title</label>
       <input
         type="text"
         id="title"
         name="title"
-        value={newPost.title}
-        onChange={handleInputChange}
         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A99FFF]"
-        required
+        {...register("title",{required:true})}
       />
     </div>
     
@@ -286,11 +243,9 @@ function Community() {
       <textarea
         id="description"
         name="description"
-        value={newPost.description}
-        onChange={handleInputChange}
         rows="3"
         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A99FFF]"
-        required
+      {...register("description",{required:true})}
       ></textarea>
     </div>
     
@@ -301,10 +256,8 @@ function Community() {
           type="text"
           id="posterName"
           name="posterName"
-          value={newPost.posterName}
-          onChange={handleInputChange}
           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A99FFF]"
-          required
+       {...register("posterName",{required:true})}
         />
       </div>
       
@@ -312,13 +265,10 @@ function Community() {
         <label htmlFor="location" className="block text-gray-700 mb-1 text-sm">Location</label>
         <input
           type="text"
-          id="location"
           name="location"
-          value={newPost.location}
-          onChange={handleInputChange}
           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A99FFF]"
           placeholder="City, State"
-          required
+          {...register("location",{required:true})}
         />
       </div>
     </div>
@@ -328,10 +278,8 @@ function Community() {
       <select
         id="condition"
         name="condition"
-        value={newPost.condition}
-        onChange={handleInputChange}
         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A99FFF]"
-        required
+        {...register("itemCondition",{required:true})}
       >
         <option value="">Select condition</option>
         <option value="new">New</option>
@@ -343,11 +291,10 @@ function Community() {
       <label htmlFor="image" className="block text-gray-700 mb-1 text-sm">Upload Image</label>
       <input
         type="file"
-        id="image"
-        name="image"
-        onChange={handleFileChange}
+        name="images"
         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A99FFF]"
         accept="image/*"
+        {...register("images",{required:true})}
       />
     </div>
     
@@ -355,13 +302,10 @@ function Community() {
       <label htmlFor="contact" className="block text-gray-700 mb-1 text-sm">Contact Information</label>
       <input
         type="text"
-        id="contact"
         name="contact"
-        value={newPost.contact}
-        onChange={handleInputChange}
         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A99FFF]"
         placeholder="Email or phone number"
-        required
+        {...register("contact",{required:true})}
       />
     </div>
     
@@ -377,12 +321,12 @@ function Community() {
                 {/* Display existing posts */}
                 <h3 className="text-xl font-semibold text-[#1E3A8A] mb-4">Available Items</h3>
                 <div className="space-y-4">
-                  {clarityPosts.map(post => (
+                  {charti.map((post)=>(
                     <div key={post.id} className="bg-white p-4 rounded-xl shadow-md transition-transform hover:shadow-lg duration-300 ease-in-out">
                       <h4 className="text-lg font-semibold text-[#1E3A8A] mb-1">{post.title}</h4>
                       <p className="text-gray-700 text-sm mb-2">{post.description}</p>
                       <div className="flex justify-between text-xs text-gray-500">
-                        <div>Posted: {post.postedDate}</div>
+                        <div>Posted: {post.posterName}</div>
                         <div className="flex items-center">
                           <svg className="w-3 h-3 text-[#A99FFF] mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
