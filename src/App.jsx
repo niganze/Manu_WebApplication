@@ -31,6 +31,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeLayout />}>
           <Route index element={<Home />} />
+          <Route path="/landing" element={<Home/>}/>
           <Route path="about" element={<About />} />
           <Route path="service" element={<Service />} />
           <Route path="community" element={<Community />} />

@@ -4,6 +4,7 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Notify } from "notiflix";
 function Login() {
   const navigate=useNavigate();
 const{register,handleSubmit,formState:{error}}=useForm();
@@ -20,11 +21,28 @@ const res=await axios.post(`http://localhost:5000/user/login`,formData,
     }
   }
 )
-
+const userToken=res.data;
+localStorage.setItem("userToken",JSON.stringify(userToken));
+const userRole=userToken?.user?.role;
+if(userRole==="Admin")
+{
+  navigate("/admindashboard")
+  Notify.success("Admin registered successFull")
+}
+else if(userRole==="user")
+{
+  navigate("/user-dashbaord")
+  Notify.success("user registered successFull")
+}
+else
+{
+  navigate("/landing")
+}
   }
 
-  catch(error){
+catch(error){
 console.log(error)
+Notify.success("login error",error);
   }
 }
 
@@ -44,7 +62,7 @@ console.log(error)
             Welcome back! Please enter your details
           </p>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onsubmit)}>
             <div className="mb-4">
               <label
                 htmlFor="email"
@@ -54,9 +72,10 @@ console.log(error)
               </label>
               <input
                 type="email"
-                id="email"
+                name="email"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-transform transform hover:scale-105"
                 placeholder="Enter your email"
+                {...register("email",{required:true})}
                 
               />
             </div>
@@ -70,9 +89,10 @@ console.log(error)
               </label>
               <input
                 type="password"
-                id="password"
+                name="password"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-transform transform hover:scale-105"
                 placeholder="Enter your password"
+                {...register("password",{required:true})}
               
               />
             </div>
@@ -101,7 +121,7 @@ console.log(error)
               type="submit"
               className="w-full bg-[#A99FFF] text-white py-3 rounded-lg font-medium hover:bg-[#9380FF] transition duration-200 transform hover:scale-105"
             >
-              <Link to="/admindashboard">Sign In</Link>
+            Sign In
             </button>
           </form>
 
