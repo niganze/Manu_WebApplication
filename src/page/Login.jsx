@@ -1,16 +1,33 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
-
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+  const navigate=useNavigate();
+const{register,handleSubmit,formState:{error}}=useForm();
+const onsubmit=async(data)=>{
+  try{
+const {email,password}=data;
+const formData=new FormData();
+formData.append("email",email);
+formData.append("password",password);
+const res=await axios.post(`http://localhost:5000/user/login`,formData,
+  {
+    headers:{
+      "Content-Type":"application/json"
+    }
+  }
+)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ email, password, rememberMe });
-  };
+  }
+
+  catch(error){
+console.log(error)
+  }
+}
+
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -40,9 +57,7 @@ function Login() {
                 id="email"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-transform transform hover:scale-105"
                 placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
+                
               />
             </div>
 
@@ -58,9 +73,7 @@ function Login() {
                 id="password"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-transform transform hover:scale-105"
                 placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+              
               />
             </div>
 
@@ -70,8 +83,7 @@ function Login() {
                   type="checkbox"
                   id="remember"
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                  checked={rememberMe}
-                  onChange={() => setRememberMe(!rememberMe)}
+                  
                 />
                 <label
                   htmlFor="remember"

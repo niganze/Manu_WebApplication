@@ -2,30 +2,47 @@ import React, { useState } from "react";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { Notify } from "notiflix";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
-  const [formData, setFormData] = useState({
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-    role: "",
-    telephone: "",
-    agreeToTerms: false,
-  });
+  // const handleChange = (e) => {
+  //   const { name, value, type, checked } = e.target;
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]: type === "checkbox" ? checked : value,
+  //   }));
+  // };
+  const navigate=useNavigate();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
+  const onsubmit = async (data) => {
+    try {
+      const { firstname, lastname, email, password } = data;
+   const formData=new FormData();
+      formData.append("firstname",firstname);
+      formData.append("lastname",lastname);
+      formData.append("email",email);
+      formData.append("password",password);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle registration logic here
-    console.log(formData);
+      const res=await axios.post(`http://localhost:5000/user/register`,formData,
+        {
+          headers:{
+            "Content-Type":"application/json"
+          }
+        }
+      )
+      Notify.success("user registered successfull");
+      navigate("/login")
+    } catch (error) {
+      console.log(error);
+      Notify.failure(error);
+    }
   };
 
   return (
@@ -33,16 +50,16 @@ function Register() {
       {/* Left Side - Registration Form */}
       <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
         <div className="max-w-md mx-auto w-full">
-          
-          
-          <Link to="/login" className="text-[#A99FFF] hover:text-[#876FFF]"><IoIosArrowRoundBack /> Back to Login</Link>
+          <Link to="/login" className="text-[#A99FFF] hover:text-[#876FFF]">
+            <IoIosArrowRoundBack /> Back to Login
+          </Link>
 
           <h1 className="text-2xl font-bold mb-2">Create Account</h1>
           <p className="text-gray-500 mb-8">
             Please fill in the details to get started
           </p>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onsubmit)}>
             <div className="mb-4">
               <label
                 htmlFor="email"
@@ -56,9 +73,7 @@ function Register() {
                 name="email"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
+                {...register("email",{required:true})}
               />
             </div>
 
@@ -67,17 +82,31 @@ function Register() {
                 htmlFor="username"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Username
+                FirstName
+              </label>
+              <input
+                type="text"
+                
+                name="firstname"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                placeholder="Choose a username"
+                {...register("firstname",{required:true})}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                LastName
               </label>
               <input
                 type="text"
                 id="username"
-                name="username"
+                name="lastname"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 placeholder="Choose a username"
-                value={formData.username}
-                onChange={handleChange}
-                required
+                {...register("lastname",{required:true})}
               />
             </div>
 
@@ -94,12 +123,10 @@ function Register() {
                 name="password"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 placeholder="Create a password"
-                value={formData.password}
-                onChange={handleChange}
-                required
+                {...register("password",{required:true})}
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label
                 htmlFor="role"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -121,7 +148,7 @@ function Register() {
                 <option value="admin">Admin</option>
                 <option value="manager">Manager</option>
               </select>
-            </div>
+            </div> */}
 
             <div className="flex items-center mb-6">
               <input
@@ -129,9 +156,7 @@ function Register() {
                 id="agreeToTerms"
                 name="agreeToTerms"
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                checked={formData.agreeToTerms}
-                onChange={handleChange}
-                required
+                
               />
               <label
                 htmlFor="agreeToTerms"
