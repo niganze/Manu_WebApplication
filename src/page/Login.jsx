@@ -42,7 +42,7 @@ else
 
 catch(error){
 console.log(error)
-Notify.success("login error",error);
+Notify.failure("login error",error);
   }
 }
 

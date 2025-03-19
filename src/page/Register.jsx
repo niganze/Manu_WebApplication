@@ -37,7 +37,7 @@ function Register() {
           }
         }
       )
-      Notify.success("user registered successfull");
+      Notify.success("registration succesfull");
       navigate("/login")
     } catch (error) {
       console.log(error);
