@@ -1,17 +1,34 @@
 import React, { useState } from "react";
+import { useEffect} from "react";
+import axios from "axios";
 import IM from "../../assets/bricks.jpeg"; // Ensure this path is correct
-const ImageGrid = ({ images }) => {
+const ImageGrid = () => {
+  const [property, setProperty ]= useState([]);
+
+  useEffect(() => {
+    const getAllProperty = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/project/getAllProjects`);
+        setProperty(res.data);
+        console.log(res.data);
+        
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllProperty();
+  }, []);
   return (
     <div className="grid grid-cols-3 gap-1 w-20 h-14">
-      {images.map((image, index) => (
+      {property.map((item) => (
         <div 
-          key={index} 
+          key={item._id} 
           className="bg-gray-100 rounded-full overflow-hidden flex items-center justify-center"
           style={{ width: '30px', height: '30px' }}
         >
           <img 
-            src={IM} // Replace this with actual image if you have paths
-            alt={`Item image ${index + 1}`} 
+            src={item.images} // Replace this with actual image if you have paths
+            alt={`Item image ${item._id + 1}`} 
             className="w-full h-full object-cover rounded-full"
           />
         </div>
