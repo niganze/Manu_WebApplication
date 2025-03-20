@@ -224,10 +224,8 @@ function MarketPlace() {
             <p className="text-lg md:text-xl mb-8 opacity-90 text-white">
               Find sustainable building materials and give construction waste a second life.
             </p>
-            <div className="flex flex-col md:flex-row gap-4 justify-center">
-              <button className="bg-white text-purple-700 hover:bg-gray-100 py-3 px-6 rounded-lg font-semibold transition-colors duration-300">
-                Post an Item
-              </button>
+            <div className=" flex-col md:flex-row gap-4 justify-center">
+      
               <button className="bg-purple-500 hover:bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-300">
                 Browse Community Projects
               </button>

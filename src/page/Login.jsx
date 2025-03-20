@@ -27,12 +27,12 @@ const userRole=userToken?.user?.role;
 if(userRole==="Admin")
 {
   navigate("/admindashboard")
-  Notify.success("Admin registered successFull")
+  Notify.success("Admin Login successFull")
 }
 else if(userRole==="user")
 {
   navigate("/user-dashbaord")
-  Notify.success("user registered successFull")
+  Notify.success("User Login successFull")
 }
 else
 {
@@ -42,7 +42,7 @@ else
 
 catch(error){
 console.log(error)
-Notify.failure("login error",error);
+Notify.failure("failure in Login");
   }
 }
 
