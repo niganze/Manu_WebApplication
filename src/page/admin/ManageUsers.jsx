@@ -23,12 +23,12 @@ function ManageUsers() {
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
+      <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white ">
         <div>
           <button
             onClick={toggleDropdown}
             id="dropdownActionButton"
-            className="inline-flex items-center text-gray-800 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            className="inline-flex items-center  bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
             type="button"
           >
             <span className="sr-only">Action button</span>
@@ -116,14 +116,14 @@ function ManageUsers() {
           <input
             type="text"
             id="table-search-users"
-            className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search for users"
           />
         </div>
       </div>
      
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50  dark:text-gray-400">
           <tr>
             <th scope="col" className="p-4">
               <div className="flex items-center">
@@ -157,7 +157,7 @@ function ManageUsers() {
             (item) => (
               <tr
                 key={item._id}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+                className="bg-white border-b  dark:border-gray-700 border-gray-200 hover:bg-gray-50  text-gray-400"
               >
                 <td className="w-4 p-4">
                   <div className="flex items-center">
@@ -180,7 +180,7 @@ function ManageUsers() {
                 >
                   <Users size={20} className="text-gray-600" />
                   <div className="ps-3">
-                    <div className="text-base font-semibold">{item.firstname} &nbsp; {item.lastname}</div>
+                    <div className="text-base font-semibold  text-gray-500 ">{item.firstname} &nbsp; {item.lastname}</div>
                     <div className="font-normal text-gray-500">
                       {item.email}
                     </div>
