@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { useEffect} from "react";
 import axios from "axios";
-import IM from "../../assets/bricks.jpeg"; // Ensure this path is correct
 const ManageDonationItems = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
-
-  // Sample initial data
-  const [donationItems, setDonationItems] = useState([])
-   
+  const [donationItems, setDonationItems] = useState([]);
+  
   const [property, setProperty ]= useState([]);
-
   useEffect(() => {
     const getAllProperty = async () => {
       try {
@@ -26,7 +22,7 @@ const ManageDonationItems = () => {
     getAllProperty();
   }, []);
   // Unique categories for filter dropdown
-  const categories = [...new Set(donationItems.map(item => item.category))];
+  const categories = [...new Set(property.map(item => item.category))];
 
   // Advanced filtering function
   const filteredItems = donationItems.filter(item => {
@@ -60,19 +56,10 @@ const ManageDonationItems = () => {
     );
   };
 
-  // Action handlers
-  const handleViewItem = (item) => {
-    console.log("Viewing item:", item);
-  };
-
-  const handleRemoveItem = (itemId) => {
-    setDonationItems(prev => prev.filter(item => item.id !== itemId));
-  };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-semibold mb-6 text-gray-800">Manage Donation Items</h1>
-      
       <div className="flex items-center space-x-4 mb-6">
         <div className="relative flex-grow max-w-md">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
