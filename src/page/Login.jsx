@@ -14,7 +14,7 @@ const {email,password}=data;
 const formData=new FormData();
 formData.append("email",email);
 formData.append("password",password);
-const res=await axios.post(`http://localhost:5000/user/login`,formData,
+const res=await axios.post(` http://localhost:5000/user/login`,formData,
   {
     headers:{
       "Content-Type":"application/json"
