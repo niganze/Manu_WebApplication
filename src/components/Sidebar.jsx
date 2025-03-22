@@ -71,6 +71,15 @@ const Sidebar = () => {
         </li>
         <li>
           <Link
+            to="blogsD"
+            className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-500"
+          >
+            <Layers size={20} className="text-[#A99FFF]" />
+            <span>Blogs</span>
+          </Link>
+        </li>
+        <li>
+          <Link
             to="reports"
             className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-500"
           >

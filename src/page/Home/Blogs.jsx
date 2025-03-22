@@ -1,9 +1,22 @@
 import React from "react";
-import BlogsImage from "../../assets/year.jpeg";
-import EnvironmentImage from "../../assets/Environment.jpeg";
-import communityimage from "../../assets/Community.jpeg";
-import EducationImage from "../../assets/Education.jpeg";
+import axios from "axios";
+import { useState,useEffect } from "react";
 function Blogs() {
+
+    const [property, setProperty ]= useState([]);
+    useEffect(() => {
+      const getAllProperty = async () => {
+        try {
+          const res = await axios.get(`http://localhost:5000/blog/getAllBlogs`);
+          setProperty(res.data);
+          console.log(res.data);
+          
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getAllProperty();
+    }, []);
   return (
     <div className="bg-[#F7FBFC] text-gray-900 mt-5">
       {/* Hero Section */}
@@ -19,80 +32,30 @@ function Blogs() {
       {/* Blog Cards Section */}
       <section className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-6 py-16">
         {/* Blog Card 1 */}
-        <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:scale-105">
-          <img
-            src={BlogsImage}
-            alt="Blog 1"
-            className="w-full h-64 object-cover rounded-md"
-          />
-          <h2 className="mt-4 text-xl font-semibold text-[#1E3A8A]">The Future of Sustainable Construction</h2>
-          <p className="mt-2 text-gray-600">
-            Discover how the future of construction is evolving with sustainable materials and green technologies...
-          </p>
-          <a
-            href="/blog1"
-            className="inline-block mt-4 text-[#A99FFF] font-semibold hover:text-[#1E3A8A] transition-colors duration-300"
-          >
-            Read More
-          </a>
-        </div>
+        {property.map((item)=>(
+ <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:scale-105">
+ <img
+   src={item.images}
+   alt="Blog 1"
+   className="w-full h-64 object-cover rounded-md"
+ />
+ <h2 className="mt-4 text-xl font-semibold text-[#1E3A8A]">{item.title}</h2>
+ <p className="mt-2 text-gray-600">
+   {item.content}
+ </p>
+ <a
+   href="/blog1"
+   className="inline-block mt-4 text-[#A99FFF] font-semibold hover:text-[#1E3A8A] transition-colors duration-300"
+ >
+   Read More
+ </a>
+</div>
 
-        {/* Blog Card 2 */}
-        <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:scale-105">
-          <img
-            src={EnvironmentImage}
-            alt="Blog 2"
-            className="w-full h-64 object-cover rounded-md"
-          />
-          <h2 className="mt-4 text-xl font-semibold text-[#1E3A8A]">How Community Initiatives Are Changing Lives</h2>
-          <p className="mt-2 text-gray-600">
-            Join us as we explore the transformative power of community-driven projects that support those in need...
-          </p>
-          <a
-            href="/blog2"
-            className="inline-block mt-4 text-[#A99FFF] font-semibold hover:text-[#1E3A8A] transition-colors duration-300"
-          >
-            Read More
-          </a>
-        </div>
+        ))}
+       
+ 
 
-        {/* Blog Card 3 */}
-        <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:scale-105">
-          <img
-            src={communityimage}
-            alt="Blog 3"
-            className="w-full h-64 object-cover rounded-md"
-          />
-          <h2 className="mt-4 text-xl font-semibold text-[#1E3A8A]">The Impact of Waste Management on the Environment</h2>
-          <p className="mt-2 text-gray-600">
-            Understanding the vital role that waste management plays in preserving the planet’s resources and reducing pollution...
-          </p>
-          <a
-            href="/blog3"
-            className="inline-block mt-4 text-[#A99FFF] font-semibold hover:text-[#1E3A8A] transition-colors duration-300"
-          >
-            Read More
-          </a>
-        </div>
-
-        {/* Blog Card 4 */}
-        <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:scale-105">
-          <img
-            src={EducationImage}
-            alt="Blog 4"
-            className="w-full h-64 object-cover rounded-md"
-          />
-          <h2 className="mt-4 text-xl font-semibold text-[#1E3A8A]">Empowering Local Communities Through Education</h2>
-          <p className="mt-2 text-gray-600">
-            Education is a powerful tool that transforms communities. Learn how community education programs are impacting local economies...
-          </p>
-          <a
-            href="/blog4"
-            className="inline-block mt-4 text-[#A99FFF] font-semibold hover:text-[#1E3A8A] transition-colors duration-300"
-          >
-            Read More
-          </a>
-        </div>
+     
       </section>
 
       {/* Pagination or Call to Action */}
