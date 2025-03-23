@@ -63,7 +63,7 @@ function MarketPlace() {
   }, []);
  
   const getDeliveryIcon = (option) => {
-    if (option.includes('Installation')) return '🔧';
+    if (option.includes('Delivery&Installation')) return '🔧';
     if (option.includes('Delivery')) return '🚚';
     return '🏠';
   };

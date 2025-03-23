@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import{Link } from "react-router-dom"
 import {
   Table,
   TableBody,
@@ -42,7 +43,8 @@ const Marketplace = () => {
   return (
     <div className="p-5">
       <h1 className="text-2xl font-bold mb-4">Admin Marketplace</h1>
-      <div className="flex gap-4 mb-4">
+      <div className="flex flex-row justify-between items-center" >
+        <div className="flex gap-4 mb-4">
         <TextField
           label="Search by Condition"
           variant="outlined"
@@ -60,11 +62,17 @@ const Marketplace = () => {
           <MenuItem value="used">Used</MenuItem>
           <MenuItem value="refurbished">Refurbished</MenuItem>
         </Select>
+        </div>
+
+       <Link to="marketForm" ><button type="button" className="bg-[#A99FFF] text-white px-4 py-2 rounded-md ">Add Market Place</button></Link>
+       
       </div>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
+            <TableCell>No.</TableCell>
+            <TableCell>Image</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Condition</TableCell>
               <TableCell>Price</TableCell>
@@ -74,8 +82,10 @@ const Marketplace = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredItems.map((item) => (
+            {filteredItems.map((item,index) => (
               <TableRow key={item._id}>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell><img src={item.images} className="w-7 h-4"/></TableCell> 
                 <TableCell>{item.itemName}</TableCell>
                 <TableCell>{item.itemCondition}</TableCell>
                 <TableCell>${item.itemPrice}</TableCell>

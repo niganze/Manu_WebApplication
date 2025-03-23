@@ -25,6 +25,7 @@ import Service from "./page/Home/Service";
 import HomeLayout from "./page/Home/HomeLayout";
 import BlogsD from "./page/admin/BlogsD";
 import Blogs from "./page/Home/Blogs";
+import MarketPlaceForm from "./page/admin/MarketPlaceForm";
 
 function App() {
   return (
@@ -54,10 +55,9 @@ function App() {
           <Route path="reports" element={<Reports />} />
           <Route path="settings" element={<Settings />} />
           <Route path="profile" element={<AdminProfile />} />
-          
           <Route path="blogsD" element={<BlogsD />} />
+          <Route path="/admindashboard/marketplace/marketForm" element={<MarketPlaceForm/>}/>
         </Route>
-
         <Route path="/user-dashbaord" element={<UserDashboard />}>
           <Route index element={<DashboardHomeUser />} />
           <Route path="my-items" element={<MyItems />} />
