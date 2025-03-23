@@ -1,20 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import cameraImage from '../../assets/Professional Security Camera.jpeg';
-import exitSignImage from '../../assets/Emergency Exit Sign LED.jpeg';
-import floodlightImage from '../../assets/Industrial Outdoor Floodlight.jpeg';
-import wallPanelImage from '../../assets/Acoustic Wall Panels (set of 6).jpeg';
-import paintImage from '../../assets/Premium Wall Paint 5 Gallon.jpeg';
-import acUnitImage from '../../assets/Ductless Mini-Split AC Unit.jpeg';
-import poolFilterImage from '../../assets/Swimming Pool Filter System.jpeg';
-import roofingPanelImage from '../../assets/Metal Roofing Panels (100 sq ft).jpeg';
-import windowImage from '../../assets/Double-Pane Energy Efficient Window.jpeg';
-import sinkImage from '../../assets/Premium Stainless Steel Sink.jpeg';
-import elevatorImage from '../../assets/Commercial Passenger Elevator.jpeg';
-import cabinetImage from '../../assets/Commercial Passenger Elevator.jpeg';
-
-
 function MarketPlace() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
