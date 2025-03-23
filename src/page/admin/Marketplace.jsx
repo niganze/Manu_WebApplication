@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField, Select, MenuItem } from "@mui/material";
 
 const Marketplace = () => {
@@ -13,6 +14,20 @@ const Marketplace = () => {
       { id: 2, name: "Tiles", category: "Flooring", price: "2000Rwf", seller: "Jane Doe", status: "Approved" },
     ]);
   }, []);
+  const [property, setProperty ]= useState([]);
+  useEffect(() => {
+      const getAllProperty = async () => {
+        try {
+          const res = await axios.get(`http://localhost:5000/marketItem/getAllMarkets`);
+          setProperty(res.data);
+          console.log(res.data);
+          
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getAllProperty();
+    }, []);
 
   const handleApprove = (id) => {
     // Logic to approve item
@@ -55,28 +70,27 @@ const Marketplace = () => {
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              <TableCell>Category</TableCell>
+              <TableCell>Condition</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Seller</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell>Delivery kind</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredItems.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell>{item.name}</TableCell>
-                <TableCell>{item.category}</TableCell>
-                <TableCell>{item.price}</TableCell>
-                <TableCell>{item.seller}</TableCell>
-                <TableCell>{item.status}</TableCell>
+            {property.map((item) => (
+              <TableRow key={item._id}>
+                <TableCell>{item.itemName}</TableCell>
+                <TableCell>{item.itemCondition}</TableCell>
+                <TableCell>${item.itemPrice}</TableCell>
+                <TableCell>{item.companyOwner}</TableCell>
+                <TableCell>{item.itemDeliveryStatus}</TableCell>
                 <TableCell>
-                  {item.status === "Pending" && (
-                    <>
-                      <Button color="success" onClick={() => handleApprove(item.id)}>Approve</Button>
-                      <Button color="error" onClick={() => handleReject(item.id)}>Reject</Button>
-                    </>
-                  )}
+                  
+                      <Button color="success" onClick={() => handleApprove(item.id)}>View</Button>
+                      <Button className="text-#2563EB"onClick={() => handleApprove(item.id)}>Update</Button>
+                      <Button color="error" onClick={() => handleReject(item.id)}>Delete</Button>
+                   
                 </TableCell>
               </TableRow>
             ))}
