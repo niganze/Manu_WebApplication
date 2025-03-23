@@ -107,7 +107,6 @@ const ManageDonationItems = () => {
                 <th className="px-2 py-2 text-left">Category</th>
                 <th className="px-2 py-2 text-left">PosterName</th>
                 <th className="px-2 py-2 text-left">ContactInfo</th>
-                <th className="px-2 py-2 text-left">Beneficiary</th>
                 <th className="px-2 py-2 text-left">Condition</th>
                 <th className="px-2 py-2 text-left">Images</th>
                 <th className="px-2 py-2 text-center">Actions</th>
@@ -128,7 +127,7 @@ const ManageDonationItems = () => {
                   <td className="px-2 py-2 text-gray-600 text-sm">{item.category}</td>
                   <td className="px-2 py-2 text-gray-600 text-sm">{item.posterName}</td>
                   <td className="px-2 py-2 text-gray-600 text-sm">{item.contact}</td>
-                  <td className="px-2 py-2 text-gray-600 text-sm">{item.beneficiary}</td>
+                  
                   <td className="px-2 py-2 text-sm">
                     <span className={`px-2 py-1 rounded-full text-xs font-semibold
                       ${item.condition === 'New' 
@@ -152,10 +151,16 @@ const ManageDonationItems = () => {
                         View
                       </button>
                       <button 
+                        className=" text-green-800 hover:text-blue-400 transition-colors duration-200 text-xs"
+                        onClick={() => handleViewItem(item)}
+                      >
+                        Approve
+                      </button>
+                      <button 
                         className="text-red-600 hover:text-red-800 transition-colors duration-200 text-xs"
                         onClick={() => handleRemoveItem(item.id)}
                       >
-                        Remove
+                        Reject
                       </button>
                     </div>
                   </td>

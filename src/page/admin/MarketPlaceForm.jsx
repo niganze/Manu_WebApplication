@@ -138,8 +138,8 @@ const MarketPlaceForm = () => {
                 <option value="" disabled>
                   Select delivery status
                 </option>
-                <option value="available">Delivery</option>
-                <option value="pending">Delivery&Installation</option>
+                <option value="Delivery">Delivery</option>
+                <option value="Delivery&Installation">Delivery&Installation</option>
               </select>
               {errors.itemDeliveryStatus && (
                 <span className="text-red-500 text-xs">Delivery status is required</span>
