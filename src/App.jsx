@@ -38,6 +38,7 @@ function App() {
           <Route path="community" element={<Community />} />
           <Route path="impact" element={<Impact />} />
           <Route path="marketplace" element={<MarketPlace />} />
+          <Route path="blogs" element={<Blogs/>}/>
           
         </Route>
 
@@ -53,7 +54,7 @@ function App() {
           <Route path="reports" element={<Reports />} />
           <Route path="settings" element={<Settings />} />
           <Route path="profile" element={<AdminProfile />} />
-          <Route path="blogs" element={<Blogs/>}/>
+          
           <Route path="blogsD" element={<BlogsD />} />
         </Route>
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import cameraImage from '../../assets/Professional Security Camera.jpeg';
 import exitSignImage from '../../assets/Emergency Exit Sign LED.jpeg';
@@ -13,189 +14,22 @@ import sinkImage from '../../assets/Premium Stainless Steel Sink.jpeg';
 import elevatorImage from '../../assets/Commercial Passenger Elevator.jpeg';
 import cabinetImage from '../../assets/Commercial Passenger Elevator.jpeg';
 
+
 function MarketPlace() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [visibleItems, setVisibleItems] = useState(8);
-  const [itemsData, setItemsData] = useState([]);
   
-  // All building product categories
-  const categories = [
-    { id: 'all', name: "All Categories" },
-    { id: 'comm', name: "Communications, safety, and security" },
-    { id: 'sign', name: "Signage and signaling" },
-    { id: 'elec', name: "Electrical, power, and lighting" },
-    { id: 'wall', name: "Walls and barriers" },
-    { id: 'coat', name: "Coverings, coatings, and finishes" },
-    { id: 'vent', name: "Ventilation, air conditioning, and space heating" },
-    { id: 'pool', name: "Ponds, swimming pools, bunds, and tanks" },
-    { id: 'roof', name: "Roofs, ceilings, and soffits" },
-    { id: 'door', name: "Doors, windows, and hatches" },
-    { id: 'gen', name: "General building products" },
-    { id: 'lift', name: "Lifts, elevators, and escalators" },
-    { id: 'plumb', name: "Plumbing and waste disposal" },
-    { id: 'furn', name: "Fittings, furnishings, and equipment" },
-    { id: 'stair', name: "Stairs and ramps" },
-    { id: 'struct', name: "Structure" },
-    { id: 'fix', name: "Plumbing fixtures and accessories" }
-  ];
-
-  // Sample marketplace items
-  useEffect(() => {
-    const sampleItems = [
-      {
-        id: 1,
-        name: "Professional Security Camera",
-        category: "comm",
-        image: cameraImage,
-        condition: "New",
-        price: "$349.99",
-        location: "Chicago, IL",
-        seller: "SecurityTech Inc.",
-        deliveryOption: "Pickup & Delivery"
-      },
-      {
-        id: 2,
-        name: "Emergency Exit Sign LED",
-        category: "sign",
-        image: exitSignImage,
-        condition: "New",
-        price: "$89.99",
-        location: "Boston, MA",
-        seller: "SafetyFirst Company",
-        deliveryOption: "Delivery Only"
-      },
-      {
-        id: 3,
-        name: "Industrial Outdoor Floodlight",
-        category: "elec",
-        image: floodlightImage,
-        condition: "Used",
-        price: "$125.00",
-        location: "Phoenix, AZ",
-        seller: "Desert Lighting Co.",
-        deliveryOption: "Pickup Only"
-      },
-      {
-        id: 4,
-        name: "Acoustic Wall Panels",
-        category: "wall",
-        image: wallPanelImage,
-        condition: "New",
-        price: "$199.99",
-        location: "Austin, TX",
-        seller: "SoundProof Solutions",
-        deliveryOption: "Pickup & Delivery"
-      },
-      {
-        id: 5,
-        name: "Premium Wall Paint",
-        category: "coat",
-        image: paintImage,
-        condition: "New",
-        price: "$189.50",
-        location: "Seattle, WA",
-        seller: "Northwest Paints",
-        deliveryOption: "Pickup & Delivery"
-      },
-      {
-        id: 6,
-        name: "Ductless Mini-Split AC Unit",
-        category: "vent",
-        image: acUnitImage,
-        condition: "New",
-        price: "$1,299.00",
-        location: "Miami, FL",
-        seller: "Cool Living HVAC",
-        deliveryOption: "Delivery & Installation"
-      },
-      {
-        id: 7,
-        name: "Swimming Pool Filter System",
-        category: "pool",
-        image: poolFilterImage,
-        condition: "Used",
-        price: "$450.00",
-        location: "Las Vegas, NV",
-        seller: "Desert Pools",
-        deliveryOption: "Pickup Only"
-      },
-      {
-        id: 8,
-        name: "Metal Roofing Panels",
-        category: "roof",
-        image: roofingPanelImage,
-        condition: "New",
-        price: "$575.00",
-        location: "Denver, CO",
-        seller: "Mountain Roofing Supply",
-        deliveryOption: "Delivery Only"
-      },
-      {
-        id: 9,
-        name: "Double-Pane Energy Efficient Window",
-        category: "door",
-        image: windowImage,
-        condition: "New",
-        price: "$349.99",
-        location: "Minneapolis, MN",
-        seller: "Northern Windows & Doors",
-        deliveryOption: "Pickup & Delivery"
-      },
-      {
-        id: 10,
-        name: "Premium Stainless Steel Sink",
-        category: "fix",
-        image: sinkImage,
-        condition: "New",
-        price: "$249.99",
-        location: "San Diego, CA",
-        seller: "Coastal Fixtures",
-        deliveryOption: "Pickup & Delivery"
-      },
-      {
-        id: 11,
-        name: "Commercial Passenger Elevator",
-        category: "lift",
-        image: elevatorImage,
-        condition: "Refurbished",
-        price: "$35,000.00",
-        location: "Chicago, IL",
-        seller: "Urban Lift Solutions",
-        deliveryOption: "Delivery & Installation"
-      },
-      {
-        id: 12,
-        name: "Kitchen Cabinet Set",
-        category: "furn",
-        image: cabinetImage,
-        condition: "New",
-        price: "$2,499.00",
-        location: "Portland, OR",
-        seller: "Pacific Kitchen Design",
-        deliveryOption: "Delivery & Installation"
-      }
-    ];
-    
-    setItemsData(sampleItems);
-  }, []);
   
-
-  // Filter items based on search and category
-  const filteredItems = itemsData.filter(item => {
-    const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
-
+  
   // Load more items
   const loadMore = () => {
     setVisibleItems(prev => prev + 8);
   };
 
   // Get condition badge color
-  const getConditionColor = (condition) => {
-    switch(condition.toLowerCase()) {
+  const getConditionColor = (condition = '') => {
+    switch (condition.toLowerCase()) {
       case 'new':
         return 'bg-green-500';
       case 'used':
@@ -206,17 +40,38 @@ function MarketPlace() {
         return 'bg-gray-500';
     }
   };
+  
+ 
+  
 
   // Get delivery icon
+  
+  const [property, setProperty ]= useState([]);
+  
+  useEffect(() => {
+    const getAllProperty = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/marketItem/getAllMarkets`);
+        setProperty(res.data);
+        console.log(res.data);
+        
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllProperty();
+  }, []);
+ 
   const getDeliveryIcon = (option) => {
     if (option.includes('Installation')) return '🔧';
     if (option.includes('Delivery')) return '🚚';
     return '🏠';
   };
 
+
   return (
     <div className="container mx-auto px-4 py-8 bg-gray-50">
-      {/* Header */}
+    
       <div className="bg-gradient-to-r from-white via-indigo-900 to-white text-purple-700">
         <div className="container mx-auto py-16 px-4 md:px-8">
           <div className="max-w-4xl mx-auto text-center">
@@ -294,9 +149,9 @@ function MarketPlace() {
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
-            {categories.map(category => (
-              <option key={category.id} value={category.id}>
-                {category.name}
+            {property.map(category => (
+              <option key={category._id} value={category._id}>
+                {category.itemName}
               </option>
             ))}
           </select>
@@ -336,46 +191,44 @@ function MarketPlace() {
       </div>
       
       {/* Results count */}
-      <div className="mb-6 text-gray-600">
-        Showing {Math.min(filteredItems.length, visibleItems)} of {filteredItems.length} results
-      </div>
+     
       
       {/* Items Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredItems.slice(0, visibleItems).map(item => (
-          <div key={item.id} className="border rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white transform hover:-translate-y-1">
+        {property.map(item => (
+          <div key={item._id} className="border rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white transform hover:-translate-y-1">
             <div className="relative">
-              <img src={item.image} alt={item.name} className="w-full h-48 object-cover" />
+              <img src={item.images} alt={item.itemName} className="w-full h-48 object-cover" />
               <div 
-                className={`absolute top-0 left-0 py-1 px-3 text-white font-semibold text-sm ${getConditionColor(item.condition)}`}
-                style={{ borderBottomRightRadius: '0.5rem' }}
-              >
-                {item.condition}
-              </div>
+    className={`absolute top-0 left-0 py-1 px-3 text-white font-semibold text-sm ${getConditionColor(item?.itemCondition)}`}
+    style={{ borderBottomRightRadius: '0.5rem' }}
+  >
+    {item?.itemCondition || "Unknown"}
+  </div>
               <button className="absolute top-2 right-2 bg-black bg-opacity-25 text-white hover:bg-opacity-40 p-1.5 rounded-full transition-all">
                 ♡
               </button>
             </div>
             
             <div className="p-4">
-              <h3 className="text-xl font-semibold mb-2 text-gray-800 line-clamp-2 h-14">{item.name}</h3>
-              <p className="font-bold text-xl mb-3" style={{ color: '#A99FFF' }}>{item.price}</p>
+              <h3 className="text-xl font-semibold mb-2 text-gray-800 line-clamp-2 h-14">{item.itemName}</h3>
+              <p className="font-bold text-xl mb-3" style={{ color: '#A99FFF' }}>${item.itemPrice}</p>
               
               <div className="flex justify-between items-center text-sm text-gray-600 mb-3">
                 <span className="flex items-center">
                   <span className="mr-1">📍</span> {item.location}
                 </span>
                 <span className="flex items-center">
-                  <span className="mr-1">{getDeliveryIcon(item.deliveryOption)}</span> {item.deliveryOption}
+                  <span className="mr-1">{getDeliveryIcon(item.itemDeliveryStatus)}</span> {item.itemDeliveryStatus}
                 </span>
               </div>
               
               <div className="pt-3 border-t border-gray-200 flex justify-between items-center">
                 <div className="text-sm text-gray-600 flex items-center">
                   <span className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center mr-2 text-xs font-bold" style={{ color: '#A99FFF' }}>
-                    {item.seller.charAt(0)}
+                    {item.companyOwner.charAt(0)}
                   </span>
-                  <span className="truncate max-w-32">{item.seller}</span>
+                  <span className="truncate max-w-32">{item.companyOwner}</span>
                 </div>
                 <button 
                   className="text-white py-1.5 px-4 rounded-lg text-sm transition-all duration-300 hover:shadow-md"
@@ -389,36 +242,8 @@ function MarketPlace() {
         ))}
       </div>
       
-      {/* Show no results message */}
-      {filteredItems.length === 0 && (
-        <div className="text-center py-12 bg-white rounded-lg shadow-sm my-8">
-          <div className="text-6xl mb-4">🔍</div>
-          <p className="text-xl text-gray-600 mb-4">No products found matching your search</p>
-          <button 
-            className="bg-white border py-2 px-6 rounded-lg hover:bg-gray-50"
-            style={{ borderColor: '#A99FFF', color: '#A99FFF' }}
-            onClick={() => {
-              setSearchTerm('');
-              setSelectedCategory('all');
-            }}
-          >
-            Reset Filters
-          </button>
-        </div>
-      )}
-      
-      {/* Load More Button */}
-      {filteredItems.length > visibleItems && (
-        <div className="text-center mt-8">
-          <button 
-            onClick={loadMore}
-            className="bg-white border py-2 px-6 rounded-lg transition-all duration-300 flex items-center mx-auto hover:bg-gray-50 hover:shadow-md"
-            style={{ borderColor: '#A99FFF', color: '#A99FFF' }}
-          >
-            See More <span className="ml-2">→</span>
-          </button>
-        </div>
-      )}
+     
+     
     </div>
   );
 }
