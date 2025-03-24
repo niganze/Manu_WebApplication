@@ -143,9 +143,7 @@ function ManageUsers() {
             <th scope="col" className="px-6 py-3">
               Role
             </th>
-            <th scope="col" className="px-6 py-3">
-              Status
-            </th>
+         
             <th scope="col" className="px-6 py-3">
               Action
             </th>
@@ -190,12 +188,7 @@ function ManageUsers() {
                   {item.role}
                 </td>{" "}
                 {/* Role is set here as 'Admin' or 'User' */}
-                <td className="px-6 py-4">
-                  <div className="flex items-center">
-                    <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>{" "}
-                    Online
-                  </div>
-                </td>
+              
                 <td className="px-6 py-4">
                   <a
                     href="#"
