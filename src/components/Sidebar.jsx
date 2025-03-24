@@ -17,7 +17,7 @@ const Sidebar = () => {
       {/* Logo */}
       <div className="p-5 text-2xl font-bold text-[#A99FFF] cursor-pointer">
   <Link to ="/">
-    Manu WebApp
+    Manu 
   </Link>
 </div>
 
