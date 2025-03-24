@@ -84,7 +84,7 @@ const ManageDonationItems = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-semibold mb-6 text-gray-800">
-        Manage Donation Items
+        Manage Items 
       </h1>
       <div className="flex items-center space-x-4 mb-6">
         <div className="relative flex-grow max-w-md">

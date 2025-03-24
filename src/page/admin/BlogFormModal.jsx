@@ -4,7 +4,7 @@ import { Notify } from "notiflix";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
-const BlogFormModal = ({ handleModal }) => {
+const BlogFormModal = ({ addModal }) => {
   const { register, handleSubmit, formState: { errors } ,reset} = useForm();
 
   const onsubmit = async (data) => {
@@ -31,12 +31,12 @@ const BlogFormModal = ({ handleModal }) => {
   return (
     <div className="font-sans">
       <div className="fixed inset-0 flex items-center justify-center z-50">
-        <div className="absolute inset-0 bg-black bg-opacity-30 backdrop-blur-sm" onClick={handleModal}></div>
+        <div className="absolute inset-0 bg-black bg-opacity-30 backdrop-blur-sm"></div>
 
         <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md z-10 relative m-4">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-gray-800">Create New Blog Post</h2>
-            <button onClick={handleModal} className="text-gray-400 hover:text-gray-600 p-1 rounded-full hover:bg-gray-100 transition-colors">
+            <button onClick={addModal} className="text-gray-400 hover:text-gray-600 p-1 rounded-full hover:bg-gray-100 transition-colors">
               <X size={24} />
             </button>
           </div>
