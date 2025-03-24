@@ -15,7 +15,7 @@ function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="text-2xl font-bold">ManuApp</Link>
+            <Link to="/" className="text-2xl font-bold">Manu</Link>
           </div>
 
           {/* Desktop Navigation */}

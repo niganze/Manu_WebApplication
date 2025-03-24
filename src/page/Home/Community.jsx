@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Shelterimage from '../../assets/shelter.jpeg';
-import  Beginnings from '../../assets/construction.jpeg';
+
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { data } from "react-router-dom";
 import { Notify } from "notiflix";
 
 
@@ -46,8 +44,8 @@ const [charti, setCharti] = useState([]);
 useEffect(() => {
   const getAllcard = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/project/getAllProjects`);
-      setCharti(res.data);
+      const res = await axios.get(`http://localhost:5000/project/ApprovedProjects`);
+      setCharti(res.data.data);
     } catch (error) {
       console.log(error);
     }
