@@ -1,7 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { useState,useEffect } from 'react';
+import axios from 'axios';
 function Home() {
+   const [property, setProperty ]= useState([]);
+    useEffect(() => {
+      const getAllProperty = async () => {
+        try {
+          const res = await axios.get(`http://localhost:5000/marketItem/getAllMarkets`);
+          setProperty(res.data);
+          console.log(res.data);
+          
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getAllProperty();
+    }, []);
   return (
     <div className="overflow-hidden">
       {/* Hero Section with Animated Background and Improved Layout */}
@@ -184,7 +199,7 @@ function Home() {
           <div className="flex flex-col md:flex-row justify-between items-center mb-12">
             <div>
               <span className="inline-block px-4 py-1 bg-blue-50 text-[#1e3a8a] rounded-full text-sm font-medium mb-4">New Listings</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Featured Materials</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Featured Market Place</h2>
               <p className="text-gray-600">
                 Browse our most recent high-quality listings
               </p>
@@ -200,71 +215,32 @@ function Home() {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Material Card 1 */}
-            <div className="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 transform transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] group">
+           
+            {property.map((item)=>(
+              <div className="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 transform transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] group">
               <div className="h-52 bg-gray-100 relative overflow-hidden">
                 {/* Placeholder for material image */}
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                  </svg>
-                </div>
-                <div className="absolute top-3 left-3 bg-[#1e3a8a] text-white text-xs font-medium px-2 py-1 rounded">New</div>
-              </div>
-              <div className="p-5">
-                <div className="flex items-center mb-3">
-                  <span className="text-xs font-medium bg-blue-50 text-[#1e3a8a] px-2 py-1 rounded">Lumber</span>
-                  <span className="ml-2 text-xs text-gray-500 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    Denver, CO
-                  </span>
-                </div>
-                <h3 className="font-semibold text-lg mb-2 text-gray-800">Surplus Lumber</h3>
-                <p className="text-gray-600 text-sm mb-3">Unused pine lumber from residential project. Excellent condition, ready for pickup.</p>
-                <div className="flex justify-between items-center mt-4">
-                  <span className="text-[#1e3a8a] font-bold text-lg">$120</span>
-                  <Link 
-                    to="/material/surplus-lumber" 
-                    className="text-sm font-medium text-gray-600 hover:text-[#1e3a8a] transition-colors flex items-center"
-                  >
-                    View Details
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            
-            {/* Material Card 2 */}
-            <div className="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 transform transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] group">
-              <div className="h-52 bg-gray-100 relative overflow-hidden">
-                {/* Placeholder for material image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                  </svg>
+                  
+                  <img src={item.images}/>
                 </div>
                 <div className="absolute top-3 left-3 bg-[#5255a8] text-white text-xs font-medium px-2 py-1 rounded">Featured</div>
               </div>
               <div className="p-5">
                 <div className="flex items-center mb-3">
-                  <span className="text-xs font-medium bg-blue-50 text-[#1e3a8a] px-2 py-1 rounded">Metal</span>
+                  <span className="text-xs font-medium bg-blue-50 text-[#1e3a8a] px-2 py-1 rounded">{item.itemDeliveryStatus}</span>
                   <span className="ml-2 text-xs text-gray-500 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    Chicago, IL
+                     {item.location}
                   </span>
                 </div>
-                <h3 className="font-semibold text-lg mb-2 text-gray-800">Steel Beams</h3>
+                <h3 className="font-semibold text-lg mb-2 text-gray-800">{item.itemName}</h3>
                 <p className="text-gray-600 text-sm mb-3">Reclaimed steel I-beams in excellent condition. Various sizes available.</p>
                 <div className="flex justify-between items-center mt-4">
-                  <span className="text-[#1e3a8a] font-bold text-lg">$450</span>
+                  <span className="text-[#1e3a8a] font-bold text-lg">${item.itemPrice}</span>
                   <Link 
                     to="/material/steel-beams" 
                     className="text-sm font-medium text-gray-600 hover:text-[#1e3a8a] transition-colors flex items-center"
@@ -277,84 +253,10 @@ function Home() {
                 </div>
               </div>
             </div>
+            ))}
+           
             
-            {/* Material Card 3 */}
-            <div className="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 transform transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] group">
-              <div className="h-52 bg-gray-100 relative overflow-hidden">
-                {/* Placeholder for material image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                  </svg>
-                </div>
-                <div className="absolute top-3 left-3 bg-[#5255a8] text-white text-xs font-medium px-2 py-1 rounded">Featured</div>
-              </div>
-              <div className="p-5">
-                <div className="flex items-center mb-3">
-                  <span className="text-xs font-medium bg-blue-50 text-[#1e3a8a] px-2 py-1 rounded">Metal</span>
-                  <span className="ml-2 text-xs text-gray-500 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    Chicago, IL
-                  </span>
-                </div>
-                <h3 className="font-semibold text-lg mb-2 text-gray-800">Steel Beams</h3>
-                <p className="text-gray-600 text-sm mb-3">Reclaimed steel I-beams in excellent condition. Various sizes available.</p>
-                <div className="flex justify-between items-center mt-4">
-                  <span className="text-[#1e3a8a] font-bold text-lg">$450</span>
-                  <Link 
-                    to="/material/steel-beams" 
-                    className="text-sm font-medium text-gray-600 hover:text-[#1e3a8a] transition-colors flex items-center"
-                  >
-                    View Details
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            
-            {/* Material Card 4 */}
-            <div className="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 transform transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] group">
-              <div className="h-52 bg-gray-100 relative overflow-hidden">
-                {/* Placeholder for material image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                  </svg>
-                </div>
-                <div className="absolute top-3 left-3 bg-[#5255a8] text-white text-xs font-medium px-2 py-1 rounded">Featured</div>
-              </div>
-              <div className="p-5">
-                <div className="flex items-center mb-3">
-                  <span className="text-xs font-medium bg-blue-50 text-[#1e3a8a] px-2 py-1 rounded">Metal</span>
-                  <span className="ml-2 text-xs text-gray-500 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    Chicago, IL
-                  </span>
-                </div>
-                <h3 className="font-semibold text-lg mb-2 text-gray-800">Steel Beams</h3>
-                <p className="text-gray-600 text-sm mb-3">Reclaimed steel I-beams in excellent condition. Various sizes available.</p>
-                <div className="flex justify-between items-center mt-4">
-                  <span className="text-[#1e3a8a] font-bold text-lg">$450</span>
-                  <Link 
-                    to="/material/steel-beams" 
-                    className="text-sm font-medium text-gray-600 hover:text-[#1e3a8a] transition-colors flex items-center"
-                  >
-                    View Details
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
+           
           </div>
         </div>
       </section>
@@ -408,12 +310,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-
-      {/* blogs Section */}
-
-      
-
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-bl from-indigo-800 text-white">
         <div className="container mx-auto px-4">

@@ -33,7 +33,6 @@ function MarketPlace() {
   // Get delivery icon
   
   const [property, setProperty ]= useState([]);
-  
   useEffect(() => {
     const getAllProperty = async () => {
       try {
