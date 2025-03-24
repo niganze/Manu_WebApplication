@@ -40,6 +40,7 @@ function App() {
           <Route path="impact" element={<Impact />} />
           <Route path="marketplace" element={<MarketPlace />} />
           <Route path="blogs" element={<Blogs/>}/>
+          <Route path="/community" element={<Community />} />
           
         </Route>
 
