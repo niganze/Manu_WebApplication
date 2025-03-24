@@ -22,12 +22,43 @@ const DashboardHome = () => {
     getUsers();
   }
   ,[])
+
+
+  const [property, setProperty] = useState([]);
+  useEffect(() => {
+    const getAllProperty = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/project/getAllProjects`
+        );
+        setProperty(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllProperty();
+  }, []);
   const [stats, setStats] = useState({
     users: 2458,
     items: 1204,
     donations: 583,
     projects: 47,
   });
+
+  const [market, setMarket] = useState([]);
+   useEffect(() => {
+      const getAllProperty = async () => {
+        try {
+          const res = await axios.get("http://localhost:5000/marketItem/getAllMarkets");
+          setMarket(res.data);
+          console.log(res.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getAllProperty();
+    }, []);
 
   const [recentActivity, setRecentActivity] = useState([
     { id: 1, type: 'New User', name: 'John Doe', time: '10 minutes ago' },
@@ -95,7 +126,7 @@ const DashboardHome = () => {
           </div>
           <div className="ml-4">
             <p className="text-gray-600">Listed Items</p>
-            <h2 className="text-1xl font-bold text-gray-800">{stats.items.toLocaleString()}</h2>
+            <h2 className="text-1xl font-bold text-gray-800">{property.length}</h2>
           </div>
         </div>
 
@@ -105,8 +136,8 @@ const DashboardHome = () => {
             <Gift className="text-green-600" size={24} />
           </div>
           <div className="ml-4">
-            <p className="text-gray-600">Total Donations</p>
-            <h2 className="text-1xl font-bold text-gray-800">{stats.donations.toLocaleString()}</h2>
+            <p className="text-gray-600">Total Market Place</p>
+            <h2 className="text-1xl font-bold text-gray-800">{market.length}</h2>
           </div>
         </div>
 
