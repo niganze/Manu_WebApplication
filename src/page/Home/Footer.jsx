@@ -1,7 +1,41 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 function Footer() {
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset, // Use reset instead of resetField
+  } = useForm();
+  
+  const onsubmit = async (data) => {
+    try {
+      const { email } = data;
+      const formData = new FormData();
+      formData.append("email", email);
+  
+      const res = await axios.post(
+        `http://localhost:5000/sub/createSubscription`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      reset(); // Resets the entire form
+      Notify.success("Your subscription has been submitted");
+    } catch (error) {
+      console.log(error);
+      Notify.failure("An error occurred while submitting your subscription");
+    }
+  };
+  
   return (
     <footer className="bg-[#1e3a8a] text-white pt-10 pb-6 w-full overflow-hidden">
       <div className="container mx-auto px-4">
@@ -85,12 +119,13 @@ function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h3>
             <p className="text-sm mb-4">Stay updated with our latest news and offers.</p>
-            <form className="flex flex-col w-full">
+            <form className="flex flex-col w-full"  onSubmit={handleSubmit(onsubmit)}>
               <input
                 type="email"
+                name='email'
                 placeholder="Your email address"
                 className="px-4 py-2 mb-2 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#A99FFF] w-full"
-                required
+             {...register("email",{required:true})}
               />
               <button
                 type="submit"

@@ -14,11 +14,14 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import UpdateItemForm from "./UpdateItemForm";
 
 const Marketplace = () => {
   const [property, setProperty] = useState([]);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [currentItemId, setCurrentItemId] = useState(null);
 
   useEffect(() => {
     const getAllProperty = async () => {
@@ -42,14 +45,25 @@ const Marketplace = () => {
     }
   };
 
-  const handleUpdate = async (id) => {
-    // You can customize this logic to match your update requirements
-    try {
-      await axios.put(`http://localhost:5000/marketItem/updateMarket/${id}`, { /* Update Data */ });
-      alert("Item updated successfully");
-    } catch (error) {
-      console.log("Error updating item:", error);
-    }
+  const handleOpenModal = (item) => {
+    setCurrentItemId(item._id);
+    setOpenModal(true);
+  };
+  
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setCurrentItemId(null);
+  };
+
+  const handleUpdateList = () => {
+    // Refresh the list after update
+    axios.get("http://localhost:5000/marketItem/getAllMarkets")
+      .then(res => {
+        setProperty(res.data);
+      })
+      .catch(error => {
+        console.log("Error refreshing list:", error);
+      });
   };
 
   const filteredItems = property.filter(
@@ -60,6 +74,15 @@ const Marketplace = () => {
 
   return (
     <div className="p-5">
+      {openModal && (
+        <UpdateItemForm 
+          itemId={currentItemId}
+          open={openModal}
+          onClose={handleCloseModal}
+          onUpdate={handleUpdateList}
+        />
+      )}
+      
       <h1 className="text-2xl font-bold mb-4">Admin Marketplace</h1>
       <div className="flex flex-row justify-between items-center">
         <div className="flex gap-4 mb-4">
@@ -107,7 +130,7 @@ const Marketplace = () => {
               <TableRow key={item._id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>
-                  <img src={item.images} className="w-7 h-4" />
+                  <img src={item.images} className="w-7 h-4" alt={item.itemName} />
                 </TableCell>
                 <TableCell>{item.itemName}</TableCell>
                 <TableCell>{item.itemCondition}</TableCell>
@@ -116,7 +139,7 @@ const Marketplace = () => {
                 <TableCell>{item.itemDeliveryStatus}</TableCell>
                 <TableCell>
                   <Button color="success">View</Button>
-                  <Button onClick={() => handleUpdate(item._id)} className="text-#2563EB">
+                  <Button onClick={() => handleOpenModal(item)} className="text-#2563EB">
                     Update
                   </Button>
                   <Button onClick={() => handleDelete(item._id)} color="error">
