@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import{Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -33,7 +33,25 @@ const Marketplace = () => {
     getAllProperty();
   }, []);
 
-  // Filter based on search input and filter dropdown
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/marketItem/deleteMarket/${id}`);
+      setProperty(property.filter((item) => item._id !== id));
+    } catch (error) {
+      console.log("Error deleting item:", error);
+    }
+  };
+
+  const handleUpdate = async (id) => {
+    // You can customize this logic to match your update requirements
+    try {
+      await axios.put(`http://localhost:5000/marketItem/updateMarket/${id}`, { /* Update Data */ });
+      alert("Item updated successfully");
+    } catch (error) {
+      console.log("Error updating item:", error);
+    }
+  };
+
   const filteredItems = property.filter(
     (item) =>
       item.itemCondition.toLowerCase().includes(search.toLowerCase()) &&
@@ -43,36 +61,39 @@ const Marketplace = () => {
   return (
     <div className="p-5">
       <h1 className="text-2xl font-bold mb-4">Admin Marketplace</h1>
-      <div className="flex flex-row justify-between items-center" >
+      <div className="flex flex-row justify-between items-center">
         <div className="flex gap-4 mb-4">
-        <TextField
-          label="Search by Condition"
-          variant="outlined"
-          size="small"
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <Select
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          displayEmpty
-          size="small"
-        >
-          <MenuItem value="all">All</MenuItem>
-          <MenuItem value="new">New</MenuItem>
-          <MenuItem value="used">Used</MenuItem>
-          <MenuItem value="refurbished">Refurbished</MenuItem>
-        </Select>
+          <TextField
+            label="Search by Condition"
+            variant="outlined"
+            size="small"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <Select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            displayEmpty
+            size="small"
+          >
+            <MenuItem value="all">All</MenuItem>
+            <MenuItem value="new">New</MenuItem>
+            <MenuItem value="used">Used</MenuItem>
+            <MenuItem value="refurbished">Refurbished</MenuItem>
+          </Select>
         </div>
 
-       <Link to="marketForm" ><button type="button" className="bg-[#A99FFF] text-white px-4 py-2 rounded-md ">Add Market Place</button></Link>
-       
+        <Link to="marketForm">
+          <button type="button" className="bg-[#A99FFF] text-white px-4 py-2 rounded-md">
+            Add Market Place
+          </button>
+        </Link>
       </div>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-            <TableCell>No.</TableCell>
-            <TableCell>Image</TableCell>
+              <TableCell>No.</TableCell>
+              <TableCell>Image</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Condition</TableCell>
               <TableCell>Price</TableCell>
@@ -82,10 +103,12 @@ const Marketplace = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredItems.map((item,index) => (
+            {filteredItems.map((item, index) => (
               <TableRow key={item._id}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell><img src={item.images} className="w-7 h-4"/></TableCell> 
+                <TableCell>
+                  <img src={item.images} className="w-7 h-4" />
+                </TableCell>
                 <TableCell>{item.itemName}</TableCell>
                 <TableCell>{item.itemCondition}</TableCell>
                 <TableCell>${item.itemPrice}</TableCell>
@@ -93,8 +116,12 @@ const Marketplace = () => {
                 <TableCell>{item.itemDeliveryStatus}</TableCell>
                 <TableCell>
                   <Button color="success">View</Button>
-                  <Button className="text-#2563EB">Update</Button>
-                  <Button color="error">Delete</Button>
+                  <Button onClick={() => handleUpdate(item._id)} className="text-#2563EB">
+                    Update
+                  </Button>
+                  <Button onClick={() => handleDelete(item._id)} color="error">
+                    Delete
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
