@@ -60,6 +60,20 @@ const DashboardHome = () => {
       getAllProperty();
     }, []);
 
+    const[blog,setBlog]=useState(false) 
+  useEffect(() => {
+    const getAllBlogs = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/blog/getAllBlogs`);
+        setBlog(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllBlogs();
+  }, []);
+
   const [recentActivity, setRecentActivity] = useState([
     { id: 1, type: 'New User', name: 'John Doe', time: '10 minutes ago' },
     { id: 2, type: 'New Item', name: 'Construction Bricks (500 pcs)', time: '25 minutes ago' },
@@ -147,8 +161,8 @@ const DashboardHome = () => {
             <Folder className="text-amber-600" size={24} />
           </div>
           <div className="ml-4">
-            <p className="text-gray-600">Active Projects</p>
-            <h2 className="text-1xl font-bold text-gray-800">{stats.projects.toLocaleString()}</h2>
+            <p className="text-gray-600">All Blogs </p>
+            <h2 className="text-1xl font-bold text-gray-800">{blog.length}</h2>
           </div>
         </div>
       </div>
@@ -185,7 +199,7 @@ const DashboardHome = () => {
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis dataKey="name"/>
                 <YAxis />
                 <Tooltip />
                 <Legend />
