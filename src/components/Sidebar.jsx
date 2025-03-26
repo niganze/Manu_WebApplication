@@ -43,11 +43,11 @@ const Sidebar = () => {
         </li>
         <li>
           <Link
-            to="donations"
+            to="subscription"
             className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-500"
           >
             <Heart size={20} className="text-[#A99FFF]" />
-            <span>Donations</span>
+            <span>Subscriptions</span>
           </Link>
         </li>
         <li>
