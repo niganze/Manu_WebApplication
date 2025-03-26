@@ -1,22 +1,34 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 const ManageDonationItems = () => {
   const [property, setProperty] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [totalProjects, setTotalProjects] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [category, setCategory] = useState("");
+
   useEffect(() => {
     const getAllProperty = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:5000/project/getAllProjects`
-        );
-        setProperty(res.data);
-        console.log(res.data);
+        const res = await axios.get(`http://localhost:5000/project/getAllProjects`, {
+          params: {
+            page: page + 1,
+            limit: rowsPerPage,
+            search: searchTerm,
+            category: category
+          }
+        });
+        setProperty(res.data.projects || res.data);
+        setTotalProjects(res.data.total || res.data.length);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     getAllProperty();
-  }, []);
+  }, [page, rowsPerPage, searchTerm, category]);
+
   const handleUpdateApproval = async (projectId, approvalStatus) => {
     try {
       const response = await fetch(
@@ -37,12 +49,17 @@ const ManageDonationItems = () => {
       const data = await response.json();
       alert(`Approval Status Updated: ${data.message}`);
 
-      // Update local state
-      setProperty((prev) =>
-        prev.map((item) =>
-          item._id === projectId ? { ...item, approvalStatus } : item
-        )
-      );
+      // Refresh the current page
+      const res = await axios.get(`http://localhost:5000/project/getAllProjects`, {
+        params: {
+          page: page + 1,
+          limit: rowsPerPage,
+          search: searchTerm,
+          category: category
+        }
+      });
+      setProperty(res.data.projects || res.data);
+      setTotalProjects(res.data.total || res.data.length);
     } catch (error) {
       console.error("Error updating approval status:", error);
       alert("Error updating approval status");
@@ -58,7 +75,7 @@ const ManageDonationItems = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ id: projectId}),
+          body: JSON.stringify({ id: projectId }),
         }
       );
 
@@ -69,16 +86,35 @@ const ManageDonationItems = () => {
       const data = await response.json();
       alert(`Approval Status Updated: ${data.message}`);
 
-      // Update local state
-      setProperty((prev) =>
-        prev.map((item) =>
-          item._id === projectId 
-        )
-      );
+      // Refresh the current page
+      const res = await axios.get(`http://localhost:5000/project/getAllProjects`, {
+        params: {
+          page: page + 1,
+          limit: rowsPerPage,
+          search: searchTerm,
+          category: category
+        }
+      });
+      setProperty(res.data.projects || res.data);
+      setTotalProjects(res.data.total || res.data.length);
     } catch (error) {
       console.error("Error updating approval status:", error);
       alert("Error updating approval status");
     }
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+    setPage(0);
+  };
+
+  const handleCategoryChange = (event) => {
+    setCategory(event.target.value);
+    setPage(0);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
   return (
@@ -107,13 +143,20 @@ const ManageDonationItems = () => {
           <input
             type="text"
             placeholder="Search donations..."
+            value={searchTerm}
+            onChange={handleSearchChange}
             className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-sm"
           />
         </div>
-        <select className="py-2 px-3 rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-sm">
+        <select 
+          value={category}
+          onChange={handleCategoryChange}
+          className="py-2 px-3 rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-sm"
+        >
           <option value="">All Categories</option>
-
-          <option>null</option>
+          <option>Electronics</option>
+          <option>Clothing</option>
+          <option>Furniture</option>
         </select>
       </div>
 
@@ -150,7 +193,7 @@ const ManageDonationItems = () => {
                       className="rounded text-blue-600 focus:ring-blue-500"
                     />
                   </td>
-                  <td className="px-2 py-2  text-gray-600 text-sm">
+                  <td className="px-2 py-2 text-gray-600 text-sm">
                     {item.title}
                   </td>
                   <td className="px-2 py-2 text-gray-600 text-sm">
@@ -162,19 +205,16 @@ const ManageDonationItems = () => {
                   <td className="px-2 py-2 text-gray-600 text-sm">
                     {item.contact}
                   </td>
-
                   <td className="px-2 py-2 text-sm">
-                    <span
-                      className="px-2 py-1 rounded-full  text-gray-600 text-sm"
-                    >
+                    <span className="px-2 py-1 rounded-full text-gray-600 text-sm">
                       {item.itemCondition}
                     </span>
                   </td>
-
                   <td className="px-2 py-2">
                     <img
                       src={item.images}
-                      className="bg-gray-100 rounded-full overflow-hidden flex items-center "
+                      alt="Item"
+                      className="bg-gray-100 rounded-full overflow-hidden flex items-center"
                       style={{ width: "30px", height: "30px" }}
                     />
                   </td>
@@ -195,17 +235,18 @@ const ManageDonationItems = () => {
                         View
                       </button>
                       <button
-                        className=" text-green-800 hover:text-blue-400 transition-colors duration-200 text-xs"
+                        className="text-green-800 hover:text-blue-400 transition-colors duration-200 text-xs"
                         onClick={() =>
                           handleUpdateApproval(item._id, "Approved")
                         }
                       >
                         Approve
                       </button>
-                      <button className="text-red-600 hover:text-red-800 transition-colors duration-200 text-xs"
-                      onClick={() =>
-                        handleUpdateApproval(item._id, "Rejected")
-                      }
+                      <button 
+                        className="text-red-600 hover:text-red-800 transition-colors duration-200 text-xs"
+                        onClick={() =>
+                          handleUpdateApproval(item._id, "Rejected")
+                        }
                       >
                         Reject
                       </button>
@@ -215,6 +256,29 @@ const ManageDonationItems = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        
+        {/* Pagination */}
+        <div className="flex justify-center items-center p-4">
+          <div className="flex space-x-2">
+            <button 
+              onClick={() => handleChangePage(null, page - 1)}
+              disabled={page === 0}
+              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <span className="px-4 py-2">
+              Page {page + 1} of {Math.ceil(totalProjects / rowsPerPage)}
+            </span>
+            <button 
+              onClick={() => handleChangePage(null, page + 1)}
+              disabled={page >= Math.floor(totalProjects / rowsPerPage)}
+              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </div>

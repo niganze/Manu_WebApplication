@@ -113,6 +113,8 @@ const DashboardHome = () => {
 
   const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#0088FE'];
 
+  
+
   return (
     <div className="p-6 bg-gray-100">
       <div className="mb-6">

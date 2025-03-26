@@ -55,11 +55,18 @@ function DashboardHomeUser() {
     { id: 3, item: "Wooden Pallets", from: "Community Center", message: "We would love to use these for our garden project.", date: "Mar 2, 2025", status: "Replied" },
   ];
 
+
+// Getting data stored in Local Storage
+
+let userToken = JSON.parse(localStorage.getItem("userToken"))
+const userRole=userToken?.user?.role;
+const userName= userToken?.user?.lastname;
+
   return (
     <div className="px-4 py-6 bg-gray-50 min-h-screen">
       {/* Welcome Section */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-800">Welcome back, {userData.name}!</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Welcome back, {userName}!</h1>
         <p className="text-gray-600">Here's what's happening with your Manu Project activities</p>
       </div>
       
