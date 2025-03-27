@@ -30,12 +30,12 @@ const UserSidebar = () => {
             <span> All Items</span>
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link to="donations" className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600">
             <Heart size={20} className="text-gray-600" />
             <span>Donations</span>
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link to="userMarketView" className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600">
             < MdOutlineShoppingBag  size={20} className="text-gray-600" />
