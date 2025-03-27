@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { 
   LayoutDashboard, Package, Heart, MessageSquare, BarChart, Settings, LogOut 
 } from "lucide-react";
+import { FaBagShopping } from "react-icons/fa6";
+import { MdOutlineShoppingBag } from "react-icons/md";
 
 const UserSidebar = () => {
   return (
@@ -10,7 +12,7 @@ const UserSidebar = () => {
       {/* Logo */}
       <div className="p-5 text-2xl font-bold text-[#A99FFF] cursor-pointer">
         <Link to ="/">
-          Manu WebApp
+          Manu 
         </Link>
       </div>
 
@@ -25,7 +27,7 @@ const UserSidebar = () => {
         <li>
           <Link to="my-items" className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600">
             <Package size={20} className="text-gray-600" />
-            <span>My Items</span>
+            <span> All Items</span>
           </Link>
         </li>
         <li>
@@ -35,9 +37,9 @@ const UserSidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="interactions" className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600">
-            <MessageSquare size={20} className="text-gray-600" />
-            <span>Interactions</span>
+          <Link to="userMarketView" className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600">
+            < MdOutlineShoppingBag  size={20} className="text-gray-600" />
+            <span>Market place</span>
           </Link>
         </li>
         <li>

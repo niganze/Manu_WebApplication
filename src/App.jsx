@@ -27,6 +27,7 @@ import BlogsD from "./page/admin/BlogsD";
 import Blogs from "./page/Home/Blogs";
 import MarketPlaceForm from "./page/admin/MarketPlaceForm";
 import Subscription from "./page/admin/Subscription";
+import UserMarketPlace from "./page/users/UserMarketPlace";
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
           <Route path="interactions" element={<Interactions />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="userMarketView" element={<UserMarketPlace/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

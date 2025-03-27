@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Edit, Trash2, Filter, Search, Plus } from "lucide-react";
 import axios from "axios";
 
-function InventoryManagement() {
+function UserMarketPlace() {
   const [property, setProperty] = useState([]);
   useEffect(() => {
     const getAllItems = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/project/ApprovedProjects`
+          `http://localhost:5000/marketItem/getAllMarkets`
         );
-        setProperty(res.data.data);
+        setProperty(res.data);
         console.log(res);
       } catch (error) {
         console.log(error);
@@ -34,7 +34,9 @@ function InventoryManagement() {
               <Filter size={14} />
             </div>
           </div>
-          <span className="ml-3 text-gray-500 text-sm">products</span>
+          <span className="ml-3 text-gray-500 text-sm">
+            products
+          </span>
         </div>
 
         <div className="flex items-center w-full md:w-auto">
@@ -50,7 +52,7 @@ function InventoryManagement() {
           </div>
           <button className="bg-[#A99FFF]  hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center">
             <Plus size={16} className="mr-1" />
-            Create new Chart..
+            All Available At Market..
           </button>
         </div>
       </div>
@@ -73,16 +75,16 @@ function InventoryManagement() {
                 ItemImage
               </th>
               <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Title
+                ItemName
               </th>
               <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                PosterName
+                Item Price
               </th>
               <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 PosterContact
               </th>
               <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
+                status 
               </th>
               <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Actions
@@ -90,49 +92,57 @@ function InventoryManagement() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {property.map((product, index) => (
-              <tr key={product._id} className="hover:bg-gray-50">
+            
+
+            {property.map((item,index) => (
+              <tr key={item._id} className="hover:bg-gray-50">
                 <td className="px-3 py-2 whitespace-nowrap">
                   <input
                     type="checkbox"
                     className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    
                   />
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
-                  {index + 1}
+                  {index+1}
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap">
                   <div className="flex items-center">
                     <img
-                      src={product.images}
-                      alt={product.title}
+                      src={item.images}
+                      alt={item.itemName}
                       className="h-8 w-8 rounded-md object-cover mr-2"
                     />
+                    
                   </div>
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
-                  {product.title}
+                  {item.itemName}
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
-                  {product.posterName}
+                 ${item.itemPrice}
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
-                  {product.contact}
+                  {item.contact}
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-900">
-                  {product.description}
+                  {item.itemCondition}
+  
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap">
-                  {product.status}
-                </td>
-
-                <td className="px-3 py-2 flex items-start">
-                  <button
-                    onClick={() => handleUpdate(product.id)}
-                    className="p-1 text-blue-600 hover:text-blue-800 hover:bg-blue-100 "
-                  >
-                    VIEW
-                  </button>
+                
+                    {item.status}
+                  </td>
+               
+                <td className="px-3 py-2 whitespace-nowrap">
+                  <div className="flex items-center space-x-2">
+                    <button
+                    
+                      className="p-1 text-blue-600 hover:text-blue-800 hover:bg-blue-100 "
+                    >
+                      VIEW
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -143,4 +153,4 @@ function InventoryManagement() {
   );
 }
 
-export default InventoryManagement;
+export default UserMarketPlace;
