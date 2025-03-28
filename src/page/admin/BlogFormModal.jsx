@@ -14,7 +14,7 @@ const BlogFormModal = ({ addModal }) => {
       formData.append("images", data.images[0]); // Use the first selected image
       formData.append("content", data.content);
 
-      await axios.post("http://localhost:5000/blog/createBlog", formData, {
+      await axios.post("https://manu-backend-6i7q.onrender.com/blog/createBlog", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

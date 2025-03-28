@@ -28,6 +28,7 @@ import Blogs from "./page/Home/Blogs";
 import MarketPlaceForm from "./page/admin/MarketPlaceForm";
 import Subscription from "./page/admin/Subscription";
 import UserMarketPlace from "./page/users/UserMarketPlace";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
@@ -35,15 +36,14 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeLayout />}>
           <Route index element={<Home />} />
-          <Route path="/landing" element={<Home/>}/>
+          <Route path="/landing" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="service" element={<Service />} />
           <Route path="community" element={<Community />} />
           <Route path="impact" element={<Impact />} />
           <Route path="marketplace" element={<MarketPlace />} />
-          <Route path="blogs" element={<Blogs/>}/>
+          <Route path="blogs" element={<Blogs />} />
           <Route path="/community" element={<Community />} />
-          
         </Route>
 
         <Route path="/login" element={<Login />} />
@@ -59,18 +59,16 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="profile" element={<AdminProfile />} />
           <Route path="blogsD" element={<BlogsD />} />
-         
-          <Route path="/admindashboard/marketplace/marketForm" element={<MarketPlaceForm/>}/>
+          <Route path="marketplace/marketForm" element={<MarketPlaceForm />} />
           <Route path="subscription" element={<Subscription />} />
         </Route>
-        <Route path="/user-dashbaord" element={<UserDashboard />}>
+
+        <Route path="/user-dashboard" element={<UserDashboard />}>
           <Route index element={<DashboardHomeUser />} />
-          <Route path="my-items" element={<MyItems />} />
-          <Route path="donations" element={<Donations />} />
-          <Route path="interactions" element={<Interactions />} />
+          <Route path="items" element={<MyItems />} />
           <Route path="analytics" element={<Analytics />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="userMarketView" element={<UserMarketPlace/>}/>
+          <Route path="interactions" element={<Interactions />} />
+          <Route path="marketplace" element={<UserMarketPlace />} />
         </Route>
       </Routes>
     </BrowserRouter>

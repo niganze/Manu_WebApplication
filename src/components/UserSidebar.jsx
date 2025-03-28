@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { 
-  LayoutDashboard, Package, Heart, MessageSquare, BarChart, Settings, LogOut 
+import {
+  LayoutDashboard,
+  Package,
+  BarChart,
+  Settings,
+  LogOut,
 } from "lucide-react";
-import { FaBagShopping } from "react-icons/fa6";
 import { MdOutlineShoppingBag } from "react-icons/md";
 
 const UserSidebar = () => {
@@ -11,21 +14,25 @@ const UserSidebar = () => {
     <div className="w-64 bg-[#F0F2F5] text-gray-800 h-full shadow-md">
       {/* Logo */}
       <div className="p-5 text-2xl font-bold text-[#A99FFF] cursor-pointer">
-        <Link to ="/">
-          Manu 
-        </Link>
+        <Link to="/">Manu</Link>
       </div>
 
       {/* Navigation Links */}
       <ul className="space-y-2 p-5">
         <li>
-          <Link to="" className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600">
+          <Link
+            to=""
+            className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600"
+          >
             <LayoutDashboard size={20} className="text-gray-600" />
             <span>Dashboard</span>
           </Link>
         </li>
         <li>
-          <Link to="my-items" className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600">
+          <Link
+            to="my-items"
+            className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600"
+          >
             <Package size={20} className="text-gray-600" />
             <span> All Items</span>
           </Link>
@@ -37,19 +44,28 @@ const UserSidebar = () => {
           </Link>
         </li> */}
         <li>
-          <Link to="userMarketView" className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600">
-            < MdOutlineShoppingBag  size={20} className="text-gray-600" />
+          <Link
+            to="userMarketView"
+            className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600"
+          >
+            <MdOutlineShoppingBag size={20} className="text-gray-600" />
             <span>Market place</span>
           </Link>
         </li>
         <li>
-          <Link to="analytics" className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600">
+          <Link
+            to="analytics"
+            className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600"
+          >
             <BarChart size={20} className="text-gray-600" />
             <span>Analytics</span>
           </Link>
         </li>
         <li>
-          <Link to="settings" className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600">
+          <Link
+            to="settings"
+            className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600"
+          >
             <Settings size={20} className="text-gray-600" />
             <span>Settings</span>
           </Link>

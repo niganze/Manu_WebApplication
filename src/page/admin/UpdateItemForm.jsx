@@ -29,7 +29,7 @@ const UpdateItemForm = ({ handleEditMarket,item}) => {
       images,
     };
     try {
-      await axios.put(`http://localhost:5000/marketItem/updateMarket/${item_id}`, formData,
+      await axios.put(`https://manu-backend-6i7q.onrender.com/marketItem/updateMarket/${item_id}`, formData,
         {
           headers: { "Content-Type": "multipart/form-data" }
         }

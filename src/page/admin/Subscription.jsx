@@ -28,7 +28,7 @@ const Subscription = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await axios.get(`http://localhost:5000/sub/getSubscriptions`, {
+        const res = await axios.get(`https://manu-backend-6i7q.onrender.com/sub/getSubscriptions`, {
           params: {
             page: page + 1,
             limit: rowsPerPage

@@ -6,46 +6,41 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Notify } from "notiflix";
 function Login() {
-  const navigate=useNavigate();
-const{register,handleSubmit,formState:{error}}=useForm();
-const onsubmit=async(data)=>{
-  try{
-const {email,password}=data;
-const formData=new FormData();
-formData.append("email",email);
-formData.append("password",password);
-const res=await axios.post(` http://localhost:5000/user/login`,formData,
-  {
-    headers:{
-      "Content-Type":"application/json"
+  const navigate = useNavigate();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const onsubmit = async (data) => {
+    try {
+      const { email, password } = data;
+      const formData=new FormData();
+      formData.append("email",email);
+      formData.append("password",password)
+      const res = await axios.post(`https://manu-backend-6i7q.onrender.com/user/login`,formData,
+        {
+          headers:{
+            "Content-Type":"application/json"
+          }
+        }
+      );
+
+      const userToken = res.data;
+      localStorage.setItem("userToken", JSON.stringify(userToken));
+
+      const userRole = userToken?.user?.role;
+      if (userRole === "Admin") {
+        navigate("/admindashboard");
+        Notify.success("Admin Login Successful");
+      } else if (userRole === "user") {
+        navigate("/user-dashboard"); // Fixed spelling
+        Notify.success("User Login Successful");
+      } else {
+        navigate("/landing");
+      }
+    } catch (error) {
+      console.error(error);
+      Notify.failure("Login failed");
     }
-  }
-)
-const userToken=res.data;
-localStorage.setItem("userToken",JSON.stringify(userToken));
-const userRole=userToken?.user?.role;
-if(userRole==="Admin")
-{
-  navigate("/admindashboard")
-  Notify.success("Admin Login successFull")
-}
-else if(userRole==="user")
-{
-  navigate("/user-dashbaord")
-  Notify.success("User Login successFull")
-}
-else
-{
-  navigate("/landing")
-}
-  }
-
-catch(error){
-console.log(error)
-Notify.failure("failure in Login");
-  }
-}
-
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-50">

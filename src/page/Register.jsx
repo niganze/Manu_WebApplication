@@ -30,7 +30,7 @@ function Register() {
       formData.append("email",email);
       formData.append("password",password);
 
-      const res=await axios.post(`http://localhost:5000/user/register`,formData,
+      const res=await axios.post(`https://manu-backend-6i7q.onrender.com/user/register`,formData,
         {
           headers:{
             "Content-Type":"application/json"

@@ -11,7 +11,7 @@ const DashboardHome = () => {
     
     const getUsers=async()=>{
       try{
-        const response=await axios.get(`http://localhost:5000/user/getAllUsers`)
+        const response=await axios.get(`https://manu-backend-6i7q.onrender.com/user/getAllUsers`)
         setUser(response.data);
       }
       catch(error)
@@ -29,7 +29,7 @@ const DashboardHome = () => {
     const getAllProperty = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/project/getAllProjects`
+          `https://manu-backend-6i7q.onrender.com/project/getAllProjects`
         );
         setProperty(res.data);
         console.log(res.data);
@@ -50,7 +50,7 @@ const DashboardHome = () => {
    useEffect(() => {
       const getAllProperty = async () => {
         try {
-          const res = await axios.get("http://localhost:5000/marketItem/getAllMarkets");
+          const res = await axios.get(`https://manu-backend-6i7q.onrender.com/marketItem/getAllMarkets`);
           setMarket(res.data);
           console.log(res.data);
         } catch (error) {
@@ -64,7 +64,7 @@ const DashboardHome = () => {
   useEffect(() => {
     const getAllBlogs = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/blog/getAllBlogs`);
+        const res = await axios.get(`https://manu-backend-6i7q.onrender.com/blog/getAllBlogs`);
         setBlog(res.data);
         console.log(res.data);
       } catch (error) {
