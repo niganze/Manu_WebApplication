@@ -100,10 +100,10 @@ const Sidebar = () => {
 
       {/* Logout */}
       <div className="absolute bottom-5 left-5 bg-[#F0F2F5]">
-        <button className="flex items-center space-x-3 p-2 text-gray-800 hover:text-red-500">
+        <Link to="/landing"><button className="flex items-center space-x-3 p-2 text-gray-800 hover:text-red-500">
           <LogOut size={20} />
           <span>Logout</span>
-        </button>
+        </button></Link>
       </div>
     </div>
   );
