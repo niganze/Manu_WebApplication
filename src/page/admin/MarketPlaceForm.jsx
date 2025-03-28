@@ -59,7 +59,7 @@ const MarketPlaceForm = () => {
       }
 
       const res = await axios.post(
-        `http://localhost:5000/marketItem/createMarket`,
+        `https://manu-backend-6i7q.onrender.com/marketItem/createMarket`,
         formData,
         {
           headers: {
