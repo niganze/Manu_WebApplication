@@ -12,7 +12,7 @@ function ManageUsers() {
   useEffect(() => {
     const getAllUsers = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/user/getAllUsers`);
+        const res = await axios.get(`https://manu-backend-6i7q.onrender.com/user/getAllUsers`);
         setUsers(res.data);
       } catch (error) {
         console.log(error);

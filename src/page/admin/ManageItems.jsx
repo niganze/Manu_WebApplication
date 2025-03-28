@@ -50,7 +50,7 @@ const ManageDonationItems = () => {
       alert(`Approval Status Updated: ${data.message}`);
 
       // Refresh the current page
-      const res = await axios.get(`http://localhost:5000/project/getAllProjects`, {
+      const res = await axios.get(`https://manu-backend-6i7q.onrender.com/project/getAllProjects`, {
         params: {
           page: page + 1,
           limit: rowsPerPage,
