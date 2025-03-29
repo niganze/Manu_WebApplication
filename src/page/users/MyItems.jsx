@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Edit, Trash2, Filter, Search, Plus } from "lucide-react";
 import axios from "axios";
+import DonateForm from "./DonateForm";
 
 function InventoryManagement() {
   const [property, setProperty] = useState([]);
+  const [donModal, setDonModal] = useState(false);
+  const [selectedProjectId, setSelectedProjectId] = useState(null); // Store the selected ProjectId
   useEffect(() => {
     const getAllItems = async () => {
       try {
@@ -19,8 +22,14 @@ function InventoryManagement() {
     getAllItems();
   }, []);
 
+  const handleDonation = (ProjectId) => {
+    setSelectedProjectId(ProjectId); // Store the clicked ProjectId
+    setDonModal(true);
+  };
+ 
   return (
     <div className="p-4 bg-white rounded-lg shadow-sm">
+        {donModal && <DonateForm handleDonation={() => setDonModal(false)} ProjectId={selectedProjectId} />}
       {/* Header area */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-4">
         <div className="flex items-center mb-4 md:mb-0">
@@ -126,12 +135,18 @@ function InventoryManagement() {
                   {product.status}
                 </td>
 
-                <td className="px-3 py-2 flex items-start">
+                <td className="flex flex-row items-center gap-2">
                   <button
                     onClick={() => handleUpdate(product.id)}
                     className="p-1 text-blue-600 hover:text-blue-800 hover:bg-blue-100 "
                   >
                     VIEW
+                  </button>
+                  <button
+                    onClick={() => handleDonation(product._id)} // Pass ProjectId
+                    className="p-1 text-green-400 hover:text-green-800 hover:bg-blue-100"
+                  >
+                    DONATE
                   </button>
                 </td>
               </tr>

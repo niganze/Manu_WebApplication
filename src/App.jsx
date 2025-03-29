@@ -29,7 +29,7 @@ import MarketPlaceForm from "./page/admin/MarketPlaceForm";
 import Subscription from "./page/admin/Subscription";
 import UserMarketPlace from "./page/users/UserMarketPlace";
 import ProtectedRoute from "./ProtectedRoute";
-
+import Donation from "./page/users/UDonation";
 function App() {
   return (
     <BrowserRouter>
@@ -71,7 +71,7 @@ function App() {
           <Route path="marketplace" element={<UserMarketPlace />} />
           
           <Route path="viewMarketplace" element={<UserMarketPlace />} />
-          <Route path="userDonation" element={<Donations/>} />
+          <Route path="userDonation" element={<Donation/>} />
         </Route>
       </Routes>
     </BrowserRouter>
