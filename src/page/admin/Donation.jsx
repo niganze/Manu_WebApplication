@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { ChevronDown, PlusCircle, Eye, X } from "lucide-react";
 import BB from "../../assets/beneficiary.jpeg";
+import { useEffect } from "react";
+import axios from "axios";
 const Donation = () => {
   // State for donations
   const [donations, setDonations] = useState([
@@ -68,6 +70,23 @@ const Donation = () => {
     setDonations([...donations, donationToAdd]);
     handleCloseDonationForm();
   };
+ const[donation,setDonation]=useState([]);
+  useEffect(() => {
+    const getAllItems = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/donation/getAllDonation`
+        );
+        setDonation(res.data);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllItems();
+  }, []);
+
+   
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
@@ -90,11 +109,10 @@ const Donation = () => {
               <thead className="bg-gray-100">
                 <tr>
                   {[
-                    "Item Name",
-                    "Category",
-                    "Condition",
-                    "Location",
-                    "Beneficiary",
+                    "ProjectTitle",
+                    "Donor Name",
+                    "Donor Email",
+                    "Amount",
                     "Status",
                     "Actions",
                   ].map((header) => (
@@ -108,49 +126,41 @@ const Donation = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {donations.map((donation) => (
-                  <tr
-                    key={donation.id}
-                    className="hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    <td className="px-4 py-4 text-sm text-gray-900">
-                      {donation.itemName}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-500">
-                      {donation.category}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-500">
-                      {donation.condition}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-500">
-                      {donation.location}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-500">
-                      {donation.beneficiary}
-                    </td>
-                    <td className="px-4 py-4">
-                      <span
-                        className={`
-                        px-3 py-1 rounded-full text-xs font-medium
-                        ${
-                          donation.status === "Pending"
-                            ? "bg-yellow-100 text-yellow-800"
-                            : donation.status === "Approved"
-                            ? "bg-green-100 text-green-800"
-                            : "bg-red-100 text-red-800"
-                        }`}
-                      >
-                        {donation.status}
-                      </span>
-                    </td>
-                    <td className="px-4 py-4">
-                      <button className="text-[#ABA1FF] hover:text-purple-700 flex items-center transition-colors duration-200">
-                        <Eye className="w-4 h-4 mr-1" /> View
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+  {donation.map((item) => (
+    <tr key={item._id} className="hover:bg-gray-50 transition-colors duration-200">
+      <td className="px-4 py-4 text-sm text-gray-900">{item?.ProjectId?.title}</td>
+      <td className="px-4 py-4 text-sm text-gray-500">
+        {item.userId?.firstname} {item.userId?.lastname}
+      </td>
+      <td className="px-4 py-4 text-sm text-gray-500">{item.donorEmail}</td>
+      <td className="px-4 py-4 text-sm text-gray-500">{item.AmountDonated}</td>
+      {/* <td className="px-4 py-4 text-sm text-gray-500">{item.Comment}</td> */}
+      {/* <td className="px-4 py-4 text-sm text-gray-500">{item.status}</td> */}
+      <td className="px-4 py-4">
+        <span
+          className={`px-3 py-1 rounded-full text-xs font-medium ${
+            item.status === "Pending"
+              ? "bg-yellow-100 text-yellow-800"
+              : item.status === "Approved"
+              ? "bg-green-100 text-green-800"
+              : "bg-red-100 text-red-800"
+          }`}
+        >
+          {item.status}
+        </span>
+      </td>
+      <td className="px-4 py-4 flex flex-row space-x-3">
+        <button className="text-[#ABA1FF] hover:text-purple-700 transition-colors duration-200">
+          View
+        </button>
+        <button className="text-green-400 hover:text-green-700 transition-colors duration-200">
+          Confirm Payment
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
             </table>
           </div>
         </div>

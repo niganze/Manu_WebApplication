@@ -52,7 +52,7 @@ function App() {
           <Route index element={<DashboardHome />} />
           <Route path="items" element={<ManageItems />} />
           <Route path="users" element={<ManageUsers />} />
-          <Route path="donations" element={<Donations />} />
+          <Route path="donations" element={<Donations/>} />
           <Route path="marketplace" element={<Marketplace />} />
           <Route path="reports" element={<Reports />} />
           <Route path="settings" element={<Settings />} />

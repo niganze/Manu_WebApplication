@@ -9,6 +9,7 @@ import {
   Settings,
   LogOut,
   Layers,  // New import for a different icon
+  CreditCard
 } from "lucide-react";
 
 const Sidebar = () => {
@@ -46,7 +47,7 @@ const Sidebar = () => {
             to="subscription"
             className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-500"
           >
-            <Heart size={20} className="text-[#A99FFF]" />
+            <CreditCard size={20} className="text-[#A99FFF]" />
             <span>Subscriptions</span>
           </Link>
         </li>
@@ -67,6 +68,15 @@ const Sidebar = () => {
           >
             <Layers size={20} className="text-[#A99FFF]" />
             <span>All Items</span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="donations"
+            className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-500"
+          >
+            <Heart size={20} className="text-[#A99FFF]" />
+            <span>Donations</span>
           </Link>
         </li>
         <li>

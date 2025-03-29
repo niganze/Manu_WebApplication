@@ -6,9 +6,9 @@ import DonateForm from "./DonateForm";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Heart } from "lucide-react";
 const Donation = () => {
   // State for donations
-  
 
   // State for donation statistics
   const donationStats = [
@@ -43,7 +43,12 @@ const Donation = () => {
     }));
   };
 
- 
+  const [openDon, setOpenDon] = useState(false);
+
+  const [selectedData, setSelectedData] = useState(null);
+  const handleDonation = () => {
+    setOpenDon(!openDon);
+  };
   const [property, setProperty] = useState([]);
 
   useEffect(() => {
@@ -56,7 +61,9 @@ const Donation = () => {
         if (!userId) return; // Ensure userId exists
 
         // Fetch donation data for the user
-        const res = await axios.get(`http://localhost:5000/donation/donations/${userId}`);
+        const res = await axios.get(
+          `http://localhost:5000/donation/donations/${userId}`
+        );
         setProperty(res.data); // Update state with response data
       } catch (error) {
         console.error("Error fetching donations:", error);
@@ -74,10 +81,10 @@ const Donation = () => {
             Donation Management
           </h1>
           <button
-            onClick={handleOpenDonationForm}
+            onClick={handleDonation}
             className="bg-[#ABA1FF] text-white px-4 py-2 rounded-lg hover:bg-purple-500 flex items-center transition-colors duration-300 shadow-md hover:shadow-lg"
           >
-            <PlusCircle className="w-5 h-5 mr-2" /> Post New Donation
+           <Heart/> &nbsp; &nbsp; {property.length}
           </button>
         </div>
         {/* Donations Table */}
@@ -86,26 +93,31 @@ const Donation = () => {
             <table className="w-full">
               <thead className="bg-gray-100">
                 <tr>
-                  {["No.", "Doner Email", "Phone Num", "Amount", "Status","Comment"].map(
-                    (header) => (
-                      <th
-                        key={header}
-                        className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >
-                        {header}
-                      </th>
-                    )
-                  )}
+                  {[
+                    "No.",
+                    "Doner Email",
+                    "Phone Num",
+                    "Amount",
+                    "Status",
+                    "Comment",
+                  ].map((header) => (
+                    <th
+                      key={header}
+                      className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                    >
+                      {header}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {property.map((donation,index) => (
+                {property.map((donation, index) => (
                   <tr
                     key={donation._id}
                     className="hover:bg-gray-50 transition-colors duration-200"
                   >
                     <td className="px-4 py-4 text-sm text-gray-900">
-                      {index+1}
+                      {index + 1}
                     </td>
                     <td className="px-4 py-4 text-sm text-gray-900">
                       {donation.donorEmail}
@@ -134,7 +146,7 @@ const Donation = () => {
                     <td className="px-4 py-4 text-sm text-gray-500">
                       {donation.Comment}
                     </td>
-                   
+
                     <td className="px-4 py-4">
                       <button className="text-[#ABA1FF] hover:text-purple-700 flex items-center transition-colors duration-200">
                         <Eye className="w-4 h-4 mr-1" /> View
