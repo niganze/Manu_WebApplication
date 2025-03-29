@@ -3,28 +3,12 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { ChevronDown, PlusCircle, Eye, X } from "lucide-react";
 import BB from "../../assets/beneficiary.jpeg";
 import DonateForm from "./DonateForm";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 const Donation = () => {
   // State for donations
-  const [donations, setDonations] = useState([
-    {
-      id: 1,
-      itemName: "Bricks",
-      category: "Construction Material",
-      condition: "New",
-      location: "KN 800 St, Kigali",
-      beneficiary: "Hope School",
-      status: "Pending",
-    },
-    {
-      id: 2,
-      itemName: "Textbooks",
-      category: "Education",
-      condition: "Used",
-      location: "KG 11 Ave, Kigali",
-      beneficiary: "Rural Community Library",
-      status: "Approved",
-    },
-  ]);
+  
 
   // State for donation statistics
   const donationStats = [
@@ -59,16 +43,28 @@ const Donation = () => {
     }));
   };
 
-  const handleSubmitDonation = () => {
-    const donationToAdd = {
-      ...newDonation,
-      id: donations.length + 1,
-      status: "Pending",
-      beneficiary: "Pending Approval",
+ 
+  const [property, setProperty] = useState([]);
+
+  useEffect(() => {
+    const fetchDonations = async () => {
+      try {
+        // Retrieve user token from localStorage
+        const userToken = JSON.parse(localStorage.getItem("userToken"));
+        const userId = userToken?.user?._id; // Extract userId
+
+        if (!userId) return; // Ensure userId exists
+
+        // Fetch donation data for the user
+        const res = await axios.get(`http://localhost:5000/donation/donations/${userId}`);
+        setProperty(res.data); // Update state with response data
+      } catch (error) {
+        console.error("Error fetching donations:", error);
+      }
     };
-    setDonations([...donations, donationToAdd]);
-    handleCloseDonationForm();
-  };
+
+    fetchDonations();
+  }, []); // Run once on component mount
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
@@ -103,25 +99,22 @@ const Donation = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {donations.map((donation) => (
+                {property.map((donation,index) => (
                   <tr
-                    key={donation.id}
+                    key={donation._id}
                     className="hover:bg-gray-50 transition-colors duration-200"
                   >
                     <td className="px-4 py-4 text-sm text-gray-900">
-                      {donation.itemName}
+                      {index+1}
+                    </td>
+                    <td className="px-4 py-4 text-sm text-gray-900">
+                      {donation.donorEmail}
                     </td>
                     <td className="px-4 py-4 text-sm text-gray-500">
-                      {donation.category}
+                      {donation.PhoneNum}
                     </td>
                     <td className="px-4 py-4 text-sm text-gray-500">
-                      {donation.condition}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-500">
-                      {donation.location}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-500">
-                      {donation.beneficiary}
+                      {donation.AmountDonated}
                     </td>
                     <td className="px-4 py-4">
                       <span
@@ -138,6 +131,10 @@ const Donation = () => {
                         {donation.status}
                       </span>
                     </td>
+                    <td className="px-4 py-4 text-sm text-gray-500">
+                      {donation.Comment}
+                    </td>
+                   
                     <td className="px-4 py-4">
                       <button className="text-[#ABA1FF] hover:text-purple-700 flex items-center transition-colors duration-200">
                         <Eye className="w-4 h-4 mr-1" /> View
