@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { Notify } from 'notiflix';
 
 function Footer() {
 
@@ -19,7 +20,7 @@ function Footer() {
       formData.append("email", email);
   
       const res = await axios.post(
-        `http://localhost:5000/sub/createSubscription`,
+        `https://manu-backend-6i7q.onrender.com/sub/createSubscription`,
         formData,
         {
           headers: {

@@ -21,7 +21,7 @@ const{title,description,images,posterName,itemCondition,contact}=data;
   formData.append("location",location);
   formData.append("contact",contact);
    
-  const res=await axios.post(`http://localhost:5000/project/createProject`,formData,
+  const res=await axios.post(`https://manu-backend-6i7q.onrender.com/project/createProject`,formData,
     {
       headers:{
         "Content-Type": "multipart/form-data"
@@ -44,7 +44,7 @@ const [charti, setCharti] = useState([]);
 useEffect(() => {
   const getAllcard = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/project/ApprovedProjects`);
+      const res = await axios.get(`https://manu-backend-6i7q.onrender.com/project/ApprovedProjects`);
       setCharti(res.data.data);
     } catch (error) {
       console.log(error);

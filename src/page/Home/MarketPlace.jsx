@@ -32,7 +32,7 @@ function MarketPlace() {
     const getAllProperty = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/marketItem/getAllMarkets`
+          `https://manu-backend-6i7q.onrender.com/marketItem/getAllMarkets`
         );
         setProperty(res.data);
         console.log(res.data);

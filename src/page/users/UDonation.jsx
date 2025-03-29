@@ -70,11 +70,8 @@ const Donation = () => {
     handleCloseDonationForm();
   };
 
-
-
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
-   
       <div className="container mx-auto">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-extrabold text-gray-500">
@@ -93,22 +90,16 @@ const Donation = () => {
             <table className="w-full">
               <thead className="bg-gray-100">
                 <tr>
-                  {[
-                    "Item Name",
-                    "Category",
-                    "Condition",
-                    "Location",
-                    "Beneficiary",
-                    "Status",
-                    "Actions",
-                  ].map((header) => (
-                    <th
-                      key={header}
-                      className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                    >
-                      {header}
-                    </th>
-                  ))}
+                  {["No.", "Doner Email", "Phone Num", "Amount", "Status","Comment"].map(
+                    (header) => (
+                      <th
+                        key={header}
+                        className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        {header}
+                      </th>
+                    )
+                  )}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -237,119 +228,119 @@ const Donation = () => {
         {/* New Donation Modal */}
         {openDonationForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl w-full max-w-md mx-auto shadow-2xl relative">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-[#ABA1FF] to-purple-500 p-3 rounded-t-xl flex justify-between items-center">
-              <h2 className="text-xl font-bold text-white">
-                Post a New Donation
-              </h2>
-              <button
-                onClick={handleCloseDonationForm}
-                className="text-white hover:bg-white/20 rounded-full p-1 transition-colors duration-300"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-    
-            {/* Form Content */}
-            <div className="p-4 space-y-3">
-              {[
-                {
-                  label: "Item Name",
-                  type: "text",
-                  name: "itemName",
-                  placeholder: "Enter item name",
-                },
-                {
-                  label: "Category",
-                  type: "select",
-                  name: "category",
-                  options: [
-                    "Construction",
-                    "Education",
-                    "Healthcare",
-                    "Other",
-                  ],
-                },
-                {
-                  label: "Condition",
-                  type: "select",
-                  name: "condition",
-                  options: ["New", "Used"],
-                },
-                {
-                  label: "Description",
-                  type: "textarea",
-                  name: "description",
-                  placeholder: "Describe the donation",
-                },
-                {
-                  label: "Location",
-                  type: "text",
-                  name: "location",
-                  placeholder: "Enter location",
-                },
-              ].map((field) => (
-                <div key={field.name} className="mb-2">
-                  <label className="block text-gray-700 mb-1 text-sm font-medium">
-                    {field.label}
-                  </label>
-                  {field.type === "select" ? (
-                    <div className="relative">
-                      <select
+            <div className="bg-white rounded-xl w-full max-w-md mx-auto shadow-2xl relative">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-[#ABA1FF] to-purple-500 p-3 rounded-t-xl flex justify-between items-center">
+                <h2 className="text-xl font-bold text-white">
+                  Post a New Donation
+                </h2>
+                <button
+                  onClick={handleCloseDonationForm}
+                  className="text-white hover:bg-white/20 rounded-full p-1 transition-colors duration-300"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Form Content */}
+              <div className="p-4 space-y-3">
+                {[
+                  {
+                    label: "Item Name",
+                    type: "text",
+                    name: "itemName",
+                    placeholder: "Enter item name",
+                  },
+                  {
+                    label: "Category",
+                    type: "select",
+                    name: "category",
+                    options: [
+                      "Construction",
+                      "Education",
+                      "Healthcare",
+                      "Other",
+                    ],
+                  },
+                  {
+                    label: "Condition",
+                    type: "select",
+                    name: "condition",
+                    options: ["New", "Used"],
+                  },
+                  {
+                    label: "Description",
+                    type: "textarea",
+                    name: "description",
+                    placeholder: "Describe the donation",
+                  },
+                  {
+                    label: "Location",
+                    type: "text",
+                    name: "location",
+                    placeholder: "Enter location",
+                  },
+                ].map((field) => (
+                  <div key={field.name} className="mb-2">
+                    <label className="block text-gray-700 mb-1 text-sm font-medium">
+                      {field.label}
+                    </label>
+                    {field.type === "select" ? (
+                      <div className="relative">
+                        <select
+                          name={field.name}
+                          value={newDonation[field.name]}
+                          onChange={handleNewDonationChange}
+                          className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-lg appearance-none focus:ring-2 focus:ring-[#ABA1FF]/50 focus:border-[#ABA1FF]"
+                        >
+                          <option value="">Select {field.label}</option>
+                          {field.options.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      </div>
+                    ) : field.type === "textarea" ? (
+                      <textarea
                         name={field.name}
                         value={newDonation[field.name]}
                         onChange={handleNewDonationChange}
-                        className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-lg appearance-none focus:ring-2 focus:ring-[#ABA1FF]/50 focus:border-[#ABA1FF]"
-                      >
-                        <option value="">Select {field.label}</option>
-                        {field.options.map((option) => (
-                          <option key={option} value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </select>
-                      <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                    </div>
-                  ) : field.type === "textarea" ? (
-                    <textarea
-                      name={field.name}
-                      value={newDonation[field.name]}
-                      onChange={handleNewDonationChange}
-                      placeholder={field.placeholder}
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-lg h-16 focus:ring-2 focus:ring-[#ABA1FF]/50 focus:border-[#ABA1FF]"
-                    ></textarea>
-                  ) : (
-                    <input
-                      type={field.type}
-                      name={field.name}
-                      value={newDonation[field.name]}
-                      onChange={handleNewDonationChange}
-                      placeholder={field.placeholder}
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ABA1FF]/50 focus:border-[#ABA1FF]"
-                    />
-                  )}
+                        placeholder={field.placeholder}
+                        className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-lg h-16 focus:ring-2 focus:ring-[#ABA1FF]/50 focus:border-[#ABA1FF]"
+                      ></textarea>
+                    ) : (
+                      <input
+                        type={field.type}
+                        name={field.name}
+                        value={newDonation[field.name]}
+                        onChange={handleNewDonationChange}
+                        placeholder={field.placeholder}
+                        className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ABA1FF]/50 focus:border-[#ABA1FF]"
+                      />
+                    )}
+                  </div>
+                ))}
+
+                {/* Button Container */}
+                <div className="flex space-x-3 pt-2">
+                  <button
+                    onClick={handleSubmitDonation}
+                    className="w-full bg-[#ABA1FF] text-white py-2 rounded-lg text-sm hover:bg-purple-600 transition-colors duration-300 shadow-md hover:shadow-lg"
+                  >
+                    Submit Donation
+                  </button>
+                  <button
+                    onClick={handleCloseDonationForm}
+                    className="w-full bg-gray-200 text-gray-700 py-2 rounded-lg text-sm hover:bg-gray-300 transition-colors duration-300"
+                  >
+                    Cancel
+                  </button>
                 </div>
-              ))}
-    
-              {/* Button Container */}
-              <div className="flex space-x-3 pt-2">
-                <button
-                  onClick={handleSubmitDonation}
-                  className="w-full bg-[#ABA1FF] text-white py-2 rounded-lg text-sm hover:bg-purple-600 transition-colors duration-300 shadow-md hover:shadow-lg"
-                >
-                  Submit Donation
-                </button>
-                <button
-                  onClick={handleCloseDonationForm}
-                  className="w-full bg-gray-200 text-gray-700 py-2 rounded-lg text-sm hover:bg-gray-300 transition-colors duration-300"
-                >
-                  Cancel
-                </button>
               </div>
             </div>
           </div>
-        </div>
         )}
       </div>
     </div>

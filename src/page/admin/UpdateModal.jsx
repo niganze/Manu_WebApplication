@@ -49,7 +49,7 @@ const UpdateModal = ({ handleModal, currentBlog, handleUpdate }) => {
 
     if (currentBlog) {
       try {
-        const res = await axios.put(`http://localhost:5000/blog/updateBlog/${currentBlog._id}`, form, {
+        const res = await axios.put(`https://manu-backend-6i7q.onrender.com/blog/updateBlog/${currentBlog._id}`, form, {
           headers: {
             "Content-Type": "multipart/form-data", // This is crucial for sending files
           },
