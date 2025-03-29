@@ -52,7 +52,7 @@ function Header() {
               <Link to="/about" className="hover:text-[#A99FFF] transition-colors" onClick={toggleMenu}>About Us</Link>
               <Link to="/marketplace" className="hover:text-[#A99FFF] transition-colors" onClick={toggleMenu}>Market Place</Link>
               <Link to="/community" className="hover:text-[#A99FFF] transition-colors" onClick={toggleMenu}>Community Shelter</Link>
-              <Link to="/clarity" className="hover:text-[#A99FFF] transition-colors" onClick={toggleMenu}>Clarity</Link>
+              {/* <Link to="" className="hover:text-[#A99FFF] transition-colors" onClick={toggleMenu}>Clarity</Link> */}
               <Link to="/impact" className="hover:text-[#A99FFF] transition-colors" onClick={toggleMenu}>Impact</Link>
 
               <Link to="/login" className="bg-[#A99FFF] text-white px-4 py-2 rounded-md font-medium hover:bg-purple-400 transition-colors w-fit">

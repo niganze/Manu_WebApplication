@@ -63,10 +63,10 @@ const BlogsD = () => {
   // Handle update request
   const handleUpdate = async (blog) => {
     try {
-      const res = await axios.put(` http://localhost:5000/blog/updateBlog/${blog._id}`, blog);
+      const res = await axios.put(`https://manu-backend-6i7q.onrender.com/blog/updateBlog/${blog._id}`, blog);
       
       // Refresh the current page
-      const refreshRes = await axios.get(` http://localhost:5000/blog/getAllBlogs`, {
+      const refreshRes = await axios.get(`https://manu-backend-6i7q.onrender.com/blog/getAllBlogs`, {
         params: {
           page: page + 1,
           limit: rowsPerPage,
