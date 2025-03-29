@@ -62,7 +62,7 @@ const Donation = () => {
 
         // Fetch donation data for the user
         const res = await axios.get(
-          `http://localhost:5000/donation/donations/${userId}`
+          `https://manu-backend-6i7q.onrender.com/donation/donations/${userId}`
         );
         setProperty(res.data); // Update state with response data
       } catch (error) {
