@@ -10,7 +10,7 @@ const MarketPlaceForm = () => {
     formState: { errors },
     reset,
   } = useForm();
-  
+    const [loading, setLoading] = useState(false); // Added loading state
   const [imagePreview, setImagePreview] = useState(null);
   
   const handleImageChange = (e) => {
@@ -25,6 +25,7 @@ const MarketPlaceForm = () => {
   };
   
   const onsubmit = async (data) => {
+    setLoading(true); // Start loading
     try {
       const {
         itemName,
@@ -299,11 +300,20 @@ const MarketPlaceForm = () => {
           </div>
 
           <div className="mt-6 sm:mt-8 flex justify-center sm:justify-end">
-            <button
+          <button
               type="submit"
-              className="w-full sm:w-auto bg-[#A99FFF] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-md text-sm sm:text-base font-medium hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A99FFF] transition-all duration-200 transform hover:scale-105"
+              className={`w-full bg-[#A99FFF] text-white py-3 rounded-lg font-medium transition duration-200 transform hover:scale-105 flex items-center justify-center ${
+                loading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#9380FF]"
+              }`}
+              disabled={loading}
             >
-              Submit Item
+              {loading ? (
+                <>
+                  Submitting...
+                </>
+              ) : (
+                "Submit Item"
+              )}
             </button>
           </div>
         </form>

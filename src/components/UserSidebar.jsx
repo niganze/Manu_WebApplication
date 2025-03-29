@@ -4,6 +4,7 @@ import {
   LayoutDashboard,
   Package,
   BarChart,
+  Heart,
   Settings,
   LogOut,
 } from "lucide-react";
@@ -30,7 +31,7 @@ const UserSidebar = () => {
         </li>
         <li>
           <Link
-            to="my-items"
+            to="items"
             className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600"
           >
             <Package size={20} className="text-gray-600" />
@@ -45,11 +46,20 @@ const UserSidebar = () => {
         </li> */}
         <li>
           <Link
-            to="userMarketView"
+            to="viewMarketplace"
             className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600"
           >
             <MdOutlineShoppingBag size={20} className="text-gray-600" />
             <span>Market place</span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="userDonation"
+            className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600"
+          >
+            <Heart size={20} className="text-gray-600" />
+            <span>Donation</span>
           </Link>
         </li>
         <li>

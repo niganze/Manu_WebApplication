@@ -69,6 +69,9 @@ function App() {
           <Route path="analytics" element={<Analytics />} />
           <Route path="interactions" element={<Interactions />} />
           <Route path="marketplace" element={<UserMarketPlace />} />
+          
+          <Route path="viewMarketplace" element={<UserMarketPlace />} />
+          <Route path="userDonation" element={<Donations/>} />
         </Route>
       </Routes>
     </BrowserRouter>

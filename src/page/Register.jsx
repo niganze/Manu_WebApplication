@@ -21,7 +21,9 @@ function Register() {
     register,
     formState: { errors },
   } = useForm();
+    const [loading, setLoading] = useState(false); // Added loading state
   const onsubmit = async (data) => {
+    setLoading(true); // Start loading
     try {
       const { firstname, lastname, email, password } = data;
    const formData=new FormData();
@@ -171,9 +173,18 @@ function Register() {
 
             <button
               type="submit"
-              className="w-full bg-[#A99FFF] text-white py-3 rounded-lg font-medium hover:bg-[#9380FF] transition duration-200 transform hover:scale-105"
+              className={`w-full bg-[#A99FFF] text-white py-3 rounded-lg font-medium transition duration-200 transform hover:scale-105 flex items-center justify-center ${
+                loading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#9380FF]"
+              }`}
+              disabled={loading}
             >
-              Create Account
+              {loading ? (
+                <>
+                  Creating ...
+                </>
+              ) : (
+                "Create Account"
+              )}
             </button>
           </form>
 
