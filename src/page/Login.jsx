@@ -20,7 +20,7 @@ function Login() {
       formData.append("email", email);
       formData.append("password", password);
 
-      const res = await axios.post(`http://localhost:5000/user/login`, formData, {
+      const res = await axios.post(`https://manu-backend-6i7q.onrender.com/user/login`, formData, {
         headers: {
           "Content-Type": "application/json"
         }
