@@ -17,7 +17,7 @@ const Donation = () => {
     const getAllItems = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/donation/getAllDonation`
+          `https://manu-backend-6i7q.onrender.com/donation/getAllDonation`
         );
         setDonation(res.data);
         console.log(res);
