@@ -73,7 +73,7 @@ const UserSidebar = () => {
         </li>
         <li>
           <Link
-            to="settings"
+            to="userSetting"
             className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600"
           >
             <Settings size={20} className="text-gray-600" />
