@@ -11,7 +11,7 @@ function InventoryManagement() {
     const getAllItems = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/project/ApprovedProjects`
+          `https://manu-backend-6i7q.onrender.com/project/ApprovedProjects`
         );
         setProperty(res.data.data);
         console.log(res);
