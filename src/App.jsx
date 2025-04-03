@@ -29,6 +29,7 @@ import MarketPlaceForm from "./page/admin/MarketPlaceForm";
 import Subscription from "./page/admin/Subscription";
 import UserMarketPlace from "./page/users/UserMarketPlace";
 import Donation from "./page/users/UDonation";
+import Charity from "./page/Home/Charity";
 function App() {
   return (
     <BrowserRouter>
@@ -42,7 +43,7 @@ function App() {
           <Route path="impact" element={<Impact />} />
           <Route path="marketplace" element={<MarketPlace />} />
           <Route path="blogs" element={<Blogs />} />
-          <Route path="/community" element={<Community />} />
+          <Route path="/charity" element={<Charity />} />
         </Route>
 
         <Route path="/login" element={<Login />} />

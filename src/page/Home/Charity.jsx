@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Notify } from "notiflix";
 
-function Community() {
+function Charity() {
   // Form handling with react-hook-form
   const {
     handleSubmit,
@@ -79,7 +79,7 @@ function Community() {
       <section className="py-12 bg-gradient-to-r from-[#EEF1F8] to-[#F7F7FF] text-center">
         <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-4xl font-bold text-[#1E3A8A] mb-4">
-            Community Projects 
+            Community Charities
           </h1>
           <p className="text-lg text-gray-700 max-w-3xl mx-auto">
             Join hands with us in making a difference. Support projects that provide help and create positive change in our communities.
@@ -553,4 +553,4 @@ function Community() {
   );
 }
 
-export default Community;
+export default Charity;

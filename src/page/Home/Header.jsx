@@ -51,7 +51,7 @@ function Header() {
             </Link>
 
             <Link
-              to="/community"
+              to="/charity"
               className="hover:text-[#A99FFF] transition-colors"
             >
               {" "}
