@@ -2,10 +2,11 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
-
+import Protection from "../../Protection";
 const AdminDashboard = () => {
   return (
-    <div className="flex h-screen overflow-hidden">
+    <Protection>
+       <div className="flex h-screen overflow-hidden">
       {/* Sidebar for navigation - fixed */}
       <div className="h-screen sticky top-0">
         <Sidebar />
@@ -26,6 +27,8 @@ const AdminDashboard = () => {
         </div>
       </div>
     </div>
+    </Protection>
+   
   );
 };
 

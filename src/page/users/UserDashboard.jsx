@@ -2,10 +2,11 @@ import React from 'react'
 import { Outlet } from "react-router-dom";
 import UserSidebar from '../../components/UserSidebar'
 import NavbarUser from '../../components/NavbarUser'
-
+import Protection from '../../Protection';
 function UserDashboard() {
   return (
-    <div className="flex h-screen overflow-hidden">
+    <Protection>
+       <div className="flex h-screen overflow-hidden">
       {/* Sidebar for navigation */}
 
       <div className="h-screen sticky top-0">
@@ -26,6 +27,8 @@ function UserDashboard() {
         
       </div>
     </div>
+    </Protection>
+   
   )
 }
 
