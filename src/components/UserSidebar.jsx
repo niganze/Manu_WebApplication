@@ -38,6 +38,15 @@ const UserSidebar = () => {
             <span> All Items</span>
           </Link>
         </li>
+        <li>
+          <Link
+            to="items"
+            className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600"
+          >
+            <Package size={20} className="text-gray-600" />
+            <span> All Charities</span>
+          </Link>
+        </li>
         {/* <li>
           <Link to="donations" className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600">
             <Heart size={20} className="text-gray-600" />

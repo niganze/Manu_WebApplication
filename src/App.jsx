@@ -31,6 +31,7 @@ import UserMarketPlace from "./page/users/UserMarketPlace";
 import Donation from "./page/users/UDonation";
 import Charity from "./page/Home/Charity";
 import Protection from "./Protection";
+import ManageCharity from "./page/admin/AllCharty";
 function App() {
   return (
     <BrowserRouter>
@@ -63,6 +64,7 @@ function App() {
           <Route path="blogsD" element={<BlogsD />} />
           <Route path="marketplace/marketForm" element={<MarketPlaceForm />} />
           <Route path="subscription" element={<Subscription />} />
+          <Route path="charities" element={<ManageCharity/>} />
         </Route>
 
         <Route path="/user-dashboard" element={<UserDashboard/>}>

@@ -73,7 +73,7 @@ const Sidebar = () => {
           </li>
           <li>
             <Link
-              to="items"
+              to="charities"
               className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-500"
             >
               <Globe  size={20} className="text-[#A99FFF]" />
