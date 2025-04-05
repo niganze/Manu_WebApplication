@@ -5,7 +5,7 @@ import NavbarUser from '../../components/NavbarUser'
 import Protection from '../../Protection';
 function UserDashboard() {
   return (
-    <Protection>
+
        <div className="flex h-screen overflow-hidden">
       {/* Sidebar for navigation */}
 
@@ -27,7 +27,7 @@ function UserDashboard() {
         
       </div>
     </div>
-    </Protection>
+
    
   )
 }

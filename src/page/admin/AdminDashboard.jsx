@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar";
 import Protection from "../../Protection";
 const AdminDashboard = () => {
   return (
-    <Protection>
+ 
        <div className="flex h-screen overflow-hidden">
       {/* Sidebar for navigation - fixed */}
       <div className="h-screen sticky top-0">
@@ -27,7 +27,7 @@ const AdminDashboard = () => {
         </div>
       </div>
     </div>
-    </Protection>
+    
    
   );
 };

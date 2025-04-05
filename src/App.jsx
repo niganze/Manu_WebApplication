@@ -30,6 +30,7 @@ import Subscription from "./page/admin/Subscription";
 import UserMarketPlace from "./page/users/UserMarketPlace";
 import Donation from "./page/users/UDonation";
 import Charity from "./page/Home/Charity";
+import Protection from "./Protection";
 function App() {
   return (
     <BrowserRouter>
@@ -50,6 +51,7 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/admindashboard" element={<AdminDashboard />}>
+        
           <Route index element={<DashboardHome />} />
           <Route path="items" element={<ManageItems />} />
           <Route path="users" element={<ManageUsers />} />
@@ -63,7 +65,7 @@ function App() {
           <Route path="subscription" element={<Subscription />} />
         </Route>
 
-        <Route path="/user-dashboard" element={<UserDashboard />}>
+        <Route path="/user-dashboard" element={<UserDashboard/>}>
           <Route index element={<DashboardHomeUser />} />
           <Route path="items" element={<MyItems />} />
           <Route path="analytics" element={<Analytics />} />
