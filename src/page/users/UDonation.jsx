@@ -160,7 +160,7 @@ const Donation = () => {
         </div>
 
         {/* Donation Statistics */}
-        <div className="grid md:grid-cols-2 gap-6 mt-8">
+        {/* <div className="grid md:grid-cols-2 gap-6 mt-8">
           <div className="bg-white rounded-xl shadow-lg overflow-hidden">
             <div className="p-1 bg-gradient-to-r from-[#ABA1FF]">
               <h2 className="text-1xl font-bold text-white">
@@ -191,7 +191,7 @@ const Donation = () => {
             </div>
           </div>
 
-          {/* Recent Beneficiaries */}
+     
           <div className="bg-white rounded-xl shadow-lg overflow-hidden">
             <div className="p-1 bg-gradient-to-r from-[#ABA1FF] to-purple-500">
               <h2 className="text-1xl font-bold text-white">
@@ -232,7 +232,7 @@ const Donation = () => {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* New Donation Modal */}
         {openDonationForm && (

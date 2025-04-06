@@ -90,6 +90,7 @@ function App() {
           <Route path="viewMarketplace" element={<UserMarketPlace />} />
           <Route path="userDonation" element={<Donation />} />
           <Route path="userSetting" element={<Settings />} />
+          <Route path="Usercharities" element={<ManageCharity />} />
         </Route>
       </Routes>
     </BrowserRouter>

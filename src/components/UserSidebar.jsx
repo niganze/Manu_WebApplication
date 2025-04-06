@@ -16,7 +16,7 @@ const UserSidebar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
-    navigate("/login");
+    navigate("/landing");
   };
 
   return (
@@ -48,7 +48,7 @@ const UserSidebar = () => {
         </li>
         <li>
           <Link
-            to="items"
+            to="Usercharities"
             className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600"
           >
             <Package size={20} className="text-gray-600" />
