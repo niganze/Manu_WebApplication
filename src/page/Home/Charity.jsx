@@ -118,7 +118,7 @@ function Charity() {
             }`}
             onClick={() => setActiveTab("projects")}
           >
-            View Projects
+            View Charities
           </button>
           <button
             className={`py-3 px-8 font-medium text-lg transition-all duration-300 ${

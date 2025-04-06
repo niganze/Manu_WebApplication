@@ -36,7 +36,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomeLayout />}>
+        {/* <Route path="/" element={<HomeLayout />}>
           <Route index element={<Home />} />
           <Route path="/landing" element={<Home />} />
           <Route path="about" element={<About />} />
@@ -77,7 +77,7 @@ function App() {
           <Route path="viewMarketplace" element={<UserMarketPlace />} />
           <Route path="userDonation" element={<Donation/>} />
           <Route path="userSetting" element={<Settings/>} />
-        </Route>
+        </Route> */}
       </Routes>
     </BrowserRouter>
   );

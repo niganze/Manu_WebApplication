@@ -34,7 +34,7 @@ function Home() {
                 Reducing Waste, <span className="text-[#A99FFF]">Building</span> a Sustainable Future
               </h1>
               <p className="text-lg md:text-xl">
-                ManuApp connects construction companies, contractors, and individuals to repurpose and redistribute construction materials, reducing environmental impact.
+              Manu develops tools and services designed to support stakeholders in the built environment sector, enabling them to address their specific needs and accelerate the adoption of reuse practices and the embed Circular Economy practices within the built environment,Which can significantly reduce the amount of virgin materials needed, greenhouse gas emissions, embodied ecological impacts, and waste generated, to name a few.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
