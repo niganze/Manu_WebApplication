@@ -12,8 +12,16 @@ import {
   CreditCard,
   Globe 
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    navigate("/landing");
+  };
+
   return (
     <div className="w-64 bg-[#F0F2F5] text-gray-800 h-screen flex flex-col shadow-md">
       {/* Fixed Logo Section */}
@@ -121,12 +129,12 @@ const Sidebar = () => {
 
       {/* Fixed Logout Section */}
       <div className="p-5 sticky bottom-0 bg-[#F0F2F5]">
-        <Link to="/landing">
-          <button className="flex items-center space-x-3 p-2 text-gray-800 hover:text-red-500">
+        
+          <button className="flex items-center space-x-3 p-2 text-gray-800 hover:text-red-500" onClick={handleLogout}>
             <LogOut size={20} />
             <span>Logout</span>
           </button>
-        </Link>
+      
       </div>
     </div>
   );

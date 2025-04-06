@@ -9,8 +9,16 @@ import {
   LogOut,
 } from "lucide-react";
 import { MdOutlineShoppingBag } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const UserSidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    navigate("/login");
+  };
+
   return (
     <div className="w-64 bg-[#F0F2F5] text-gray-800 h-full shadow-md">
       {/* Logo */}
@@ -93,10 +101,10 @@ const UserSidebar = () => {
 
       {/* Logout */}
       <div className="absolute bottom-5 left-5 bg-[#F0F2F5]">
-     <Link  to="/landing"> <button className="flex items-center space-x-3 p-2 text-gray-800 hover:text-red-600">
+    <button className="flex items-center space-x-3 p-2 text-gray-800 hover:text-red-600" onClick={handleLogout}>
           <LogOut size={20} />
           <span>Logout</span>
-        </button></Link>    
+        </button> 
       </div>
     </div>
   );

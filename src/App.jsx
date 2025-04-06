@@ -52,11 +52,17 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/admindashboard" element={<AdminDashboard />}>
-        
-          <Route index element={<DashboardHome />} />
+          <Route
+            index
+            element={
+              <Protection   allowedRoles={["Admin"]}>
+                <DashboardHome />
+              </Protection>
+            }
+          />
           <Route path="items" element={<ManageItems />} />
           <Route path="users" element={<ManageUsers />} />
-          <Route path="donations" element={<Donations/>} />
+          <Route path="donations" element={<Donations />} />
           <Route path="marketplace" element={<Marketplace />} />
           <Route path="reports" element={<Reports />} />
           <Route path="settings" element={<Settings />} />
@@ -64,20 +70,27 @@ function App() {
           <Route path="blogsD" element={<BlogsD />} />
           <Route path="marketplace/marketForm" element={<MarketPlaceForm />} />
           <Route path="subscription" element={<Subscription />} />
-          <Route path="charities" element={<ManageCharity/>} />
+          <Route path="charities" element={<ManageCharity />} />
         </Route>
 
-        <Route path="/user-dashboard" element={<UserDashboard/>}>
+        <Route
+          path="/user-dashboard"
+          element={
+            <Protection   allowedRoles={["user"]}>
+              <UserDashboard />
+            </Protection>
+          }
+        >
           <Route index element={<DashboardHomeUser />} />
           <Route path="items" element={<MyItems />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="interactions" element={<Interactions />} />
           <Route path="marketplace" element={<UserMarketPlace />} />
-          
+
           <Route path="viewMarketplace" element={<UserMarketPlace />} />
-          <Route path="userDonation" element={<Donation/>} />
-          <Route path="userSetting" element={<Settings/>} />
-        </Route> 
+          <Route path="userDonation" element={<Donation />} />
+          <Route path="userSetting" element={<Settings />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
