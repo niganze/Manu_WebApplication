@@ -354,8 +354,8 @@ function About() {
                 {/* <h3 className="text-xl font-semibold mb-4 text-[#1E3A8A]">The Waste Problem</h3> */}
                 <p className="text-black mb-4">
                   Every year, several million tons of usable building materials end up directly in landfills throughout Rwanda. A large part of this is created in demolition and dismantling projects, but also on construction sites for new buildings, of which 10-15% of all materials are disposed of that are not used due to miscalculations before the end of their useful life.
-                </p>
-                <p className="text-black mb-4">
+                {/* </p>
+                <p className="text-black mb-4"> */}
                   Accordingly, only 6% of these construction materials are recycled and reused, which means the principles of circularity are only applied in isolated instances. Transport, disposal, as well as the new production of the resulting missing building materials, create huge amounts of excess waste with huge consequences for our overall public health and the environment.
                 </p>
               </div>
@@ -373,6 +373,11 @@ function About() {
 
       {/* Team Section */}
       <div className="bg-white py-16">
+      <div className="w-full md:w-1/2">
+        <div className="aspect-square bg-black bg-opacity-5 rounded-lg overflow-hidden shadow-md">
+          <img src={about} alt="Our Team" className="w-full h-full object-cover" />
+        </div>
+      </div>
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center text-[#1E3A8A] mb-12">The Team</h2>
           
@@ -387,19 +392,19 @@ function About() {
           
           {/* Team Photos Grid */}
          {/* Team Section */}
-<div className="bg-white py-16">
+{/* <div className="bg-white py-16">
   <div className="container mx-auto px-6">
     <h2 className="text-3xl font-bold text-center text-[#1E3A8A] mb-12">The Team</h2>
     
     <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
-      {/* Single Team Image */}
+      
       <div className="w-full md:w-1/2">
         <div className="aspect-square bg-black bg-opacity-5 rounded-lg overflow-hidden shadow-md">
           <img src={about} alt="Our Team" className="w-full h-full object-cover" />
         </div>
       </div>
       
-      {/* Team Description */}
+   
       <div className="w-full md:w-1/2 mt-6 md:mt-0">
         <h3 className="text-2xl font-semibold text-[#1E3A8A] mb-4">Meet Our Experts</h3>
         <p className="text-black mb-4">
@@ -417,7 +422,7 @@ function About() {
       </div>
     </div>
   </div>
-</div>
+</div> */}
         </div>
       </div>
 
