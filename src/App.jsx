@@ -56,7 +56,7 @@ function App() {
             index
             element={
               <Protection   allowedRoles={["Admin"]}>
-                <DashboardHome />
+                <DashboardHome/>
               </Protection>
             }
           />

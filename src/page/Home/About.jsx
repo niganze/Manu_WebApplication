@@ -344,14 +344,14 @@ function About() {
             
             <div className="bg-white rounded-lg shadow-lg p-8">
               <div className="mb-6">
-                <h3 className="text-xl font-semibold mb-4 text-[#1E3A8A]">The Construction Sector's Impact</h3>
+                {/* <h3 className="text-xl font-semibold mb-4 text-[#1E3A8A]">The Construction Sector's Impact</h3> */}
                 <p className="text-black mb-4">
                   The construction sector is the major resource-consuming, greenhouse gas-emitting, and waste-producing sector in our modern society, using—on average—more than 40% of the total raw materials extracted from the earth worldwide, contributing 11% of global emissions, and at the same time, being responsible for 50% of the world's waste, making it one of the largest sources of waste in the world.
                 </p>
               </div>
               
               <div className="mb-6">
-                <h3 className="text-xl font-semibold mb-4 text-[#1E3A8A]">The Waste Problem</h3>
+                {/* <h3 className="text-xl font-semibold mb-4 text-[#1E3A8A]">The Waste Problem</h3> */}
                 <p className="text-black mb-4">
                   Every year, several million tons of usable building materials end up directly in landfills throughout Rwanda. A large part of this is created in demolition and dismantling projects, but also on construction sites for new buildings, of which 10-15% of all materials are disposed of that are not used due to miscalculations before the end of their useful life.
                 </p>
@@ -361,7 +361,7 @@ function About() {
               </div>
               
               <div>
-                <h3 className="text-xl font-semibold mb-4 text-[#1E3A8A]">Rwanda's Growing Challenge</h3>
+                {/* <h3 className="text-xl font-semibold mb-4 text-[#1E3A8A]">Rwanda's Growing Challenge</h3> */}
                 <p className="text-black">
                   Accommodating Rwanda's rapid population growth, which is projected to increase from 13.6 million to 17.6 million by 2035, coupled with the emergence of a growing middle class and increasing urbanization, will undoubtedly drive a demand for additional buildings and infrastructure, with respective knock-on effects in terms of the volumes of waste generated, posing a pressing challenge for waste management and environmental sustainability. There is, therefore, an urgent need to transition from a linear construction model to a more sustainable and regenerative one based on circular economy principles.
                 </p>
