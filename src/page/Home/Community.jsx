@@ -103,7 +103,9 @@ function Community() {
             Community Projects
           </h1>
           <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-            Join hands with us in making a difference. Support projects that provide help and create positive change in our communities.
+         <p className="mb-6">Strengthening Neighborhoods, One Donation at a Time</p> 
+Manu empowers local initiatives by matching surplus construction materials with community-driven projects. From park revitalizations to affordable housing repairs, we ensure unused supplies benefit the places they’re needed most. Our network fosters collaboration between businesses and grassroots groups, turning waste into progress for towns and cities nationwide. Have materials to donate or lead a local project? Join us in building stronger, more sustainable communities. 
+
           </p>
         </div>
       </section>
