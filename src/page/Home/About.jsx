@@ -1,5 +1,5 @@
 import React from "react";
-import about from "../../assets/about.png"
+import AboutImage from "../../assets/AboutImage.jpg"
 function About() {
   return (
     <div className="bg-white text-gray-900 mt-4">
@@ -373,14 +373,15 @@ function About() {
 
       {/* Team Section */}
       <div className="bg-white py-16">
-      <div className="w-full md:w-1/2">
-        <div className="aspect-square bg-black bg-opacity-5 rounded-lg overflow-hidden shadow-md">
-          <img src={about} alt="Our Team" className="w-full h-full object-cover" />
-        </div>
-      </div>
+      
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center text-[#1E3A8A] mb-12">The Team</h2>
-          
+       
+      <div className="w-full">
+  <div className=" bg-black bg-opacity-5 rounded-lg overflow-hidden shadow-md max-w-screen-lg mx-auto mb-10">
+    <img src={AboutImage} alt="Our Team" className="w-full h-96 object-cover object-center " />
+  </div>
+</div>
           <div className="max-w-4xl mx-auto mb-10">
             <p className="text-black text-center text-lg mb-8">
               Whatever your reuse project, the Manu team is always here to assist. Our diversity represents one of our most significant strengths. Our talents come from all walks of life: engineers, salespeople, architects or e-commerce specialists... We pool our skills and experience to best meet your objectives.
@@ -390,39 +391,7 @@ function About() {
             </p>
           </div>
           
-          {/* Team Photos Grid */}
-         {/* Team Section */}
-{/* <div className="bg-white py-16">
-  <div className="container mx-auto px-6">
-    <h2 className="text-3xl font-bold text-center text-[#1E3A8A] mb-12">The Team</h2>
     
-    <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
-      
-      <div className="w-full md:w-1/2">
-        <div className="aspect-square bg-black bg-opacity-5 rounded-lg overflow-hidden shadow-md">
-          <img src={about} alt="Our Team" className="w-full h-full object-cover" />
-        </div>
-      </div>
-      
-   
-      <div className="w-full md:w-1/2 mt-6 md:mt-0">
-        <h3 className="text-2xl font-semibold text-[#1E3A8A] mb-4">Meet Our Experts</h3>
-        <p className="text-black mb-4">
-          Our diverse team brings together engineers, architects, and circular economy specialists passionate about sustainable construction.
-        </p>
-        <p className="text-black mb-6">
-          We approach each project with creativity and determination to maximize material reuse and minimize environmental impact.
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <span className="px-3 py-1 bg-[#A99FFF] text-white rounded-full text-sm">Architects</span>
-          <span className="px-3 py-1 bg-[#A99FFF] text-white rounded-full text-sm">Engineers</span>
-          <span className="px-3 py-1 bg-[#A99FFF] text-white rounded-full text-sm">Specialists</span>
-          <span className="px-3 py-1 bg-[#A99FFF] text-white rounded-full text-sm">Consultants</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> */}
         </div>
       </div>
 
