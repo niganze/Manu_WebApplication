@@ -51,7 +51,7 @@ function Charity() {
       formData.append("contact", contact);
 
       const res = await axios.post(
-        `http://localhost:5000/charity/createCharity`,
+        `https://manu-backend-6i7q.onrender.com/charity/createCharity`,
         formData,
         {
           headers: {
@@ -78,7 +78,7 @@ function Charity() {
     try {
       setIsLoading(true);
       const res = await axios.get(
-        `http://localhost:5000/charity/ApprovedCharity`
+        `https://manu-backend-6i7q.onrender.com/charity/ApprovedCharity`
       );
       setCharti(res.data.data);
     } catch (error) {
