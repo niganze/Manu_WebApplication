@@ -563,15 +563,7 @@ function Charity() {
             better future for those in need.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="/volunteer"
-              className="bg-white text-[#1E3A8A] px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition-all duration-300 ease-in-out flex items-center"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-              </svg>
-              Volunteer
-            </a>
+           
             <a
               href="/donate"
               className="bg-[#A99FFF] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#8A7FFF] transition-all duration-300 ease-in-out flex items-center"
