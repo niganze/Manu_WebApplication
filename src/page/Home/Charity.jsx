@@ -99,10 +99,10 @@ function Charity() {
       <section className="py-12 bg-gradient-to-r from-[#EEF1F8] to-[#F7F7FF] text-center">
         <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-4xl font-bold text-[#1E3A8A] mb-4">
-            Community Charities
+             Community Charities
           </h1>
           <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-          Building a Better Future for Those in Need
+         <p className="mb-6">Building a Better Future for Those in Need</p> 
 At Manu, we help charitable organizations access surplus building materials—free of charge—to support their vital work. Whether it’s housing for vulnerable groups, schools in underserved areas, or disaster relief efforts, we connect donors with nonprofits that turn excess into opportunity. By diverting quality materials from landfills to meaningful causes, we create both social and environmental impact. If you’re a charity seeking resources or a business with materials to donate, partner with us to amplify your reach. 
 
           </p>
