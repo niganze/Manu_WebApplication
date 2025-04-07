@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Notify } from "notiflix";
 import { useNavigate } from "react-router-dom";
-const PasswordResetForm = () => {
+const ResetActionForm= () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -180,4 +180,4 @@ const PasswordResetForm = () => {
   );
 };
 
-export default PasswordResetForm;
+export default ResetActionForm;
