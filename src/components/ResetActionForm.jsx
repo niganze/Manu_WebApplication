@@ -57,7 +57,7 @@ const ResetActionForm= () => {
       
       navigate("/login")
 
-      alert(res.data.message);
+      Notify.success(res.data.message);
     } catch (error) {
       console.error("Reset error:", error);
       setErrorMessage(error.response?.data?.message || "Something went wrong");
