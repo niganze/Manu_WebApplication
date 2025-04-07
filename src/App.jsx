@@ -32,6 +32,7 @@ import Donation from "./page/users/UDonation";
 import Charity from "./page/Home/Charity";
 import Protection from "./Protection";
 import ManageCharity from "./page/admin/AllCharty";
+import ResetActionForm from "./components/ResetActionForm"
 function App() {
   return (
     <BrowserRouter>
@@ -50,6 +51,7 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/ActionReset" element={<ResetActionForm/>}/>
 
         <Route path="/admindashboard" element={<AdminDashboard />}>
           <Route

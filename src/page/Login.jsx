@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Notify } from "notiflix";
+import PasswordResetForm from "../components/PasswordResetForm";
 
 function Login() {
   const navigate = useNavigate();
@@ -46,9 +47,15 @@ function Login() {
       setLoading(false); // Stop loading after response
     }
   };
+const[reset,setReset]=useState(false);
+const handleReset=()=>{
+  setReset(!reset);
+}
+  
 
   return (
     <div className="flex min-h-screen bg-gray-50">
+      {reset && <PasswordResetForm handleReset={handleReset}/>}
       <div className="w-full md:w-1/2 p-8 flex flex-col justify-center animate-fade-in">
         <div className="max-w-md mx-auto w-full">
           <h1 className="text-2xl font-bold mb-2 transition-transform transform hover:scale-105">
@@ -95,9 +102,9 @@ function Login() {
                   Remember me
                 </label>
               </div>
-              <a href="#" className="text-sm text-blue-600 hover:text-blue-800">
+              <span className="text-lg text-blue-600 hover:text-blue-800 cursor-pointer" onClick={handleReset} >
                 Forgot Password?
-              </a>
+              </span>
             </div>
 
             <button
