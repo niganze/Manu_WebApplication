@@ -1,18 +1,14 @@
-import React, { useState } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { ChevronDown, PlusCircle, Heart } from "lucide-react";
-import BB from "../../assets/beneficiary.jpeg";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Heart } from "lucide-react";
 import axios from "axios";
+
 const Donation = () => {
+  const [donation, setDonation] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
-  // Colors for pie chart
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
-
-  // Handlers
   const handleOpenDonationForm = () => setOpenDonationForm(true);
- 
- const[donation,setDonation]=useState([]);
+
   useEffect(() => {
     const getAllItems = async () => {
       try {
@@ -28,7 +24,19 @@ const Donation = () => {
     getAllItems();
   }, []);
 
-   
+  const totalPages = Math.ceil(donation.length / itemsPerPage);
+  const paginatedDonations = donation.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
@@ -44,7 +52,7 @@ const Donation = () => {
             <Heart className="w-5 h-5 mr-2" /> {donation.length}
           </button>
         </div>
-        {/* Donations Table */}
+
         <div className="bg-white shadow-lg rounded-xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -69,50 +77,74 @@ const Donation = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-  {donation.map((item,index) => (
-    <tr key={item._id} className="hover:bg-gray-50 transition-colors duration-200">
-        <td className="px-4 py-4 text-sm text-gray-900">{index+1}</td>
-      <td className="px-4 py-4 text-sm text-gray-900">{item?.ProjectId?.title}</td>
-      <td className="px-4 py-4 text-sm text-gray-500">
-        {item.userId?.firstname} {item.userId?.lastname}
-      </td>
-      <td className="px-4 py-4 text-sm text-gray-500">{item.donorEmail}</td>
-      <td className="px-4 py-4 text-sm text-gray-500">{item.AmountDonated}</td>
-      {/* <td className="px-4 py-4 text-sm text-gray-500">{item.Comment}</td> */}
-      {/* <td className="px-4 py-4 text-sm text-gray-500">{item.status}</td> */}
-      <td className="px-4 py-4">
-        <span
-          className={`px-3 py-1 rounded-full text-xs font-medium ${
-            item.status === "Pending"
-              ? "bg-yellow-100 text-yellow-800"
-              : item.status === "Approved"
-              ? "bg-green-100 text-green-800"
-              : "bg-red-100 text-red-800"
-          }`}
-        >
-          {item.status}
-        </span>
-      </td>
-      <td className="px-4 py-4 flex flex-row space-x-3">
-        <button className="text-[#ABA1FF] hover:text-purple-700 transition-colors duration-200">
-          View
-        </button>
-        <button className="text-green-400 hover:text-green-700 transition-colors duration-200">
-          Confirm Payment
-        </button>
-      </td>
-    </tr>
-  ))}
-</tbody>
-
+                {paginatedDonations.map((item, index) => (
+                  <tr
+                    key={item._id}
+                    className="hover:bg-gray-50 transition-colors duration-200"
+                  >
+                    <td className="px-4 py-4 text-sm text-gray-900">
+                      {(currentPage - 1) * itemsPerPage + index + 1}
+                    </td>
+                    <td className="px-4 py-4 text-sm text-gray-900">
+                      {item?.ProjectId?.title}
+                    </td>
+                    <td className="px-4 py-4 text-sm text-gray-500">
+                      {item.userId?.firstname} {item.userId?.lastname}
+                    </td>
+                    <td className="px-4 py-4 text-sm text-gray-500">
+                      {item.donorEmail}
+                    </td>
+                    <td className="px-4 py-4 text-sm text-gray-500">
+                      {item.AmountDonated}
+                    </td>
+                    <td className="px-4 py-4">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          item.status === "Pending"
+                            ? "bg-yellow-100 text-yellow-800"
+                            : item.status === "Approved"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-red-100 text-red-800"
+                        }`}
+                      >
+                        {item.status}
+                      </span>
+                    </td>
+                    <td className="px-4 py-4 flex flex-row space-x-3">
+                      <button className="text-[#ABA1FF] hover:text-purple-700 transition-colors duration-200">
+                        View
+                      </button>
+                      <button className="text-green-400 hover:text-green-700 transition-colors duration-200">
+                        Confirm Payment
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
         </div>
 
-        
-       
-
-       
+        {/* Pagination Controls */}
+        <div className="flex justify-between items-center mt-4">
+          <button
+            onClick={goToPreviousPage}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="text-sm text-gray-600">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={goToNextPage}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
