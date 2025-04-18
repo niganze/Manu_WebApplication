@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Edit, Trash2, Filter, Search, Plus } from "lucide-react";
+import { Edit, Trash2, Filter, Search, Plus} from "lucide-react";
 import axios from "axios";
 import DonateForm from "./DonateForm";
+import { Link } from "react-router-dom";
 
 function UserCh() {
   const [property, setProperty] = useState([]);
@@ -57,10 +58,10 @@ function UserCh() {
               <Search size={16} className="text-gray-400" />
             </div>
           </div>
-          <button className="bg-[#A99FFF]  hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center">
+         <Link to="Usercharities/userCreateCharity"><button className="bg-[#A99FFF]  hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center">
             <Plus size={16} className="mr-1" />
             Create new Chart..
-          </button>
+          </button></Link> 
         </div>
       </div>
 

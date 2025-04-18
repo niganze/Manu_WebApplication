@@ -34,6 +34,7 @@ import Protection from "./Protection";
 import ManageCharity from "./page/admin/AllCharty";
 import ResetActionForm from "./components/ResetActionForm"
 import UserCh from "./page/users/userCh";
+import AddChartyForm from "./page/users/AddChartyForm";
 function App() {
   return (
     <BrowserRouter>
@@ -94,6 +95,7 @@ function App() {
           <Route path="userDonation" element={<Donation />} />
           <Route path="userSetting" element={<Settings />} />
           <Route path="Usercharities" element={<UserCh/>} />
+          <Route path="Usercharities/userCreateCharity" element={<AddChartyForm/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
