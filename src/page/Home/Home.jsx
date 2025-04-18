@@ -238,7 +238,7 @@ function Home() {
                   </span>
                 </div>
                 <h3 className="font-semibold text-lg mb-2 text-gray-800">{item.itemName}</h3>
-                <p className="text-gray-600 text-sm mb-3">Reclaimed steel I-beams in excellent condition. Various sizes available.</p>
+                <p className="text-gray-600 text-sm mb-3">{item.description}</p>
                 <div className="flex justify-between items-center mt-4">
                   <span className="text-[#1e3a8a] font-bold text-lg">${item.itemPrice}</span>
                   <Link 
