@@ -36,6 +36,7 @@ import ResetActionForm from "./components/ResetActionForm"
 import UserCh from "./page/users/userCh";
 import AddChartyForm from "./page/users/AddChartyForm";
 import AddUserProject from "./page/users/AddUserProject";
+import AddUserMarketPlace from "./page/users/AddUserMarketPlace";
 function App() {
   return (
     <BrowserRouter>
@@ -98,6 +99,7 @@ function App() {
           <Route path="Usercharities" element={<UserCh/>} />
           <Route path="/user-dashboard/Usercharities/userCreateCharity" element={<AddChartyForm />} />
           <Route path="/user-dashboard/Usercharities/userCreateProject" element={<AddUserProject/>}/>
+          <Route path="/user-dashboard/Usercharities/AddUserMarketPlace" element={<AddUserMarketPlace/>}/>
 
         </Route>
       </Routes>
