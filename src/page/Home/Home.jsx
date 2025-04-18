@@ -240,7 +240,7 @@ function Home() {
                 <h3 className="font-semibold text-lg mb-2 text-gray-800">{item.itemName}</h3>
                 <p className="text-gray-600 text-sm mb-3">{item.description}</p>
                 <div className="flex justify-between items-center mt-4">
-                  <span className="text-[#1e3a8a] font-bold text-lg">${item.itemPrice}</span>
+                  <span className="text-[#1e3a8a] font-bold text-lg">Rwf {item.itemPrice}</span>
                   <Link 
                     to="/material/steel-beams" 
                     className="text-sm font-medium text-gray-600 hover:text-[#1e3a8a] transition-colors flex items-center"
