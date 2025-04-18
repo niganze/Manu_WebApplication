@@ -62,7 +62,7 @@ const Marketplace = () => {
 
   const handleView = async (id) => {
     try {
-      const res = await axios.get(`http://localhost:5000/MarketItem/getMarketById/${id}`);
+      const res = await axios.get(`https://manu-backend-6i7q.onrender.com/charity/createCharity/MarketItem/getMarketById/${id}`);
       setViewData(res.data);
       setViewModal(true);
     } catch (error) {

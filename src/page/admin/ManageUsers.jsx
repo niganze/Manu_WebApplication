@@ -24,7 +24,7 @@ function ManageUsers() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/user/deleteUser/${id}`);
+      await axios.delete(`https://manu-backend-6i7q.onrender.com/charity/createCharity/user/deleteUser/${id}`);
       setUsers((prev) => prev.filter((user) => user._id !== id));
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -34,7 +34,7 @@ function ManageUsers() {
 
   const handleView = async (id) => {
     try {
-      const res = await axios.get(`http://localhost:5000/user/getUserById/${id}`);
+      const res = await axios.get(`https://manu-backend-6i7q.onrender.com/charity/createCharity/user/getUserById/${id}`);
       setSelectedUser(res.data);
       setShowModal(true);
     } catch (error) {
