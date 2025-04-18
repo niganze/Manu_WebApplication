@@ -44,7 +44,7 @@ const Marketplace = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/marketItem/deleteMarket/${id}`);
+      await axios.delete(`https://manu-backend-6i7q.onrender.com/marketItem/deleteMarket/${id}`);
       setProperty(property.filter((item) => item._id !== id));
     } catch (error) {
       console.error("Error deleting item:", error);
