@@ -132,7 +132,7 @@ const Marketplace = () => {
                 </TableCell>
                 <TableCell>{item.itemName}</TableCell>
                 <TableCell>{item.itemCondition}</TableCell>
-                <TableCell>${item.itemPrice}</TableCell>
+                <TableCell>Rwf. {item.itemPrice}</TableCell>
                 <TableCell>{item.companyOwner}</TableCell>
                 <TableCell>{item.itemDeliveryStatus}</TableCell>
                 <TableCell>
