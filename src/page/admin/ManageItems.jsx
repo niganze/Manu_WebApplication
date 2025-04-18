@@ -94,33 +94,14 @@ const ManageDonationItems = () => {
       <h1 className="text-2xl font-semibold mb-6 text-gray-800">Manage Items</h1>
 
       {/* Search & Category Filters */}
-      <div className="mb-4 flex gap-4">
-        <input
-          type="text"
-          placeholder="Search by title"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="border border-gray-300 px-3 py-2 rounded w-1/2"
-        />
-        <select
-          value={category}
-          onChange={handleCategoryChange}
-          className="border border-gray-300 px-3 py-2 rounded"
-        >
-          <option value="">All Categories</option>
-          <option value="Clothes">Clothes</option>
-          <option value="Shoes">Shoes</option>
-          <option value="Books">Books</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
+     
 
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
-                <th className="px-2 py-2 text-left"></th>
+                <th className="px-2 py-2 text-left">No</th>
                 <th className="px-2 py-2 text-left">Title</th>
                 <th className="px-2 py-2 text-left">Category</th>
                 <th className="px-2 py-2 text-left">Poster</th>
@@ -132,10 +113,10 @@ const ManageDonationItems = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {paginatedItems.map((item) => (
+              {paginatedItems.map((item,index) => (
                 <tr key={item._id}>
                   <td className="px-2 py-2">
-                    <input type="checkbox" />
+                  {index+1}
                   </td>
                   <td className="px-2 py-2 text-sm">{item.title}</td>
                   <td className="px-2 py-2 text-sm">{item.category}</td>

@@ -103,7 +103,7 @@ const ManageCharity = () => {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
-                <th className="px-2 py-2 text-left"><input type="checkbox" /></th>
+                <th className="px-2 py-2 text-left">No</th>
                 <th className="px-2 py-2 text-left">Title</th>
                 <th className="px-2 py-2 text-left">Category</th>
                 <th className="px-2 py-2 text-left">Poster Name</th>
@@ -115,9 +115,9 @@ const ManageCharity = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {property.map((item) => (
+              {property.map((item,index) => (
                 <tr key={item._id}>
-                  <td className="px-2 py-2"><input type="checkbox" /></td>
+                  <td className="px-2 py-2">{index+1}</td>
                   <td className="px-2 py-2">{item.title}</td>
                   <td className="px-2 py-2">{item.category}</td>
                   <td className="px-2 py-2">{item.posterName}</td>

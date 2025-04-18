@@ -85,16 +85,16 @@ function ManageUsers() {
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 bg-white">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50  dark:text-gray-400">
           <tr>
-            <th className="p-4"><input type="checkbox" /></th>
+            <th className="p-4">No</th>
             <th className="px-6 py-3">Name</th>
             <th className="px-6 py-3">Role</th>
             <th className="px-6 py-3">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {currentUsers.map((item) => (
+          {currentUsers.map((item,index) => (
             <tr key={item._id} className="bg-white border-b  dark:border-gray-700 hover:bg-gray-50">
-              <td className="p-4"><input type="checkbox" /></td>
+              <td className="p-4 font-bold">{index+1}</td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="flex items-center">
                   <Users size={20} className="text-gray-600 mr-2" />

@@ -155,6 +155,7 @@ const BlogsD = () => {
         <Table>
           <TableHead>
             <TableRow>
+            <TableCell>No</TableCell>
               <TableCell>Blog Image</TableCell>
               <TableCell>Blog Title</TableCell>
               <TableCell>Blog Content</TableCell>
@@ -162,8 +163,9 @@ const BlogsD = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {property.map((item) => (
+            {property.map((item,index) => (
               <TableRow key={item._id}>
+                 <TableCell>{index+1}</TableCell>
                 <TableCell>
                   <img 
                     src={item.images} 

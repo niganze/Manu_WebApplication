@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import axios from "axios";
+import { Notify } from "notiflix";
 
 const Donation = () => {
   const [donation, setDonation] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedDonation, setSelectedDonation] = useState(null);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const itemsPerPage = 5;
 
   const handleOpenDonationForm = () => setOpenDonationForm(true);
@@ -38,6 +41,33 @@ const Donation = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
+  const handleConfirmPayment = async (id) => {
+    try {
+      const res = await axios.put(
+        `https://manu-backend-6i7q.onrender.com/donation/UpdateDonationApprovalStatus`,
+        {
+          donationId: id,
+          status: "Approved",
+        }
+      );
+      console.log("Update success:", res.data);
+
+      const updatedDonations = donation.map((item) =>
+        item._id === id ? { ...item, status: "Approved" } : item
+      );
+      setDonation(updatedDonations);
+      Notify.success("Donation Approved")
+      
+    } catch (error) {
+      console.error("Error confirming payment:", error);
+    }
+  };
+
+  const handleViewDonation = (donation) => {
+    setSelectedDonation(donation);
+    setIsViewModalOpen(true);
+  };
+
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <div className="container mx-auto">
@@ -61,7 +91,7 @@ const Donation = () => {
                   {[
                     "No",
                     "ProjectTitle",
-                    "Donor Name",
+                    
                     "Donor Email",
                     "Amount",
                     "Status",
@@ -88,9 +118,9 @@ const Donation = () => {
                     <td className="px-4 py-4 text-sm text-gray-900">
                       {item?.ProjectId?.title}
                     </td>
-                    <td className="px-4 py-4 text-sm text-gray-500">
+                    {/* <td className="px-4 py-4 text-sm text-gray-500">
                       {item.userId?.firstname} {item.userId?.lastname}
-                    </td>
+                    </td> */}
                     <td className="px-4 py-4 text-sm text-gray-500">
                       {item.donorEmail}
                     </td>
@@ -111,10 +141,16 @@ const Donation = () => {
                       </span>
                     </td>
                     <td className="px-4 py-4 flex flex-row space-x-3">
-                      <button className="text-[#ABA1FF] hover:text-purple-700 transition-colors duration-200">
+                      <button
+                        onClick={() => handleViewDonation(item)}
+                        className="text-[#ABA1FF] hover:text-purple-700 transition-colors duration-200"
+                      >
                         View
                       </button>
-                      <button className="text-green-400 hover:text-green-700 transition-colors duration-200">
+                      <button
+                        onClick={() => handleConfirmPayment(item._id)}
+                        className="text-green-400 hover:text-green-700 transition-colors duration-200"
+                      >
                         Confirm Payment
                       </button>
                     </td>
@@ -145,6 +181,42 @@ const Donation = () => {
             Next
           </button>
         </div>
+
+        {/* View Modal */}
+        {isViewModalOpen && selectedDonation && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-xl shadow-xl max-w-md w-full relative">
+              <button
+                onClick={() => setIsViewModalOpen(false)}
+                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-xl"
+              >
+                ✕
+              </button>
+              <h2 className="text-xl font-semibold mb-4 text-[#ABA1FF]">
+                Donation Details
+              </h2>
+              <p>
+                <strong>Project Title:</strong>{" "}
+                {selectedDonation.ProjectId?.title}
+              </p>
+              <p>
+                <strong>Donor Name:</strong>{" "}
+                {selectedDonation.userId?.firstname}{" "}
+                {selectedDonation.userId?.lastname}
+              </p>
+              <p>
+                <strong>Donor Email:</strong> {selectedDonation.donorEmail}
+              </p>
+              <p>
+                <strong>Amount Donated:</strong>{" "}
+                {selectedDonation.AmountDonated}
+              </p>
+              <p>
+                <strong>Status:</strong> {selectedDonation.status}
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
