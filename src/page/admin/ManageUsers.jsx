@@ -34,7 +34,7 @@ function ManageUsers() {
 
   const handleView = async (id) => {
     try {
-      const res = await axios.get(`https://manu-backend-6i7q.onrender.com/charity/createCharity/user/getUserById/${id}`);
+      const res = await axios.get(`https://manu-backend-6i7q.onrender.com/user/getUserById/${id}`);
       setSelectedUser(res.data);
       setShowModal(true);
     } catch (error) {
