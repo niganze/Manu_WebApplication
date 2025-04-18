@@ -24,6 +24,9 @@ const Marketplace = () => {
   const [modal, setModal] = useState(false);
   const [editMarket, setEditMarket] = useState(null);
 
+  const [viewModal, setViewModal] = useState(false);
+  const [viewData, setViewData] = useState(null);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -33,7 +36,6 @@ const Marketplace = () => {
         `https://manu-backend-6i7q.onrender.com/marketItem/getAllMarkets`
       );
       setProperty(res.data);
-      console.log("Market Items:", res.data);
     } catch (error) {
       console.error("Error fetching market items:", error);
     }
@@ -47,16 +49,25 @@ const Marketplace = () => {
     try {
       await axios.delete(`https://manu-backend-6i7q.onrender.com/marketItem/deleteMarket/${id}`);
       setProperty(property.filter((item) => item._id !== id));
+      Notify.success("Row deleted successfully");
     } catch (error) {
       console.error("Error deleting item:", error);
     }
-    Notify.success("Row deleted successfull")
   };
-
 
   const handleEditMarket = (item) => {
     setEditMarket(item);
-    setModal(!modal);
+    setModal(true);
+  };
+
+  const handleView = async (id) => {
+    try {
+      const res = await axios.get(`http://localhost:5000/MarketItem/getMarketById/${id}`);
+      setViewData(res.data);
+      setViewModal(true);
+    } catch (error) {
+      console.error("Error fetching item by ID:", error);
+    }
   };
 
   const filteredItems = property.filter(
@@ -81,7 +92,47 @@ const Marketplace = () => {
 
   return (
     <div className="p-5">
-      {modal && <UpdateItemForm handleEditMarket={handleEditMarket} editMarket={editMarket} />}
+      {modal && (
+        <UpdateItemForm
+          handleClose={() => setModal(false)}
+          item={editMarket}
+          refreshData={getAllProperty}
+        />
+      )}
+
+{viewModal && (
+  <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center p-4 overflow-y-auto">
+    <div className="bg-white rounded-lg shadow-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <h2 className="text-2xl font-bold mb-4">Item Details</h2>
+      {viewData ? (
+        <div className="space-y-2">
+          <img
+            src={viewData.images}
+            alt={viewData.itemName}
+            className="w-full h-48 object-cover rounded-lg"
+          />
+          <p><strong>Name:</strong> {viewData.itemName}</p>
+          <p><strong>Price:</strong> Rwf {viewData.itemPrice}</p>
+          <p><strong>Condition:</strong> {viewData.itemCondition}</p>
+          <p><strong>Company Owner:</strong> {viewData.companyOwner}</p>
+          <p><strong>Delivery:</strong> {viewData.itemDeliveryStatus}</p>
+          <p><strong>Contact:</strong> {viewData.contact}</p>
+          <p><strong>Description:</strong> {viewData.description}</p>
+          <button
+            onClick={() => setViewModal(false)}
+            className="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
+          >
+            Close
+          </button>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  </div>
+)}
+
+
       <h1 className="text-2xl font-bold mb-4">Admin Marketplace</h1>
       <div className="flex flex-row justify-between items-center mb-4">
         <div className="flex gap-4">
@@ -128,7 +179,7 @@ const Marketplace = () => {
               <TableRow key={item._id}>
                 <TableCell>{(currentPage - 1) * itemsPerPage + index + 1}</TableCell>
                 <TableCell>
-                  <img src={item.images} className="w-7 h-4" alt={item.itemName} />
+                  <img src={item.images} className="w-10 h-10 object-cover rounded" alt={item.itemName} />
                 </TableCell>
                 <TableCell>{item.itemName}</TableCell>
                 <TableCell>{item.itemCondition}</TableCell>
@@ -136,13 +187,9 @@ const Marketplace = () => {
                 <TableCell>{item.companyOwner}</TableCell>
                 <TableCell>{item.itemDeliveryStatus}</TableCell>
                 <TableCell>
-                  <Button color="primary">View</Button>
-                  <Button onClick={() => handleEditMarket(item)} color="primary">
-                    Update
-                  </Button>
-                  <Button onClick={() => handleDelete(item._id)} color="error">
-                    Delete
-                  </Button>
+                  <Button onClick={() => handleView(item._id)} color="info">View</Button>
+                  <Button onClick={() => handleEditMarket(item)} color="primary">Update</Button>
+                  <Button onClick={() => handleDelete(item._id)} color="error">Delete</Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -150,25 +197,14 @@ const Marketplace = () => {
         </Table>
       </TableContainer>
 
-      {/* Pagination Controls */}
       <div className="flex justify-between items-center mt-4">
-        <Button
-          onClick={goToPreviousPage}
-          disabled={currentPage === 1}
-          variant="contained"
-          size="small"
-        >
+        <Button onClick={goToPreviousPage} disabled={currentPage === 1} variant="contained" size="small">
           Previous
         </Button>
         <span className="text-sm text-gray-600">
           Page {currentPage} of {totalPages}
         </span>
-        <Button
-          onClick={goToNextPage}
-          disabled={currentPage === totalPages}
-          variant="contained"
-          size="small"
-        >
+        <Button onClick={goToNextPage} disabled={currentPage === totalPages} variant="contained" size="small">
           Next
         </Button>
       </div>
