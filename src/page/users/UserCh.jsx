@@ -11,7 +11,7 @@ function UserCh() {
     const getAllItems = async () => {
       try {
         const res = await axios.get(
-          `https://manu-backend-6i7q.onrender.com/project/ApprovedProjects`
+          `https://manu-backend-6i7q.onrender.com/charity/ApprovedCharity`
         );
         setProperty(res.data.data);
         console.log(res);
@@ -91,6 +91,9 @@ function UserCh() {
                 PosterContact
               </th>
               <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Condition
+              </th>
+              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Status
               </th>
               <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -129,10 +132,10 @@ function UserCh() {
                   {product.contact}
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-900">
-                  {product.description}
+                  {product.itemCondition}
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap">
-                  {product.status}
+                  {product.approvalStatus}
                 </td>
 
                 <td className="flex flex-row items-center gap-2">

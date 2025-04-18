@@ -12,7 +12,7 @@ const ManageCharity= () => {
   useEffect(() => {
     const getAllProperty = async () => {
       try {
-        const res = await axios.get(`https://manu-backend-6i7q.onrender.com/charity/ApprovedCharity`, {
+        const res = await axios.get(`https://manu-backend-6i7q.onrender.com/charity/getAllCharity`, {
           params: {
             page: page + 1,
             limit: rowsPerPage,
