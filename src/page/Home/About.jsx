@@ -430,11 +430,11 @@ function About() {
                 Today, only 1% of all building materials are reused. Making that amount grow will require a concerted effort. ALL stakeholders within the building industry will have a role to play. Erecting buildings that contain the highest possible percentage of reused elements is "common sense", as our ancestors have proven. Making this possible again might well be the most impressive construction feat of our age. In any case, it's the way to go.
               </p>
               
-              <div className="text-center">
+              {/* <div className="text-center">
                 <a href="#contact" className="inline-block bg-[#A99FFF] hover:bg-[#1E3A8A] text-white font-medium px-8 py-4 rounded-lg transition-colors duration-300 text-lg">
                   Join Our Movement
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -446,12 +446,12 @@ function About() {
         <p className="max-w-3xl mx-auto mb-8 text-black opacity-75 hover:opacity-100 transition-opacity duration-300">
           Whether you're looking to donate, buy, or sell surplus materials, we welcome you to join our growing community. Together, we can make a lasting impact on sustainability and the environment.
         </p>
-        <a
+        {/* <a
           href="/marketplace"
           className="inline-block bg-[#A99FFF] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#1E3A8A] transition-all duration-300 ease-in-out"
         >
           Join the Movement
-        </a>
+        </a> */}
       </section>
     </div>
   );
