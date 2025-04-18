@@ -268,7 +268,7 @@ function MarketPlace() {
                 className="font-bold text-xl mb-3"
                 style={{ color: "#A99FFF" }}
               >
-                ${item.itemPrice}
+                Rwf {item.itemPrice}
               </p>
 
               <div className="flex justify-between items-center text-sm text-gray-600 mb-3">
