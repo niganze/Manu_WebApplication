@@ -12,7 +12,7 @@ const ManageCharity= () => {
   useEffect(() => {
     const getAllProperty = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/charity/getAllCharity`, {
+        const res = await axios.get(`https://manu-backend-6i7q.onrender.com/charity/getAllCharity`, {
           params: {
             page: page + 1,
             limit: rowsPerPage,
@@ -32,7 +32,7 @@ const ManageCharity= () => {
   const handleUpdateApproval = async (projectId, approvalStatus) => {
     try {
       const response = await fetch(
-        "http://localhost:5000/charity/updateApprovalStatus",
+        "https://manu-backend-6i7q.onrender.com/charity/updateApprovalStatus",
         {
           method: "PUT",
           headers: {
@@ -50,7 +50,7 @@ const ManageCharity= () => {
       alert(`Approval Status Updated: ${data.message}`);
 
       // Refresh the current page
-      const res = await axios.get(`http://localhost:5000/charity/getAllCharity`, {
+      const res = await axios.get(`https://manu-backend-6i7q.onrender.com/charity/getAllCharity`, {
         params: {
           page: page + 1,
           limit: rowsPerPage,
@@ -69,7 +69,7 @@ const ManageCharity= () => {
   const handleReject = async (projectId) => {
     try {
       const response = await fetch(
-        "http://localhost:5000/charity/getAllCharity",
+        "https://manu-backend-6i7q.onrender.com/charity/getAllCharity",
         {
           method: "PUT",
           headers: {
@@ -87,7 +87,7 @@ const ManageCharity= () => {
       alert(`Approval Status Updated: ${data.message}`);
 
       // Refresh the current page
-      const res = await axios.get(`http://localhost:5000/charity/getAllCharity`, {
+      const res = await axios.get(`https://manu-backend-6i7q.onrender.com/charity/getAllCharity`, {
         params: {
           page: page + 1,
           limit: rowsPerPage,
