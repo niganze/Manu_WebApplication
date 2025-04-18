@@ -59,7 +59,7 @@ function InventoryManagement() {
           </div>
           <button className="bg-[#A99FFF]  hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center">
             <Plus size={16} className="mr-1" />
-            Create new Chart..
+            Create new Project..
           </button>
         </div>
       </div>

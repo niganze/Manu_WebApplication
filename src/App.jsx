@@ -95,7 +95,8 @@ function App() {
           <Route path="userDonation" element={<Donation />} />
           <Route path="userSetting" element={<Settings />} />
           <Route path="Usercharities" element={<UserCh/>} />
-          <Route path="Usercharities/userCreateCharity" element={<AddChartyForm/>}/>
+          <Route path="/user-dashboard/Usercharities/userCreateCharity" element={<AddChartyForm />} />
+
         </Route>
       </Routes>
     </BrowserRouter>

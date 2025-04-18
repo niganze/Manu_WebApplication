@@ -2,9 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Edit, Trash2, Filter, Search, Plus} from "lucide-react";
 import axios from "axios";
 import DonateForm from "./DonateForm";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function UserCh() {
+
+    const navigate=useNavigate();
+    const handleNavigation=()=>{
+        navigate("/user-dashboard/Usercharities/userCreateCharity");
+
+    }
   const [property, setProperty] = useState([]);
   const [donModal, setDonModal] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState(null); // Store the selected ProjectId
@@ -58,10 +64,12 @@ function UserCh() {
               <Search size={16} className="text-gray-400" />
             </div>
           </div>
-         <Link to="Usercharities/userCreateCharity"><button className="bg-[#A99FFF]  hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center">
+         <button className="bg-[#A99FFF]  hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center"
+         onClick={handleNavigation}
+         >
             <Plus size={16} className="mr-1" />
             Create new Chart..
-          </button></Link> 
+          </button>
         </div>
       </div>
 
