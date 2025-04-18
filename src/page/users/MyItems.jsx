@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Edit, Trash2, Filter, Search, Plus } from "lucide-react";
 import axios from "axios";
 import DonateForm from "./DonateForm";
+import { useNavigate } from "react-router-dom";
 
 function InventoryManagement() {
+  const navigate=useNavigate();
+  const handleNavigation=()=>{
+    navigate("/user-dashboard/Usercharities/userCreateProject")
+  }
   const [property, setProperty] = useState([]);
   const [donModal, setDonModal] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState(null); // Store the selected ProjectId
@@ -57,7 +62,9 @@ function InventoryManagement() {
               <Search size={16} className="text-gray-400" />
             </div>
           </div>
-          <button className="bg-[#A99FFF]  hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center">
+          <button className="bg-[#A99FFF]  hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center"
+          onClick={handleNavigation}
+          >
             <Plus size={16} className="mr-1" />
             Create new Project..
           </button>
