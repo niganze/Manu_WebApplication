@@ -1,215 +1,182 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Users } from "lucide-react";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { Notify } from "notiflix";
+
 function ManageUsers() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const usersPerPage = 5;
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
-  const [users, setUsers ]= useState([]);
+  const getAllUsers = async () => {
+    try {
+      const res = await axios.get(`https://manu-backend-6i7q.onrender.com/user/getAllUsers`);
+      setUsers(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/user/deleteUser/${id}`);
+      setUsers((prev) => prev.filter((user) => user._id !== id));
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+    Notify.success("User Deleted SuccessFull")
+  };
+
+  const handleView = async (id) => {
+    try {
+      const res = await axios.get(`http://localhost:5000/user/getUserById/${id}`);
+      setSelectedUser(res.data);
+      setShowModal(true);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedUser(null);
+  };
+
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(users.length / usersPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const goToNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+  };
+  const goToPreviousPage = () => {
+    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
+  };
 
   useEffect(() => {
-    const getAllUsers = async () => {
-      try {
-        const res = await axios.get(`https://manu-backend-6i7q.onrender.com/user/getAllUsers`);
-        setUsers(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getAllUsers();
   }, []);
 
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white ">
-        <div>
-          <button
-            onClick={toggleDropdown}
-            id="dropdownActionButton"
-            className="inline-flex items-center  bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-            type="button"
-          >
-            <span className="sr-only">Action button</span>
-            Action
-            <svg
-              className="w-2.5 h-2.5 ms-2.5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 10 6"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m1 1 4 4 4-4"
-              />
-            </svg>
-          </button>
-          {/* Dropdown menu */}
-          {dropdownOpen && (
-            <div
-              id="dropdownAction"
-              className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600 absolute mt-2"
-            >
-              <ul className="py-1 text-sm text-gray-700 dark:text-gray-200">
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Reward
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Promote
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Activate account
-                  </a>
-                </li>
-              </ul>
-              <div className="py-1">
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white cursor-pointer"
-                >
-                  Delete User
-                </a>
-              </div>
-            </div>
-          )}
-        </div>
-        <label htmlFor="table-search" className="sr-only">
-          Search
-        </label>
-        <div className="relative">
-          <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg
-              className="w-4 h-4 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-          </div>
-          <input
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
+      <div className="flex items-center justify-between flex-wrap pb-4 bg-white">
+       
+
+        <div className="relative mt-2 md:mt-0">
+          <div
             type="text"
             id="table-search-users"
-            className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className=" text-xl font-bold
+             p-2 ps-10  text-gray-900  border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
             placeholder="Search for users"
-          />
+          >
+            User Management 
+          </div>
         </div>
       </div>
-     
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 bg-white">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50  dark:text-gray-400">
           <tr>
-            <th scope="col" className="p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-all-search"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label htmlFor="checkbox-all-search" className="sr-only">
-                  checkbox
-                </label>
-              </div>
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Name
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Role
-            </th>
-         
-            <th scope="col" className="px-6 py-3">
-              Action
-            </th>
+            <th className="p-4"><input type="checkbox" /></th>
+            <th className="px-6 py-3">Name</th>
+            <th className="px-6 py-3">Role</th>
+            <th className="px-6 py-3">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {/* Example User Rows */}
-          {users.map(
-            (item) => (
-              <tr
-                key={item._id}
-                className="bg-white border-b  dark:border-gray-700 border-gray-200 hover:bg-gray-50  text-gray-400"
-              >
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id={`checkbox-table-search-${item._id + 1}`}
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor={`checkbox-table-search-${item._item + 1}`}
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  <Users size={20} className="text-gray-600" />
-                  <div className="ps-3">
-                    <div className="text-base font-semibold  text-gray-500 ">{item.firstname} &nbsp; {item.lastname}</div>
-                    <div className="font-normal text-gray-500">
-                      {item.email}
+          {currentUsers.map((item) => (
+            <tr key={item._id} className="bg-white border-b  dark:border-gray-700 hover:bg-gray-50">
+              <td className="p-4"><input type="checkbox" /></td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="flex items-center">
+                  <Users size={20} className="text-gray-600 mr-2" />
+                  <div>
+                    <div className="text-base font-semibold text-gray-700 dark:text-gray-200">
+                      {item.firstname} {item.lastname}
                     </div>
+                    <div className="text-sm text-gray-500">{item.email}</div>
                   </div>
-                </th>
-                <td className="px-6 py-4">
-                  {item.role}
-                </td>{" "}
-                {/* Role is set here as 'Admin' or 'User' */}
-              
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    View user
-                  </a>
-                </td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-red-400 dark:text-blue-500 hover:underline"
-                  >
-                    Delete user
-                  </a>
-                </td>
-              </tr>
-            )
-          )}
+                </div>
+              </td>
+              <td className="px-6 py-4">{item.role}</td>
+              <td className="px-6 py-4 space-x-3">
+                <button
+                  onClick={() => handleView(item._id)}
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  View
+                </button>
+                <button
+                  onClick={() => handleDelete(item._id)}
+                  className="text-red-500 hover:underline"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
+
+      {/* Pagination */}
+      <div className="flex justify-center mt-4 space-x-2">
+        <button
+          onClick={goToPreviousPage}
+          disabled={currentPage === 1}
+          className="px-3 py-1 rounded-md text-sm bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:opacity-50"
+        >
+          Previous
+        </button>
+        {[...Array(totalPages)].map((_, i) => (
+          <button
+            key={i}
+            onClick={() => paginate(i + 1)}
+            className={`px-3 py-1 rounded-md text-sm ${
+              currentPage === i + 1
+                ? "bg-blue-600 text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
+          >
+            {i + 1}
+          </button>
+        ))}
+        <button
+          onClick={goToNextPage}
+          disabled={currentPage === totalPages}
+          className="px-3 py-1 rounded-md text-sm bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
+
+      {/* Modal for View */}
+      {showModal && selectedUser && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-96">
+            <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-white">User Details</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-300"><strong>Name:</strong> {selectedUser.firstname} {selectedUser.lastname}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300"><strong>Email:</strong> {selectedUser.email}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300"><strong>Role:</strong> {selectedUser.role}</p>
+
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
