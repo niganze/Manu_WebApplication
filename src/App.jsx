@@ -33,6 +33,7 @@ import Charity from "./page/Home/Charity";
 import Protection from "./Protection";
 import ManageCharity from "./page/admin/AllCharty";
 import ResetActionForm from "./components/ResetActionForm"
+import UserCh from "./page/users/userCh";
 function App() {
   return (
     <BrowserRouter>
@@ -92,7 +93,7 @@ function App() {
           <Route path="viewMarketplace" element={<UserMarketPlace />} />
           <Route path="userDonation" element={<Donation />} />
           <Route path="userSetting" element={<Settings />} />
-          <Route path="Usercharities" element={<ManageCharity />} />
+          <Route path="Usercharities" element={<UserCh/>} />
         </Route>
       </Routes>
     </BrowserRouter>
