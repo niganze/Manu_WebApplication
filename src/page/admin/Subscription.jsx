@@ -14,6 +14,7 @@ import {
   Alert
 } from "@mui/material";
 import axios from "axios";
+import { Notify } from "notiflix";
 
 const Subscription = () => {
   const [sub, setSub] = useState([]);
@@ -82,6 +83,7 @@ const Subscription = () => {
       console.error(error);
       setError(error.message || "An error occurred while deleting subscription");
     }
+    Notify.success("Subscription Deleted SuccessFul")
   };
 
   return (

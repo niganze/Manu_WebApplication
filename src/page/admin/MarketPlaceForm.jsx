@@ -115,7 +115,7 @@ const MarketPlaceForm = () => {
               <input
                 type="text"
                 name="itemPrice"
-                placeholder="$0.00"
+                placeholder="Rwf 0.00"
                 className="w-full px-2 sm:px-3 py-1 sm:py-2 text-sm sm:text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A99FFF] focus:border-[#A99FFF] transition-all duration-200"
                 {...register("itemPrice", { required: true })}
               />

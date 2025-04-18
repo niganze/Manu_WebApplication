@@ -15,6 +15,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import UpdateItemForm from "./UpdateItemForm";
+import { Notify } from "notiflix";
 
 const Marketplace = () => {
   const [property, setProperty] = useState([]);
@@ -49,7 +50,9 @@ const Marketplace = () => {
     } catch (error) {
       console.error("Error deleting item:", error);
     }
+    Notify.success("Row deleted successfull")
   };
+
 
   const handleEditMarket = (item) => {
     setEditMarket(item);
