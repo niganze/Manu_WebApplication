@@ -99,7 +99,7 @@ function ManageUsers() {
                 <div className="flex items-center">
                   <Users size={20} className="text-gray-600 mr-2" />
                   <div>
-                    <div className="text-base font-semibold text-gray-700 dark:text-gray-200">
+                    <div className="text-base font-semibold text-gray-700 ">
                       {item.firstname} {item.lastname}
                     </div>
                     <div className="text-sm text-gray-500">{item.email}</div>
