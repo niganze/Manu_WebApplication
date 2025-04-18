@@ -32,7 +32,7 @@ const ManageDonationItems = () => {
   const handleUpdateApproval = async (projectId, approvalStatus) => {
     try {
       const response = await fetch(
-        "http://localhost:5000/project/updateApprovalStatus",
+        "https://manu-backend-6i7q.onrender.com/project/updateApprovalStatus",
         {
           method: "PUT",
           headers: {
@@ -50,7 +50,7 @@ const ManageDonationItems = () => {
       alert(`Approval Status Updated: ${data.message}`);
 
       // Refresh the current page
-      const res = await axios.get(`http://localhost:5000/project/getAllProjects`, {
+      const res = await axios.get(`https://manu-backend-6i7q.onrender.com/project/getAllProjects`, {
         params: {
           page: page + 1,
           limit: rowsPerPage,
@@ -69,7 +69,7 @@ const ManageDonationItems = () => {
   const handleReject = async (projectId) => {
     try {
       const response = await fetch(
-        "http://localhost:5000/project/rejectProject",
+        "https://manu-backend-6i7q.onrender.com/project/rejectProject",
         {
           method: "PUT",
           headers: {
@@ -87,7 +87,7 @@ const ManageDonationItems = () => {
       alert(`Approval Status Updated: ${data.message}`);
 
       // Refresh the current page
-      const res = await axios.get(`http://localhost:5000/project/getAllProjects`, {
+      const res = await axios.get(`https://manu-backend-6i7q.onrender.com/project/getAllProjects`, {
         params: {
           page: page + 1,
           limit: rowsPerPage,
