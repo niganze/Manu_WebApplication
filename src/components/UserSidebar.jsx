@@ -43,7 +43,7 @@ const UserSidebar = () => {
             className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 hover:border-l-4 hover:border-blue-600"
           >
             <Package size={20} className="text-gray-600" />
-            <span> All Items</span>
+            <span> Projects</span>
           </Link>
         </li>
         <li>
