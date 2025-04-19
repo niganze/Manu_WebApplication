@@ -167,9 +167,7 @@ function SingleMarket() {
                 <button className="w-full py-3 bg-blue-900 text-white font-semibold rounded-lg hover:bg-blue-800 transition">
                   Contact Seller
                 </button>
-                <button className="w-full mt-3 py-3 border border-blue-900 text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition">
-                  Add to Wishlist
-                </button>
+                
               </div>
             </div>
           </div>
