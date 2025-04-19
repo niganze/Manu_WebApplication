@@ -5,13 +5,17 @@ import DonateForm from "./DonateForm";
 import { useNavigate } from "react-router-dom";
 
 function InventoryManagement() {
-  const navigate=useNavigate();
-  const handleNavigation=()=>{
-    navigate("/user-dashboard/Usercharities/userCreateProject")
-  }
+  const navigate = useNavigate();
   const [property, setProperty] = useState([]);
   const [donModal, setDonModal] = useState(false);
-  const [selectedProjectId, setSelectedProjectId] = useState(null); // Store the selected ProjectId
+  const [viewModal, setViewModal] = useState(false);
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null); // For view
+
+  const handleNavigation = () => {
+    navigate("/user-dashboard/Usercharities/userCreateProject");
+  };
+
   useEffect(() => {
     const getAllItems = async () => {
       try {
@@ -19,7 +23,6 @@ function InventoryManagement() {
           `https://manu-backend-6i7q.onrender.com/project/ApprovedProjects`
         );
         setProperty(res.data.data);
-        console.log(res);
       } catch (error) {
         console.log(error);
       }
@@ -28,14 +31,51 @@ function InventoryManagement() {
   }, []);
 
   const handleDonation = (ProjectId) => {
-    setSelectedProjectId(ProjectId); // Store the clicked ProjectId
+    setSelectedProjectId(ProjectId);
     setDonModal(true);
   };
- 
+
+  const handleView = (project) => {
+    setSelectedProject(project);
+    setViewModal(true);
+  };
+
   return (
     <div className="p-4 bg-white rounded-lg shadow-sm">
-        {donModal && <DonateForm handleDonation={() => setDonModal(false)} ProjectId={selectedProjectId} />}
-      {/* Header area */}
+      {donModal && (
+        <DonateForm
+          handleDonation={() => setDonModal(false)}
+          ProjectId={selectedProjectId}
+        />
+      )}
+
+      {viewModal && selectedProject && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg p-6 max-w-lg w-full shadow-xl relative">
+            <button
+              onClick={() => setViewModal(false)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl"
+            >
+              ✕
+            </button>
+            <h2 className="text-xl font-semibold mb-4 text-[#A99FFF]">
+              Project Details
+            </h2>
+            <img
+              src={selectedProject.images}
+              alt={selectedProject.title}
+              className="w-full h-40 object-cover rounded mb-4"
+            />
+            <p><strong>Title:</strong> {selectedProject.title}</p>
+            <p><strong>Poster Name:</strong> {selectedProject.posterName}</p>
+            <p><strong>Contact:</strong> {selectedProject.contact}</p>
+            <p><strong>Status:</strong> {selectedProject.itemCondition}</p>
+            <p><strong>Description:</strong> {selectedProject.description}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-4">
         <div className="flex items-center mb-4 md:mb-0">
           <div className="relative">
@@ -62,8 +102,9 @@ function InventoryManagement() {
               <Search size={16} className="text-gray-400" />
             </div>
           </div>
-          <button className="bg-[#A99FFF]  hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center"
-          onClick={handleNavigation}
+          <button
+            onClick={handleNavigation}
+            className="bg-[#A99FFF] hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center"
           >
             <Plus size={16} className="mr-1" />
             Create new Project..
@@ -118,13 +159,11 @@ function InventoryManagement() {
                   {index + 1}
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap">
-                  <div className="flex items-center">
-                    <img
-                      src={product.images}
-                      alt={product.title}
-                      className="h-8 w-8 rounded-md object-cover mr-2"
-                    />
-                  </div>
+                  <img
+                    src={product.images}
+                    alt={product.title}
+                    className="h-8 w-8 rounded-md object-cover mr-2"
+                  />
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
                   {product.title}
@@ -136,21 +175,17 @@ function InventoryManagement() {
                   {product.contact}
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-900">
-                  {product.description}
+                  {product.itemCondition}
                 </td>
-                <td className="px-3 py-2 whitespace-nowrap">
-                  {product.status}
-                </td>
-
-                <td className="flex flex-row items-center gap-2">
+                <td className="flex flex-row items-center gap-2 px-3 py-2">
                   <button
-                    onClick={() => handleUpdate(product.id)}
-                    className="p-1 text-blue-600 hover:text-blue-800 hover:bg-blue-100 "
+                    onClick={() => handleView(product)}
+                    className="p-1 text-blue-600 hover:text-blue-800 hover:bg-blue-100"
                   >
                     VIEW
                   </button>
                   <button
-                    onClick={() => handleDonation(product._id)} // Pass ProjectId
+                    onClick={() => handleDonation(product._id)}
                     className="p-1 text-green-400 hover:text-green-800 hover:bg-blue-100"
                   >
                     DONATE

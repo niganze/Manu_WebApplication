@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Edit, Trash2, Filter, Search, Plus} from "lucide-react";
+import { Edit, Trash2, Filter, Search, Plus, X } from "lucide-react";
 import axios from "axios";
 import DonateForm from "./DonateForm";
 import { useNavigate } from "react-router-dom";
 
 function UserCh() {
-
-    const navigate=useNavigate();
-    const handleNavigation=()=>{
-        navigate("/user-dashboard/Usercharities/userCreateCharity");
-
-    }
+  const navigate = useNavigate();
   const [property, setProperty] = useState([]);
   const [donModal, setDonModal] = useState(false);
-  const [selectedProjectId, setSelectedProjectId] = useState(null); // Store the selected ProjectId
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [viewingCharity, setViewingCharity] = useState(null); // For viewing charity in modal
+
   useEffect(() => {
     const getAllItems = async () => {
       try {
@@ -21,7 +18,6 @@ function UserCh() {
           `https://manu-backend-6i7q.onrender.com/charity/ApprovedCharity`
         );
         setProperty(res.data.data);
-        console.log(res);
       } catch (error) {
         console.log(error);
       }
@@ -30,13 +26,78 @@ function UserCh() {
   }, []);
 
   const handleDonation = (ProjectId) => {
-    setSelectedProjectId(ProjectId); // Store the clicked ProjectId
+    setSelectedProjectId(ProjectId);
     setDonModal(true);
   };
- 
+
+  const handleNavigation = () => {
+    navigate("/user-dashboard/Usercharities/userCreateCharity");
+  };
+
+  // Fetch and set the viewing charity for modal view
+  const handleViewCharity = async (id) => {
+    try {
+      const res = await axios.get(
+        `https://manu-backend-6i7q.onrender.com/charity/getCharityById/${id}`
+      );
+      setViewingCharity(res.data.data); // Display selected charity in modal
+    } catch (error) {
+      console.error("Error fetching charity details:", error);
+    }
+  };
+
+  // Close the modal
+  const handleCloseModal = () => {
+    setViewingCharity(null);
+  };
+
+  // const[modal,setModal]=useState();
+  // const handleModal=()=>
   return (
-    <div className="p-4 bg-white rounded-lg shadow-sm">
-        {donModal && <DonateForm handleDonation={() => setDonModal(false)} ProjectId={selectedProjectId} />}
+    <div className="p-4 bg-white rounded-lg shadow-sm relative">
+      {/* Donation Modal */}
+      {donModal && (
+        <DonateForm
+          handleDonation={() => setDonModal(false)}
+          ProjectId={selectedProjectId}
+        />
+      )}
+
+      {/* View Charity Modal */}
+      {viewingCharity && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white rounded-lg p-6 w-full max-w-2xl shadow-lg overflow-y-auto max-h-[90vh] relative">
+            {/* Close Button */}
+            <button
+              onClick={handleCloseModal}
+              className="absolute top-2 right-2 text-gray-500 hover:text-red-500"
+            >
+              <X size={20} />
+            </button>
+            <h2 className="text-xl font-semibold mb-4">Charity Details</h2>
+            
+            {/* Check if images is an array and display the first image */}
+            <img
+              src={Array.isArray(viewingCharity.images) ? viewingCharity.images[0] : viewingCharity.images}
+              alt={viewingCharity.title}
+              className="w-40 h-40 object-cover rounded-md mb-4"
+            />
+            <p><strong>Title:</strong> {viewingCharity.title}</p>
+            <p><strong>Poster Name:</strong> {viewingCharity.posterName}</p>
+            <p><strong>Contact:</strong> {viewingCharity.contact}</p>
+            <p><strong>Condition:</strong> {viewingCharity.itemCondition}</p>
+            <p><strong>Status:</strong> {viewingCharity.approvalStatus}</p>
+            <p><strong>Description:</strong> {viewingCharity.description}</p>
+            <button
+              onClick={handleCloseModal}
+              className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Header area */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-4">
         <div className="flex items-center mb-4 md:mb-0">
@@ -64,9 +125,10 @@ function UserCh() {
               <Search size={16} className="text-gray-400" />
             </div>
           </div>
-         <button className="bg-[#A99FFF]  hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center"
-         onClick={handleNavigation}
-         >
+          <button
+            className="bg-[#A99FFF] hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center"
+            onClick={handleNavigation}
+          >
             <Plus size={16} className="mr-1" />
             Create new Chart..
           </button>
@@ -84,30 +146,14 @@ function UserCh() {
                   className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
               </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                No.
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ItemImage
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Title
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                PosterName
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                PosterContact
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Condition
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Actions
-              </th>
+              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ItemImage</th>
+              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PosterName</th>
+              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PosterContact</th>
+              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Condition</th>
+              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -119,42 +165,26 @@ function UserCh() {
                     className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
                 </td>
-                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
-                  {index + 1}
-                </td>
+                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">{index + 1}</td>
                 <td className="px-3 py-2 whitespace-nowrap">
-                  <div className="flex items-center">
-                    <img
-                      src={product.images}
-                      alt={product.title}
-                      className="h-8 w-8 rounded-md object-cover mr-2"
-                    />
-                  </div>
+                  <img
+                    src={product.images}
+                    alt={product.title}
+                    className="w-12 h-12 object-cover rounded-md"
+                  />
                 </td>
+                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">{product.title}</td>
+                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">{product.posterName}</td>
+                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">{product.contact}</td>
+                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">{product.itemCondition}</td>
+                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">{product.approvalStatus}</td>
                 <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
-                  {product.title}
-                </td>
-                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
-                  {product.posterName}
-                </td>
-                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
-                  {product.contact}
-                </td>
-                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-900">
-                  {product.itemCondition}
-                </td>
-                <td className="px-3 py-2 whitespace-nowrap">
-                  {product.approvalStatus}
-                </td>
-
-                <td className="flex flex-row items-center gap-2">
                   <button
-                    onClick={() => handleUpdate(product.id)}
-                    className="p-1 text-blue-600 hover:text-blue-800 hover:bg-blue-100 "
+                    onClick={() => handleViewCharity(product._id)}
+                    className="text-blue-500 hover:text-blue-700"
                   >
                     VIEW
                   </button>
-                 
                 </td>
               </tr>
             ))}
