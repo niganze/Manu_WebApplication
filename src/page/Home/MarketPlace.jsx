@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function MarketPlace() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [visibleItems, setVisibleItems] = useState(8);
+  const navigate =useNavigate();
 
+  const handleNavigation=(id)=>{
+     navigate(`/singleMarket/${id}`)
+  }
   // Load more items
   const loadMore = () => {
     setVisibleItems((prev) => prev + 8);
@@ -296,6 +301,7 @@ function MarketPlace() {
                 <button
                   className="text-white py-1.5 px-4 rounded-lg text-sm transition-all duration-300 hover:shadow-md"
                   style={{ backgroundColor: "#A99FFF" }}
+                  onClick={()=>handleNavigation(item._id)}
                 >
                   Details
                 </button>

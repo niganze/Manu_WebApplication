@@ -38,6 +38,7 @@ import AddChartyForm from "./page/users/AddChartyForm";
 import AddUserProject from "./page/users/AddUserProject";
 import AddUserMarketPlace from "./page/users/AddUserMarketPlace";
 import UserCharity from "./page/users/UserCharity";
+import SingleMarket from "./page/Home/SingleMarket";
 function App() {
   return (
     <BrowserRouter>
@@ -52,6 +53,7 @@ function App() {
           <Route path="marketplace" element={<MarketPlace />} />
           <Route path="blogs" element={<Blogs />} />
           <Route path="/charity" element={<Charity />} />
+          <Route path="/singleMarket/:id" element={<SingleMarket/>}/>
         </Route>
 
         <Route path="/login" element={<Login />} />
