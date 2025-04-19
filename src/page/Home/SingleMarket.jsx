@@ -88,7 +88,7 @@ function SingleMarket() {
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{itemData.itemName}</h1>
           <div className="flex flex-wrap gap-4 items-center">
             <span className="bg-white text-blue-900 px-4 py-1 rounded-full font-bold text-lg">
-              ${itemData.itemPrice}
+              RWF {itemData.itemPrice}
             </span>
             <span className="bg-purple-100 text-blue-900 px-4 py-1 rounded-full">
               {itemData.itemCondition}
