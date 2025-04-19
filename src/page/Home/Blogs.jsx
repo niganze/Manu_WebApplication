@@ -44,7 +44,7 @@ function Blogs() {
    {item.content}
  </p>
  <a
-   href="/blog1"
+   href=""
    className="inline-block mt-4 text-[#A99FFF] font-semibold hover:text-[#1E3A8A] transition-colors duration-300"
  >
    Read More

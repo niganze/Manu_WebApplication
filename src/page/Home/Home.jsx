@@ -242,7 +242,7 @@ function Home() {
                 <div className="flex justify-between items-center mt-4">
                   <span className="text-[#1e3a8a] font-bold text-lg">Rwf {item.itemPrice}</span>
                   <Link 
-                    to="/material/steel-beams" 
+                    to="" 
                     className="text-sm font-medium text-gray-600 hover:text-[#1e3a8a] transition-colors flex items-center"
                   >
                     View Details
@@ -320,13 +320,13 @@ function Home() {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link 
-                to="/signup" 
+                to="/register" 
                 className="bg-[#A99FFF] text-white px-8 py-3 rounded-md font-medium hover:bg-purple-400 transition-colors text-center"
               >
                 Get Started
               </Link>
               <Link 
-                to="/contact" 
+                to="" 
                 className="bg-transparent border-2 border-white px-8 py-3 rounded-md font-medium hover:bg-white hover:text-[#1e3a8a] transition-colors text-center"
               >
                 Contact Us
