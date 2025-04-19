@@ -45,7 +45,7 @@ const Donation = () => {
         const userId = userToken?.user?._id;
         if (!userId) return;
         const res = await axios.get(
-          `http://localhost:5000/donation/donations/${userId}`
+          `https://manu-backend-6i7q.onrender.com/donation/donations/${userId}`
         );
         setProperty(Array.isArray(res.data) ? res.data : res.data.data || []);
       } catch (error) {
@@ -80,7 +80,7 @@ const Donation = () => {
     try {
       console.log("Fetching donation ID:", donationId);
       const res = await axios.get(
-        `http://localhost:5000/donation/getDonationById/${donationId}`
+        `https://manu-backend-6i7q.onrender.com/donation/getDonationById/${donationId}`
       );
       console.log("Detail response:", res.status, res.data);
       // support both res.data.data or direct res.data
