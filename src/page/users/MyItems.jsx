@@ -1,37 +1,40 @@
 import React, { useState, useEffect } from "react";
-import { Edit, Trash2, Filter, Search, Plus } from "lucide-react";
+import { Edit, Trash2, Filter, Search, Plus, X } from "lucide-react";
 import axios from "axios";
 import DonateForm from "./DonateForm";
 import { useNavigate } from "react-router-dom";
 
 function InventoryManagement() {
   const navigate = useNavigate();
-  const [property, setProperty] = useState([]);
+  const [projects, setProjects] = useState([]);
   const [donModal, setDonModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState(null);
-  const [selectedProject, setSelectedProject] = useState(null); // For view
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const handleNavigation = () => {
     navigate("/user-dashboard/Usercharities/userCreateProject");
   };
 
+  // safe getter
+  const safeGet = (o, k, def = "N/A") =>
+    k.split(".").reduce((a, b) => (a && a[b] != null ? a[b] : null), o) ?? def;
+
   useEffect(() => {
-    const getAllItems = async () => {
+    (async () => {
       try {
         const res = await axios.get(
-          `https://manu-backend-6i7q.onrender.com/project/ApprovedProjects`
+          "https://manu-backend-6i7q.onrender.com/project/ApprovedProjects"
         );
-        setProperty(res.data.data);
-      } catch (error) {
-        console.log(error);
+        setProjects(res.data.data || []);
+      } catch (err) {
+        console.error(err);
       }
-    };
-    getAllItems();
+    })();
   }, []);
 
-  const handleDonation = (ProjectId) => {
-    setSelectedProjectId(ProjectId);
+  const handleDonation = (projectId) => {
+    setSelectedProjectId(projectId);
     setDonModal(true);
   };
 
@@ -40,8 +43,15 @@ function InventoryManagement() {
     setViewModal(true);
   };
 
+  const closeView = () => {
+    setViewModal(false);
+    setSelectedProject(null);
+  };
+
   return (
     <div className="p-4 bg-white rounded-lg shadow-sm">
+
+      {/* Donate Modal */}
       {donModal && (
         <DonateForm
           handleDonation={() => setDonModal(false)}
@@ -49,28 +59,90 @@ function InventoryManagement() {
         />
       )}
 
+      {/* View Modal */}
       {viewModal && selectedProject && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-          <div className="bg-white rounded-lg p-6 max-w-lg w-full shadow-xl relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm px-4">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[85vh] overflow-y-auto p-6 relative">
             <button
-              onClick={() => setViewModal(false)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl"
+              onClick={closeView}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
             >
-              ✕
+              <X size={24} />
             </button>
-            <h2 className="text-xl font-semibold mb-4 text-[#A99FFF]">
-              Project Details
-            </h2>
-            <img
-              src={selectedProject.images}
-              alt={selectedProject.title}
-              className="w-full h-40 object-cover rounded mb-4"
-            />
-            <p><strong>Title:</strong> {selectedProject.title}</p>
-            <p><strong>Poster Name:</strong> {selectedProject.posterName}</p>
-            <p><strong>Contact:</strong> {selectedProject.contact}</p>
-            <p><strong>Status:</strong> {selectedProject.itemCondition}</p>
-            <p><strong>Description:</strong> {selectedProject.description}</p>
+
+            <h2 className="text-2xl font-semibold text-[#A99FFF] mb-6">Project Details</h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Image */}
+              <div>
+                {Array.isArray(selectedProject.images) ? (
+                  <img
+                    src={selectedProject.images[0]}
+                    alt={safeGet(selectedProject, "title")}
+                    className="w-full h-64 object-cover rounded-md"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "https://via.placeholder.com/400x300?text=No+Image";
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={selectedProject.images}
+                    alt={safeGet(selectedProject, "title")}
+                    className="w-full h-64 object-cover rounded-md"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "https://via.placeholder.com/400x300?text=No+Image";
+                    }}
+                  />
+                )}
+              </div>
+
+              {/* Details */}
+              <div className="space-y-4 text-sm text-gray-700">
+                <p>
+                  <span className="font-medium">Title:</span>{" "}
+                  {safeGet(selectedProject, "title")}
+                </p>
+                <p>
+                  <span className="font-medium">Poster Name:</span>{" "}
+                  {safeGet(selectedProject, "posterName")}
+                </p>
+                <p>
+                  <span className="font-medium">Contact:</span>{" "}
+                  {safeGet(selectedProject, "contact")}
+                </p>
+                <p>
+                  <span className="font-medium">Condition:</span>{" "}
+                  {safeGet(selectedProject, "itemCondition")}
+                </p>
+                <p>
+                  <span className="font-medium">Status:</span>{" "}
+                  {safeGet(selectedProject, "approvalStatus")}
+                </p>
+                <div>
+                  <span className="font-medium">Description:</span>
+                  <p className="mt-1 text-gray-600">
+                    {safeGet(selectedProject, "description", "No description provided.")}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-end space-x-3">
+              <button
+                onClick={() => handleDonation(selectedProject._id)}
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+              >
+                Donate
+              </button>
+              <button
+                onClick={closeView}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -79,16 +151,16 @@ function InventoryManagement() {
       <div className="flex flex-col md:flex-row justify-between items-center mb-4">
         <div className="flex items-center mb-4 md:mb-0">
           <div className="relative">
-            <select className="appearance-none bg-white border border-gray-300 rounded-md py-2 pl-3 pr-8 text-sm leading-tight focus:outline-none focus:ring-1 focus:ring-blue-500">
-              <option value="All products">All products</option>
-              <option value="Low in stock">Low in stock</option>
-              <option value="In requisition">In requisition</option>
+            <select className="appearance-none bg-white border border-gray-300 rounded-md py-2 pl-3 pr-8 text-sm focus:ring-1 focus:ring-blue-500">
+              <option>All products</option>
+              <option>Low in stock</option>
+              <option>In requisition</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <Filter size={14} />
             </div>
           </div>
-          <span className="ml-3 text-gray-500 text-sm">products</span>
+          <span className="ml-3 text-gray-500 text-sm">projects</span>
         </div>
 
         <div className="flex items-center w-full md:w-auto">
@@ -96,9 +168,9 @@ function InventoryManagement() {
             <input
               type="text"
               placeholder="Search"
-              className="pl-8 pr-3 py-2 border border-gray-300 rounded-md w-full md:w-64 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="pl-8 pr-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-1 focus:ring-blue-500"
             />
-            <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+            <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
               <Search size={16} className="text-gray-400" />
             </div>
           </div>
@@ -106,8 +178,7 @@ function InventoryManagement() {
             onClick={handleNavigation}
             className="bg-[#A99FFF] hover:bg-gray-300 text-white py-2 px-4 rounded-md text-sm flex items-center"
           >
-            <Plus size={16} className="mr-1" />
-            Create new Project..
+            <Plus size={16} className="mr-1" /> Create new Project
           </button>
         </div>
       </div>
@@ -123,70 +194,75 @@ function InventoryManagement() {
                   className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
               </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                No.
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ItemImage
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Title
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                PosterName
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                PosterContact
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Actions
-              </th>
+              {[
+                "No.",
+                "Image",
+                "Title",
+                "Poster Name",
+                "Contact",
+                "Condition",
+                "Status",
+                "Actions",
+              ].map((hdr) => (
+                <th
+                  key={hdr}
+                  className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  {hdr}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {property.map((product, index) => (
-              <tr key={product._id} className="hover:bg-gray-50">
-                <td className="px-3 py-2 whitespace-nowrap">
+            {projects.map((proj, idx) => (
+              <tr key={proj._id} className="hover:bg-gray-50">
+                <td className="px-3 py-2">
                   <input
                     type="checkbox"
                     className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
                 </td>
-                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
-                  {index + 1}
-                </td>
-                <td className="px-3 py-2 whitespace-nowrap">
+                <td className="px-3 py-2 text-sm text-gray-500">{idx + 1}</td>
+                <td className="px-3 py-2">
                   <img
-                    src={product.images}
-                    alt={product.title}
-                    className="h-8 w-8 rounded-md object-cover mr-2"
+                    src={
+                      Array.isArray(proj.images)
+                        ? proj.images[0]
+                        : proj.images
+                    }
+                    alt={proj.title}
+                    className="h-8 w-8 rounded-md object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src =
+                        "https://via.placeholder.com/40?text=No+Img";
+                    }}
                   />
                 </td>
-                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
-                  {product.title}
+                <td className="px-3 py-2 text-sm text-gray-500">
+                  {proj.title}
                 </td>
-                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
-                  {product.posterName}
+                <td className="px-3 py-2 text-sm text-gray-500">
+                  {proj.posterName}
                 </td>
-                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500">
-                  {product.contact}
+                <td className="px-3 py-2 text-sm text-gray-500">
+                  {proj.contact}
                 </td>
-                <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-900">
-                  {product.itemCondition}
+                <td className="px-3 py-2 text-sm text-gray-500">
+                  {proj.itemCondition}
                 </td>
-                <td className="flex flex-row items-center gap-2 px-3 py-2">
+                <td className="px-3 py-2 text-sm text-gray-500">
+                  {proj.approvalStatus}
+                </td>
+                <td className="px-3 py-2 space-x-2 flex">
                   <button
-                    onClick={() => handleView(product)}
-                    className="p-1 text-blue-600 hover:text-blue-800 hover:bg-blue-100"
+                    onClick={() => handleView(proj)}
+                    className="text-blue-600 hover:underline"
                   >
                     VIEW
                   </button>
                   <button
-                    onClick={() => handleDonation(product._id)}
-                    className="p-1 text-green-400 hover:text-green-800 hover:bg-blue-100"
+                    onClick={() => handleDonation(proj._id)}
+                    className="text-green-600 hover:underline"
                   >
                     DONATE
                   </button>

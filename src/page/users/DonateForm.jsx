@@ -7,39 +7,54 @@ const DonateForm = ({ handleDonation, ProjectId }) => {
     handleSubmit,
     register,
     formState: { errors },
+    watch,
   } = useForm();
 
   const [userId, setUserId] = useState(null);
   const [donorEmail, setDonorEmail] = useState("");
-  const [lastname, setLastname] = useState(""); // ✅ Added lastname state
+  const [lastname, setLastname] = useState("");
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const donationKind = watch("DonationKind");
 
   useEffect(() => {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
     if (userToken?.user) {
       setUserId(userToken.user._id);
       setDonorEmail(userToken.user.email);
-      setLastname(userToken.user.lastname); // ✅ Set lastname from userToken
+      setLastname(userToken.user.lastname);
       setToken(userToken?.user?.tokens?.accessToken || "");
     }
   }, []);
 
   const onSubmit = async (data) => {
     setLoading(true);
-    try {
-      const formData = {
-        AmountDonated: data.AmountDonated,
-        Comment: data.Comment,
-        PhoneNum: data.PhoneNum,
-        donorEmail,
-        DonorName: lastname, // ✅ Use lastname as DonorName
-        userId,
-        ProjectId,
-      };
 
+    if (
+      (data.DonationKind === "Money" && !data.AmountDonated) ||
+      (data.DonationKind === "Materials" && !data.Comment)
+    ) {
+      alert("Please provide the required donation details.");
+      setLoading(false);
+      return;
+    }
+
+    const formData = {
+      AmountDonated: data.DonationKind === "Money" ? data.AmountDonated : 0,
+      Comment: data.DonationKind === "Materials" ? data.Comment : "",
+      PhoneNum: data.PhoneNum || "",
+      donorEmail,
+      DonorName: lastname,
+      userId,
+      ProjectId,
+      DonationKind: data.DonationKind,
+    };
+    
+
+    try {
       const response = await axios.post(
-        `https://manu-backend-6i7q.onrender.com/donation/createDonation`,
+        `http://localhost:5000/donation/createDonation`,
         formData,
         {
           headers: {
@@ -48,9 +63,8 @@ const DonateForm = ({ handleDonation, ProjectId }) => {
           },
         }
       );
-      console.log("Response:", response.data);
-
-      handleDonation(); // Close modal on success
+      console.log("Donation submitted:", response.data);
+      handleDonation(); // closes the modal or refreshes UI
     } catch (error) {
       console.error("Error submitting donation:", error);
     } finally {
@@ -64,7 +78,6 @@ const DonateForm = ({ handleDonation, ProjectId }) => {
         <button
           onClick={handleDonation}
           className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
-          aria-label="Close"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -87,48 +100,70 @@ const DonateForm = ({ handleDonation, ProjectId }) => {
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Donation Kind */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Amount Donated (Rwf)
+              Donation Kind
             </label>
-            <input
-              {...register("AmountDonated", { required: true })}
-              type="number"
-              min="1"
-              placeholder="100"
-              required
+            <select
+              {...register("DonationKind", { required: true })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            />
-            {errors.AmountDonated && (
-              <span className="text-red-500 text-sm">Amount is required</span>
-            )}
+              defaultValue=""
+            >
+              <option value="" disabled>
+                -- Select Donation Type --
+              </option>
+              <option value="Money">Money</option>
+              <option value="Materials">Materials</option>
+            </select>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Comment
-            </label>
-            <textarea
-              {...register("Comment")}
-              rows="3"
-              placeholder="Tell us why you're donating..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            />
-          </div>
+          {/* Amount Donated */}
+          {donationKind === "Money" && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Amount Donated (Rwf)
+              </label>
+              <input
+                {...register("AmountDonated")}
+                type="number"
+                min="1"
+                placeholder="100"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+              />
+            </div>
+          )}
 
+          {/* Materials Comment */}
+          {donationKind === "Materials" && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                List of Materials
+              </label>
+              <textarea
+                {...register("Comment")}
+                rows="3"
+                placeholder="List your materials here..."
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+              />
+            </div>
+          )}
+
+          {/* Phone Number */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Phone Number
             </label>
             <input
-              {...register("PhoneNum")}
+              {...register("PhoneNum", { required: true })}
               type="tel"
               pattern="[0-9]{10}"
               placeholder="078xxxxxxx"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
             />
           </div>
 
+          {/* Email (read-only) */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Email Address
@@ -137,23 +172,18 @@ const DonateForm = ({ handleDonation, ProjectId }) => {
               type="email"
               value={donorEmail}
               readOnly
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 cursor-not-allowed"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
             />
           </div>
 
-          {/* ✅ Hidden fields */}
-          <input type="hidden" value={userId} />
-          <input type="hidden" value={ProjectId} />
-          <input type="hidden" value={lastname} />
-
           <button
             type="submit"
+            disabled={loading}
             className={`w-full bg-[#A99FFF] text-white py-3 rounded-lg font-medium transition duration-200 transform hover:scale-105 flex items-center justify-center ${
               loading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#9380FF]"
             }`}
-            disabled={loading}
           >
-            {loading ? "Loading ..." : "Donate"}
+            {loading ? "Processing..." : "Donate"}
           </button>
         </form>
       </div>

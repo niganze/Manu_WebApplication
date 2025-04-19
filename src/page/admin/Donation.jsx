@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import axios from "axios";
 import { Notify } from "notiflix";
+import { IoMdClose } from "react-icons/io";
 
 const Donation = () => {
   const [donation, setDonation] = useState([]);
@@ -16,7 +17,7 @@ const Donation = () => {
     const getAllItems = async () => {
       try {
         const res = await axios.get(
-          `https://manu-backend-6i7q.onrender.com/donation/getAllDonation`
+          `http://localhost:5000/donation/getAllDonation`
         );
         setDonation(res.data);
         console.log(res);
@@ -44,24 +45,25 @@ const Donation = () => {
   const handleConfirmPayment = async (id) => {
     try {
       const res = await axios.put(
-        `https://manu-backend-6i7q.onrender.com/donation/UpdateDonationApprovalStatus`,
+        `http://localhost:5000/donation/UpdateDonationApprovalStatus`,
         {
           donationId: id,
-          status: "Approved",
+          approvalStatus: "Approved",
         }
       );
       console.log("Update success:", res.data);
-
-      const updatedDonations = donation.map((item) =>
-        item._id === id ? { ...item, status: "Approved" } : item
-      );
-      setDonation(updatedDonations);
-      Notify.success("Donation Approved")
-      
+  
+      Notify.success("Donation Approved");
+  
+      // 🔁 Force page reload after approval
+      setTimeout(() => {
+        window.location.reload(); // <- reloads the whole page
+      }, 1000); // wait 1s for user to see the success message
     } catch (error) {
       console.error("Error confirming payment:", error);
     }
   };
+  
 
   const handleViewDonation = (donation) => {
     setSelectedDonation(donation);
@@ -91,10 +93,10 @@ const Donation = () => {
                   {[
                     "No",
                     "ProjectTitle",
-                    
                     "Donor Email",
-                    "Amount",
-                    "Status",
+
+                    "Donation kind",
+                    "approvalStatus",
                     "Actions",
                   ].map((header) => (
                     <th
@@ -125,19 +127,20 @@ const Donation = () => {
                       {item.donorEmail}
                     </td>
                     <td className="px-4 py-4 text-sm text-gray-500">
-                      {item.AmountDonated}
+                      {item?.DonationKind || "N/A"}
                     </td>
+
                     <td className="px-4 py-4">
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-medium ${
-                          item.status === "Pending"
+                          item.approvalStatus === "Pending"
                             ? "bg-yellow-100 text-yellow-800"
-                            : item.status === "Approved"
+                            : item.approvalStatus === "Approved"
                             ? "bg-green-100 text-green-800"
                             : "bg-red-100 text-red-800"
                         }`}
                       >
-                        {item.status}
+                        {item.approvalStatus}
                       </span>
                     </td>
                     <td className="px-4 py-4 flex flex-row space-x-3">
@@ -190,7 +193,7 @@ const Donation = () => {
                 onClick={() => setIsViewModalOpen(false)}
                 className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-xl"
               >
-                ✕
+                <IoMdClose size={25}/>
               </button>
               <h2 className="text-xl font-semibold mb-4 text-[#ABA1FF]">
                 Donation Details
@@ -208,11 +211,16 @@ const Donation = () => {
                 <strong>Donor Email:</strong> {selectedDonation.donorEmail}
               </p>
               <p>
-                <strong>Amount Donated:</strong>{" "}
-                {selectedDonation.AmountDonated}
+                <strong>Donation Kind:</strong> {selectedDonation.DonationKind}
               </p>
               <p>
-                <strong>Status:</strong> {selectedDonation.status}
+                <strong>Materials:</strong> {selectedDonation.Comment || "N/A"}
+              </p>
+              <p>
+                <strong>Money:</strong> {selectedDonation.AmountDonated ||"N/A"}
+              </p>
+              <p>
+                <strong>ApprovalStatus:</strong> {selectedDonation.approvalStatus}
               </p>
             </div>
           </div>
