@@ -37,7 +37,7 @@ import ResetActionForm from "./components/ResetActionForm"
 import AddChartyForm from "./page/users/AddChartyForm";
 import AddUserProject from "./page/users/AddUserProject";
 import AddUserMarketPlace from "./page/users/AddUserMarketPlace";
-import UserCh from "./page/users/userCh";
+import UserCharity from "./page/users/UserCharity";
 function App() {
   return (
     <BrowserRouter>
@@ -97,7 +97,7 @@ function App() {
           <Route path="viewMarketplace" element={<UserMarketPlace />} />
           <Route path="userDonation" element={<Donation />} />
           <Route path="userSetting" element={<Settings />} />
-          <Route path="Usercharities" element={<UserCh/>} />
+          <Route path="Usercharities" element={<UserCharity/>} />
           <Route path="/user-dashboard/Usercharities/userCreateCharity" element={<AddChartyForm />} />
           <Route path="/user-dashboard/Usercharities/userCreateProject" element={<AddUserProject/>}/>
           <Route path="/user-dashboard/Usercharities/AddUserMarketPlace" element={<AddUserMarketPlace/>}/>

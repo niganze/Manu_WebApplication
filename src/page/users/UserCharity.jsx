@@ -4,7 +4,7 @@ import axios from "axios";
 import DonateForm from "./DonateForm";
 import { useNavigate } from "react-router-dom";
 
-function UserCh() {
+const UserCharity=()=> {
   const navigate = useNavigate();
   const [property, setProperty] = useState([]);
   const [donModal, setDonModal] = useState(false);
@@ -195,4 +195,4 @@ function UserCh() {
   );
 }
 
-export default UserCh;
+export default UserCharity ;
